@@ -6,9 +6,8 @@ public class BoardCreator : MonoBehaviour
     // The type of tile that will be laid in a specific position.
     public enum TileType
     {
-        Wall, Floor,
+        Wall, Floor
     }
-
 
     public int columns = 100;                                 // The number of columns on the board (how wide it will be).
     public int rows = 100;                                    // The number of rows on the board (how tall it will be).
@@ -21,7 +20,7 @@ public class BoardCreator : MonoBehaviour
     public GameObject[] outerWallTiles;                       // An array of outer wall tile prefabs.
     public GameObject player;
 
-    private TileType[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
+    private int[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
     private Room[] rooms;                                     // All the rooms that are created for this board.
     private Corridor[] corridors;                             // All the corridors that connect the rooms.
     public GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
@@ -47,13 +46,13 @@ public class BoardCreator : MonoBehaviour
     void SetupTilesArray()
     {
         // Set the tiles jagged array to the correct width.
-        tiles = new TileType[columns][];
+        tiles = new int[columns][];
 
         // Go through all the tile arrays...
         for (int i = 0; i < tiles.Length; i++)
         {
             // ... and set each tile array is the correct height.
-            tiles[i] = new TileType[rows];
+            tiles[i] = new int[rows];
         }
     }
 
@@ -98,7 +97,6 @@ public class BoardCreator : MonoBehaviour
             {
                 Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
                 Instantiate(player, playerPos, Quaternion.identity);
-
             }
         }
     }
@@ -110,7 +108,7 @@ public class BoardCreator : MonoBehaviour
         for (int i = 0; i < rooms.Length; i++)
         {
             Room currentRoom = rooms[i];
-
+            int floorTile = FloorTile.GetRandomTile();
             // ... and for each room go through it's width.
             for (int j = 0; j < currentRoom.roomWidth; j++)
             {
@@ -122,7 +120,7 @@ public class BoardCreator : MonoBehaviour
                     int yCoord = currentRoom.yPos + k;
 
                     // The coordinates in the jagged array are based on the room's position and it's width and height.
-                    tiles[xCoord][yCoord] = TileType.Floor;
+                    tiles[xCoord][yCoord] = floorTile;
                 }
             }
         }
