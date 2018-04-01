@@ -24,7 +24,7 @@ public class BoardCreator : MonoBehaviour
     private TileType[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
     private Room[] rooms;                                     // All the rooms that are created for this board.
     private Corridor[] corridors;                             // All the corridors that connect the rooms.
-    private GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
+    public GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
 
 
     private void Start()
@@ -98,9 +98,9 @@ public class BoardCreator : MonoBehaviour
             {
                 Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
                 Instantiate(player, playerPos, Quaternion.identity);
+
             }
         }
-
     }
 
 
