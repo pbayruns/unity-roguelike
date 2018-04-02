@@ -113,68 +113,68 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1598815885
-GameObject:
+--- !u!1001 &651811874
+Prefab:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1598815887}
-  - component: {fileID: 1598815886}
-  m_Layer: 0
-  m_Name: BoardCreator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1598815886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1598815885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3193ae530896fb2469e38ee10b5cca0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  columns: 100
-  rows: 100
-  numRooms:
-    m_Min: 15
-    m_Max: 20
-  roomWidth:
-    m_Min: 3
-    m_Max: 10
-  roomHeight:
-    m_Min: 3
-    m_Max: 10
-  corridorLength:
-    m_Min: 6
-    m_Max: 10
-  floorTiles:
-  - {fileID: 1260376393241522, guid: 0968b2882534a264aa09f079faf5f588, type: 2}
-  wallTiles:
-  - {fileID: 1722189760794686, guid: d1bd1f5634640ad4a80116203da2df0c, type: 2}
-  outerWallTiles:
-  - {fileID: 1769205248934684, guid: 5fb473e7d7c5f8748af200367b7deb8f, type: 2}
-  player: {fileID: 1451610412765310, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
-  boardHolder: {fileID: 0}
---- !u!4 &1598815887
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1598815885}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5471683, y: 1.9937547, z: -0.041863184}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4926714021012680, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 2.5471683
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926714021012680, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.9937547
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926714021012680, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.041863184
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926714021012680, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926714021012680, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926714021012680, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926714021012680, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926714021012680, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114220287902597080, guid: 173a2bff8f845f54d948a9ce89bfa6c9,
+        type: 2}
+      propertyPath: numRooms.m_Min
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114220287902597080, guid: 173a2bff8f845f54d948a9ce89bfa6c9,
+        type: 2}
+      propertyPath: numRooms.m_Max
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114220287902597080, guid: 173a2bff8f845f54d948a9ce89bfa6c9,
+        type: 2}
+      propertyPath: roomWidth.m_Min
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114220287902597080, guid: 173a2bff8f845f54d948a9ce89bfa6c9,
+        type: 2}
+      propertyPath: roomHeight.m_Min
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1834712973
 GameObject:
   m_ObjectHideFlags: 0

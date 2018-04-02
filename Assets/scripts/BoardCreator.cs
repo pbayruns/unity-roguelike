@@ -1,13 +1,24 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+public enum Tile
+{
+    //Floor Tiles
+    GRASS_NORMAL, GRASS_DARK, GRASS_RED, GRASS_PURPLE,
+    FLOWERS_RED, FLOWERS_WHITE, FLOWERS_BLUE,
+    DIRT, GRAVEL, SAND,
+    TILE_TAN, TILE_GREY, TILE_WHITE, TILE_BROWN,
+    WOOD, COBBLE, COBBLE_TAN, COBBLE_GRASS,
+    BRICKS1, BRICKS2, BRICKS3, BRICKS4, BRICKS5,
+    BRICKS6, BRICKS7, BRICKS8, BRICKS9, BRICKS10,
+
+    //Wall Tiles
+    SHRUB_GREEN, SHRUB_ORANGE, SHRUB_DARK_GREEN,
+    WALL_TAN, WALL_GREY, WALL_WHITE, WALL_BROWN
+}
+
 public class BoardCreator : MonoBehaviour
 {
-    // The type of tile that will be laid in a specific position.
-    public enum TileType
-    {
-        Wall, Floor
-    }
 
     public int columns = 100;                                 // The number of columns on the board (how wide it will be).
     public int rows = 100;                                    // The number of rows on the board (how tall it will be).
@@ -20,16 +31,20 @@ public class BoardCreator : MonoBehaviour
     public GameObject[] outerWallTiles;                       // An array of outer wall tile prefabs.
     public GameObject player;
 
-    private int[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
+    private Tile[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
     private Room[] rooms;                                     // All the rooms that are created for this board.
     private Corridor[] corridors;                             // All the corridors that connect the rooms.
     public GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
+    public LevelTheme theme;
 
-
+    //Tiles is an array with the dimensions of the specified rows and columns
     private void Start()
     {
         // Create the board holder.
         boardHolder = new GameObject("BoardHolder");
+
+        // Get the theme for this level
+        theme = new LevelTheme();
 
         SetupTilesArray();
 
@@ -45,24 +60,21 @@ public class BoardCreator : MonoBehaviour
 
     void SetupTilesArray()
     {
-        // Set the tiles jagged array to the correct width.
-        tiles = new int[columns][];
-
-        // Go through all the tile arrays...
+        // Create the tiles array with the right rows and columns
+        tiles = new Tile[columns][];
         for (int i = 0; i < tiles.Length; i++)
         {
-            // ... and set each tile array is the correct height.
-            tiles[i] = new int[rows];
+            tiles[i] = new Tile[rows];
         }
     }
 
 
     void CreateRoomsAndCorridors()
     {
-        // Create the rooms array with a random size.
+        // Create rooms array with a random size.
         rooms = new Room[numRooms.Random];
 
-        // There should be one less corridor than there is rooms.
+        // One less corridor than rooms.
         corridors = new Corridor[rooms.Length - 1];
 
         // Create the first room and corridor.
@@ -101,31 +113,28 @@ public class BoardCreator : MonoBehaviour
         }
     }
 
-
     void SetTilesValuesForRooms()
     {
         // Go through all the rooms...
         for (int i = 0; i < rooms.Length; i++)
         {
             Room currentRoom = rooms[i];
-            int floorTile = FloorTile.GetRandomTile();
+            Tile[][] roomTiles = theme.GetRoomTiles(currentRoom.roomWidth, currentRoom.roomHeight);
             // ... and for each room go through it's width.
             for (int j = 0; j < currentRoom.roomWidth; j++)
             {
                 int xCoord = currentRoom.xPos + j;
-
                 // For each horizontal tile, go up vertically through the room's height.
                 for (int k = 0; k < currentRoom.roomHeight; k++)
                 {
                     int yCoord = currentRoom.yPos + k;
-
+                    Tile tile = roomTiles[j][k];
                     // The coordinates in the jagged array are based on the room's position and it's width and height.
-                    tiles[xCoord][yCoord] = floorTile;
+                    tiles[xCoord][yCoord] = tile;
                 }
             }
         }
     }
-
 
     void SetTilesValuesForCorridors()
     {
@@ -159,8 +168,9 @@ public class BoardCreator : MonoBehaviour
                         break;
                 }
 
+                Tile tile = theme.GetCorridorTile();
                 // Set the tile at these coordinates to Floor.
-                tiles[xCoord][yCoord] = TileType.Floor;
+                tiles[xCoord][yCoord] = tile;
             }
         }
     }
