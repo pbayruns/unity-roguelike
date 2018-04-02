@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4926714021012680}
-  - component: {fileID: 114220287902597080}
+  - component: {fileID: 114762453085404740}
   m_Layer: 0
   m_Name: BoardCreator
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114220287902597080
+--- !u!114 &114762453085404740
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -66,8 +66,8 @@ MonoBehaviour:
   columns: 100
   rows: 100
   numRooms:
-    m_Min: 5
-    m_Max: 7
+    m_Min: 28
+    m_Max: 30
   roomWidth:
     m_Min: 5
     m_Max: 10
@@ -79,6 +79,6 @@ MonoBehaviour:
     m_Max: 10
   outerWallTiles:
   - {fileID: 1769205248934684, guid: 5fb473e7d7c5f8748af200367b7deb8f, type: 2}
-  player: {fileID: 1451610412765310, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+  player: {fileID: 0}
   stairs: {fileID: 1454725695944596, guid: f23b84e74f1a416468c20aea39f614cf, type: 2}
   boardHolder: {fileID: 0}

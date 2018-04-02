@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public static Player instance = null;				//Static instance of Player which allows it to be accessed by any other script.
+
     public float restartLevelDelay = 1f;		//Delay time in seconds to restart level.
     public float speed; // Player's movement speed in units
     public Vector2 lastMove;
@@ -18,9 +20,27 @@ public class Player : MonoBehaviour
     private Rigidbody2D body;
     private bool moving;
     private Vector2 moveInput;
-    private static bool playerExists;
     private bool attacking;
     private float attackTimeCounter;
+
+    private void Awake()
+    {
+        //Check if instance already exists
+        if (instance == null)
+        {
+
+            //if not, set instance to this
+            instance = this;
+        }
+        //If instance already exists and it's not this:
+        else if (instance != this)
+        {
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            Destroy(gameObject);
+        }
+        //Sets this to not be destroyed when reloading scene
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Use this for initialization
     void Start()
@@ -28,20 +48,14 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
 
-        if (!playerExists)
-        {
-            playerExists = true;
-            DontDestroyOnLoad(transform.gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
         canMove = true;
         lastMove = new Vector2(0f, -1f);
     }
 
+    public void MoveTo(Vector3 target)
+    {
+        transform.position = target;
+    }
     // Update is called once per frame
     void Update()
     {

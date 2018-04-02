@@ -32,8 +32,7 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        //Get a component reference to the attached BoardManager script
-        //boardScript = GetComponent<BoardCreator>();
+        boardScript = FindObjectOfType<BoardCreator>();
 
         //Call the InitGame function to initialize the first level 
         InitGame();
@@ -58,12 +57,10 @@ public class GameManager : MonoBehaviour
     //Initializes the game for each level.
     void InitGame()
     {
+        boardScript = FindObjectOfType<BoardCreator>();
+
         //While doingSetup is true the player can't move, prevent player from moving while title card is up.
         doingSetup = true;
-
-        //Call the SetupScene function of the BoardManager script, pass it current level number.
-        //boardScript.SetupScene(level);
-        //Instantiate(boardScript);
 
         //Get a reference to our image LevelImage by finding it by name.
         levelImage = GameObject.Find("LevelImage");

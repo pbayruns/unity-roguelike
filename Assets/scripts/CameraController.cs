@@ -23,15 +23,15 @@ public class CameraController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        DontDestroyOnLoad(transform.gameObject);
-        if (!cameraExists)
-        {
-            cameraExists = true;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //DontDestroyOnLoad(transform.gameObject);
+        //if (!cameraExists)
+        //{
+        //    cameraExists = true;
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
 
         cam = GetComponent<Camera>();
         followTarget = gameObject.transform.parent.gameObject;

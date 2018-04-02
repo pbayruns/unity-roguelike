@@ -63,6 +63,10 @@ public class BoardCreator : MonoBehaviour
     //Tiles is an array with the dimensions of the specified rows and columns
     private void Start()
     {
+     }
+
+    public void SetupBoard(int level)
+    {
         stairsDepth = Random.Range(0.3f, 0.8f);
         TileObjects = new Dictionary<Tile, GameObject>()
         {
@@ -78,15 +82,23 @@ public class BoardCreator : MonoBehaviour
         };
 
         // Create the board holder.
-        boardHolder = new GameObject("BoardHolder");
+        GameObject holder = GameObject.Find("BoardHolder");
+        if (holder == null)
+        {
+            boardHolder = new GameObject("BoardHolder");
+        }
+        else
+        {
+            foreach (Transform child in holder.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            boardHolder = holder;
+        }
 
         // Get the theme for this level
         theme = new LevelTheme();
-        SetupBoard(1);
-    }
 
-    public void SetupBoard(int level)
-    {
         SetupTilesArray();
 
         CreateRoomsAndCorridors();
@@ -150,24 +162,20 @@ public class BoardCreator : MonoBehaviour
                 corridors[i].SetupCorridor(rooms[i], corridorLength, roomWidth, roomHeight, columns, rows, false);
             }
 
-            if (i == rooms.Length * .5f)
+
+            if (i == (int) rooms.Length * .5f)
             {
-                Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
-                //if (firstLevel)
-                //{
-                //    Instantiate(player, playerPos, Quaternion.identity);
-                //}
-                //else
-                //{
-                    player.gameObject.transform.position = playerPos;
-                //}
+                Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0f);
+                player.transform.position = playerPos;
+                //Instantiate(player, playerPos, Quaternion.identity);
             }
             if(i == (int) (rooms.Length * this.stairsDepth))
             {
                 int offsetY = Random.Range(0, rooms[i].roomHeight);
                 int offsetX = Random.Range(0, rooms[i].roomWidth);
                 Vector3 stairsPos = new Vector3(rooms[i].xPos + offsetX, rooms[i].yPos + offsetY, 0);
-                Instantiate(stairs, stairsPos, Quaternion.identity);
+                GameObject stairsInstance = Instantiate(stairs, stairsPos, Quaternion.identity);
+                stairsInstance.transform.parent = boardHolder.transform;
             }
         }
     }
