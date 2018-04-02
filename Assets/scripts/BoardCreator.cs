@@ -16,7 +16,7 @@ public enum Tile
     //Wall Tiles
     SHRUB_GREEN, SHRUB_ORANGE, SHRUB_DARK_GREEN,
     WALL_TAN, WALL_GREY, WALL_WHITE, WALL_BROWN,
-    
+
 
     NOT_SET
 }
@@ -91,7 +91,7 @@ public class BoardCreator : MonoBehaviour
         for (int col = 0; col < tiles.Length; col++)
         {
             tiles[col] = new Tile[rows];
-            for(int row = 0; row < tiles[col].Length; row++)
+            for (int row = 0; row < tiles[col].Length; row++)
             {
                 tiles[col][row] = Tile.NOT_SET;
             }
@@ -214,11 +214,38 @@ public class BoardCreator : MonoBehaviour
             for (int j = 0; j < tiles[i].Length; j++)
             {
                 Tile tile = tiles[i][j];
-                if(tile == Tile.NOT_SET)
-                {
-                    InstantiateTile(Tile.WALL_GREY, i, j);
+                if (tile == Tile.NOT_SET) {
+                    if(i > 0)
+                    {
+                        if(tiles[i - 1][j] != Tile.NOT_SET)
+                        {
+                            InstantiateTile(Tile.WALL_GREY, i, j);
+                        }
+                    }
+                    if (j > 0)
+                    {
+                        if(tiles[i][j - 1] != Tile.NOT_SET)
+                        {
+                            InstantiateTile(Tile.WALL_GREY, i, j);
+                        }
+                    }
+
+                    if(j < tiles[i].Length - 1)
+                    {
+                        if(tiles[i][j + 1] != Tile.NOT_SET)
+                        {
+                            InstantiateTile(Tile.WALL_GREY, i, j);
+                        }
+                    }
+                    if (i < tiles.Length - 1)
+                    {
+                        if(tiles[i + 1][j] != Tile.NOT_SET)
+                        {
+                            InstantiateTile(Tile.WALL_GREY, i, j);
+                        }
+                    }
                 }
-                else
+                else if (tile != Tile.NOT_SET)
                 {
                     InstantiateTile(tile, i, j);
                 }

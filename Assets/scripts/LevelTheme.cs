@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelTheme {
+public class LevelTheme
+{
 
     public const int THEME_GRAY = 1;
     private Tile[] gray_theme_tiles = new Tile[]
@@ -26,17 +27,24 @@ public class LevelTheme {
     public Tile[][] GetRoomTiles(int width, int height)
     {
         Tile[][] tiles = GetTilesArray(width, height);
-        for(int x = 0; x < tiles.Length; x++)
+
+
+        for (int x = 0; x < tiles.Length; x++)
         {
             Tile[] row = tiles[x];
-            for(int y = 0; y < row.Length; y++)
+            for (int y = 0; y < row.Length; y++)
             {
                 Tile nextTile = Tile.GRASS_NORMAL;
-                if (Random.Range(0f, 1f) < 0.1f)
+                /*if (x == 0 || y == 0
+                    || x == tiles.Length - 1 || y == row.Length - 1)
+                {
+                    nextTile = Tile.WALL_GREY;
+                }
+                else */ if (Random.Range(0f, 1f) < 0.1f)
                 {
                     nextTile = Tile.GRASS_DARK;
                 }
-                else if(Random.Range(0f, 1f) < 0.1f)
+                else if (Random.Range(0f, 1f) < 0.1f)
                 {
                     nextTile = Tile.FLOWERS_BLUE;
                 }
