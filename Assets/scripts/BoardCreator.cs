@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Tile
@@ -14,11 +15,26 @@ public enum Tile
 
     //Wall Tiles
     SHRUB_GREEN, SHRUB_ORANGE, SHRUB_DARK_GREEN,
-    WALL_TAN, WALL_GREY, WALL_WHITE, WALL_BROWN
+    WALL_TAN, WALL_GREY, WALL_WHITE, WALL_BROWN,
+    
+
+    NOT_SET
 }
 
 public class BoardCreator : MonoBehaviour
 {
+
+    public GameObject GRASS_NORMAL;
+    public GameObject GRASS_DARK;
+    public GameObject GRASS_RED;
+    public GameObject GRASS_PURPLE;
+    public GameObject FLOWERS_BLUE;
+    public GameObject DIRT;
+    public GameObject TILE_GREY;
+    public GameObject WALL_GREY;
+    public GameObject COBBLE;
+
+    private Dictionary<Tile, GameObject> TileObjects;
 
     public int columns = 100;                                 // The number of columns on the board (how wide it will be).
     public int rows = 100;                                    // The number of rows on the board (how tall it will be).
@@ -26,11 +42,8 @@ public class BoardCreator : MonoBehaviour
     public IntRange roomWidth = new IntRange(3, 10);         // The range of widths rooms can have.
     public IntRange roomHeight = new IntRange(3, 10);        // The range of heights rooms can have.
     public IntRange corridorLength = new IntRange(6, 10);    // The range of lengths corridors between rooms can have.
-    public GameObject[] floorTiles;                           // An array of floor tile prefabs.
-    public GameObject[] wallTiles;                            // An array of wall tile prefabs.
     public GameObject[] outerWallTiles;                       // An array of outer wall tile prefabs.
     public GameObject player;
-
     private Tile[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
     private Room[] rooms;                                     // All the rooms that are created for this board.
     private Corridor[] corridors;                             // All the corridors that connect the rooms.
@@ -40,6 +53,19 @@ public class BoardCreator : MonoBehaviour
     //Tiles is an array with the dimensions of the specified rows and columns
     private void Start()
     {
+        TileObjects = new Dictionary<Tile, GameObject>()
+        {
+            {Tile.GRASS_NORMAL, GRASS_NORMAL},
+            {Tile.GRASS_DARK, GRASS_DARK},
+            {Tile.GRASS_RED, GRASS_RED},
+            {Tile.GRASS_PURPLE, GRASS_PURPLE},
+            {Tile.FLOWERS_BLUE, FLOWERS_BLUE },
+            {Tile.DIRT, DIRT},
+            {Tile.TILE_GREY, TILE_GREY},
+            {Tile.WALL_GREY, WALL_GREY},
+            {Tile.COBBLE, COBBLE}
+        };
+
         // Create the board holder.
         boardHolder = new GameObject("BoardHolder");
 
@@ -50,8 +76,8 @@ public class BoardCreator : MonoBehaviour
 
         CreateRoomsAndCorridors();
 
-        SetTilesValuesForRooms();
         SetTilesValuesForCorridors();
+        SetTilesValuesForRooms();
 
         InstantiateTiles();
         InstantiateOuterWalls();
@@ -62,9 +88,13 @@ public class BoardCreator : MonoBehaviour
     {
         // Create the tiles array with the right rows and columns
         tiles = new Tile[columns][];
-        for (int i = 0; i < tiles.Length; i++)
+        for (int col = 0; col < tiles.Length; col++)
         {
-            tiles[i] = new Tile[rows];
+            tiles[col] = new Tile[rows];
+            for(int row = 0; row < tiles[col].Length; row++)
+            {
+                tiles[col][row] = Tile.NOT_SET;
+            }
         }
     }
 
@@ -183,14 +213,14 @@ public class BoardCreator : MonoBehaviour
         {
             for (int j = 0; j < tiles[i].Length; j++)
             {
-                // ... and instantiate a floor tile for it.
-                InstantiateFromArray(floorTiles, i, j);
-
-                // If the tile type is Wall...
-                if (tiles[i][j] == TileType.Wall)
+                Tile tile = tiles[i][j];
+                if(tile == Tile.NOT_SET)
                 {
-                    // ... instantiate a wall over the top.
-                    InstantiateFromArray(wallTiles, i, j);
+                    InstantiateTile(Tile.WALL_GREY, i, j);
+                }
+                else
+                {
+                    InstantiateTile(tile, i, j);
                 }
             }
         }
@@ -257,6 +287,21 @@ public class BoardCreator : MonoBehaviour
 
         // Create an instance of the prefab from the random index of the array.
         GameObject tileInstance = Instantiate(prefabs[randomIndex], position, Quaternion.identity) as GameObject;
+
+        // Set the tile's parent to the board holder.
+        tileInstance.transform.parent = boardHolder.transform;
+    }
+
+    void InstantiateTile(Tile tile, float xCoord, float yCoord)
+    {
+        // The position to be instantiated at is based on the coordinates.
+        Vector3 position = new Vector3(xCoord, yCoord, 0f);
+
+        // Get the gameobject for this tile from the dictionary
+        GameObject tileObject = TileObjects[tile];
+
+        // Create an instance of the prefab from the random index of the array.
+        GameObject tileInstance = Instantiate(tileObject, position, Quaternion.identity) as GameObject;
 
         // Set the tile's parent to the board holder.
         tileInstance.transform.parent = boardHolder.transform;

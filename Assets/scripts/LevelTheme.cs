@@ -12,9 +12,6 @@ public class LevelTheme {
         Tile.TILE_GREY
     };
 
-    public const int GRASS = 2;
-    public const int GRASS_FLOWERS = 3;
-
     public const int MIN_THEME = 1;
     public const int MAX_THEME = 3;
 
@@ -34,7 +31,16 @@ public class LevelTheme {
             Tile[] row = tiles[x];
             for(int y = 0; y < row.Length; y++)
             {
-                tiles[x][y] = Tile.GRASS_NORMAL;
+                Tile nextTile = Tile.GRASS_NORMAL;
+                if (Random.Range(0f, 1f) < 0.1f)
+                {
+                    nextTile = Tile.GRASS_DARK;
+                }
+                else if(Random.Range(0f, 1f) < 0.1f)
+                {
+                    nextTile = Tile.FLOWERS_BLUE;
+                }
+                tiles[x][y] = nextTile;
             }
         }
         return tiles;

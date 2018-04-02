@@ -51,24 +51,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3193ae530896fb2469e38ee10b5cca0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GRASS_NORMAL: {fileID: 0}
+  GRASS_DARK: {fileID: 0}
+  GRASS_RED: {fileID: 0}
+  GRASS_PURPLE: {fileID: 0}
+  FLOWERS_BLUE: {fileID: 1713677829872334, guid: 0095a110ca1c2584995f8fa613df0a02,
+    type: 2}
+  DIRT: {fileID: 0}
+  TILE_GREY: {fileID: 0}
+  WALL_GREY: {fileID: 0}
+  COBBLE: {fileID: 0}
   columns: 100
   rows: 100
   numRooms:
-    m_Min: 15
-    m_Max: 20
+    m_Min: 20
+    m_Max: 25
   roomWidth:
-    m_Min: 3
+    m_Min: 5
     m_Max: 10
   roomHeight:
-    m_Min: 3
+    m_Min: 4
     m_Max: 10
   corridorLength:
     m_Min: 6
     m_Max: 10
-  floorTiles:
-  - {fileID: 1260376393241522, guid: 0968b2882534a264aa09f079faf5f588, type: 2}
-  wallTiles:
-  - {fileID: 1722189760794686, guid: d1bd1f5634640ad4a80116203da2df0c, type: 2}
   outerWallTiles:
   - {fileID: 1769205248934684, guid: 5fb473e7d7c5f8748af200367b7deb8f, type: 2}
   player: {fileID: 1451610412765310, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
