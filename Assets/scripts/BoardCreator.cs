@@ -57,7 +57,9 @@ public class BoardCreator : MonoBehaviour
     public GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
     public LevelTheme theme;
 
+    public static bool firstLevel = true;
     private float stairsDepth;
+
     //Tiles is an array with the dimensions of the specified rows and columns
     private void Start()
     {
@@ -80,7 +82,11 @@ public class BoardCreator : MonoBehaviour
 
         // Get the theme for this level
         theme = new LevelTheme();
+        SetupBoard(1);
+    }
 
+    public void SetupBoard(int level)
+    {
         SetupTilesArray();
 
         CreateRoomsAndCorridors();
@@ -147,8 +153,14 @@ public class BoardCreator : MonoBehaviour
             if (i == rooms.Length * .5f)
             {
                 Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
-                Instantiate(player, playerPos, Quaternion.identity);
-                player.gameObject.transform.position = playerPos;
+                //if (firstLevel)
+                //{
+                //    Instantiate(player, playerPos, Quaternion.identity);
+                //}
+                //else
+                //{
+                    player.gameObject.transform.position = playerPos;
+                //}
             }
             if(i == (int) (rooms.Length * this.stairsDepth))
             {

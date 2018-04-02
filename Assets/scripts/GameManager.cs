@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     private int level = 1; //Current level number
     //private bool doingSetup = true; //bool used to prevent Player from moving during setup.	
-    private BoardCreator boardScript; //BoardManager which will set up the level.
+    public BoardCreator boardScript; //BoardManager which will set up the level.
 
     //Awake is always called before any Start functions
     void Awake()
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         //Get a component reference to the attached BoardManager script
-        boardScript = GetComponent<BoardCreator>();
+        //boardScript = GetComponent<BoardCreator>();
 
         //Call the InitGame function to initialize the first level 
         InitGame();
@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
 
         //Call the HideLevelImage function with a delay in seconds of levelStartDelay.
         Invoke("HideLevelImage", levelStartDelay);
+
+        boardScript.SetupBoard(level);
     }
 
     //Hides black image used between levels

@@ -187,6 +187,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 531801805}
+--- !u!1001 &582340489
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4074250686936968, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074250686936968, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074250686936968, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074250686936968, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074250686936968, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074250686936968, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074250686936968, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074250686936968, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &651811874
 Prefab:
   m_ObjectHideFlags: 0
@@ -226,7 +268,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114220287902597080, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &798689340
@@ -392,6 +435,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1472798041 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1090535615067182, guid: 173a2bff8f845f54d948a9ce89bfa6c9,
+    type: 2}
+  m_PrefabInternal: {fileID: 651811874}
+--- !u!114 &1472798042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1472798041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3193ae530896fb2469e38ee10b5cca0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GRASS_NORMAL: {fileID: 1522505907955824, guid: 8fa2aed1905184046bc7dcaa705d22b1,
+    type: 2}
+  GRASS_DARK: {fileID: 1108884799898502, guid: 4d00ca6602fafa6469901e2203385db0, type: 2}
+  GRASS_RED: {fileID: 0}
+  GRASS_PURPLE: {fileID: 1826989037697738, guid: 6d5018236370a4548b241662331ff36c,
+    type: 2}
+  FLOWERS_BLUE: {fileID: 1713677829872334, guid: 0095a110ca1c2584995f8fa613df0a02,
+    type: 2}
+  DIRT: {fileID: 1907803653560654, guid: 86ec9a498e1f63c42aed2bcb75b6498b, type: 2}
+  TILE_GREY: {fileID: 1578505690930862, guid: 6fc93d3b64e76af46a5ccba745e306e2, type: 2}
+  WALL_GREY: {fileID: 1950329716557282, guid: 4173e6d93001f3741b6779c3cc600b2f, type: 2}
+  COBBLE: {fileID: 0}
+  columns: 100
+  rows: 100
+  numRooms:
+    m_Min: 5
+    m_Max: 7
+  roomWidth:
+    m_Min: 5
+    m_Max: 10
+  roomHeight:
+    m_Min: 4
+    m_Max: 10
+  corridorLength:
+    m_Min: 6
+    m_Max: 10
+  outerWallTiles:
+  - {fileID: 1769205248934684, guid: 5fb473e7d7c5f8748af200367b7deb8f, type: 2}
+  player: {fileID: 1451610412765310, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
+  stairs: {fileID: 1454725695944596, guid: f23b84e74f1a416468c20aea39f614cf, type: 2}
+  boardHolder: {fileID: 0}
 --- !u!1 &1834712973
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,6 +512,7 @@ MonoBehaviour:
   levelStartDelay: 2
   doingSetup: 0
   cam: {fileID: 0}
+  boardScript: {fileID: 1472798042}
 --- !u!4 &1834712975
 Transform:
   m_ObjectHideFlags: 0
