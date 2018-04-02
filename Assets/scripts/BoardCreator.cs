@@ -21,6 +21,11 @@ public enum Tile
     NOT_SET
 }
 
+public enum DungeonObject
+{
+    CHEST
+}
+
 public class BoardCreator : MonoBehaviour
 {
 
@@ -44,15 +49,19 @@ public class BoardCreator : MonoBehaviour
     public IntRange corridorLength = new IntRange(6, 10);    // The range of lengths corridors between rooms can have.
     public GameObject[] outerWallTiles;                       // An array of outer wall tile prefabs.
     public GameObject player;
+    public GameObject stairs;
     private Tile[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
+    private DungeonObject[] dungeonObjects;
     private Room[] rooms;                                     // All the rooms that are created for this board.
     private Corridor[] corridors;                             // All the corridors that connect the rooms.
     public GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
     public LevelTheme theme;
 
+    private float stairsDepth;
     //Tiles is an array with the dimensions of the specified rows and columns
     private void Start()
     {
+        stairsDepth = Random.Range(0.3f, 0.8f);
         TileObjects = new Dictionary<Tile, GameObject>()
         {
             {Tile.GRASS_NORMAL, GRASS_NORMAL},
@@ -140,6 +149,13 @@ public class BoardCreator : MonoBehaviour
                 Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
                 Instantiate(player, playerPos, Quaternion.identity);
             }
+            if(i == (int) (rooms.Length * this.stairsDepth))
+            {
+                int offsetY = Random.Range(0, rooms[i].roomHeight);
+                int offsetX = Random.Range(0, rooms[i].roomWidth);
+                Vector3 stairsPos = new Vector3(rooms[i].xPos + offsetX, rooms[i].yPos + offsetY, 0);
+                Instantiate(stairs, stairsPos, Quaternion.identity);
+            }
         }
     }
 
@@ -150,6 +166,8 @@ public class BoardCreator : MonoBehaviour
         {
             Room currentRoom = rooms[i];
             Tile[][] roomTiles = theme.GetRoomTiles(currentRoom.roomWidth, currentRoom.roomHeight);
+            //DungeonObject[] roomObjects = theme.GetDungeonObjects(currentRoom.roomWidth, currentRoom.roomHeight);
+
             // ... and for each room go through it's width.
             for (int j = 0; j < currentRoom.roomWidth; j++)
             {
@@ -215,6 +233,7 @@ public class BoardCreator : MonoBehaviour
             {
                 Tile tile = tiles[i][j];
                 if (tile == Tile.NOT_SET) {
+
                     if(i > 0)
                     {
                         if(tiles[i - 1][j] != Tile.NOT_SET)
