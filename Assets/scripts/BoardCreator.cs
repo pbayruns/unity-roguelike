@@ -148,6 +148,7 @@ public class BoardCreator : MonoBehaviour
             {
                 Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
                 Instantiate(player, playerPos, Quaternion.identity);
+                player.gameObject.transform.position = playerPos;
             }
             if(i == (int) (rooms.Length * this.stairsDepth))
             {

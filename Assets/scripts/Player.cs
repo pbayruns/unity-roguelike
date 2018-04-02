@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;	//Allows us to use UI.
+using UnityEngine.UI;   //Allows us to use UI.
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -98,6 +99,22 @@ public class Player : MonoBehaviour
         anim.SetBool("IsMoving", moving);
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Stairs")
+        {
+            Invoke("Restart", restartLevelDelay);
+        }
+    }
+
+    //Restart reloads the scene when called.
+    private void Restart()
+    {
+        //Load the last scene loaded, in this case Main, the only scene in the game. And we load it in "Single" mode so it replace the existing one
+        //and not load all the scene object in the current scene.
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 }
 

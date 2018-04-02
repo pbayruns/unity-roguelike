@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public float levelStartDelay = 2f;	//Time to wait before starting level, in seconds.
     //Static instance of GameManager which allows it to be accessed by any other script.
     public static GameManager instance = null;
     public bool doingSetup;
     public CameraController cam;
+
+    private Text levelText;                                 //Text to display current level number.
+    private GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
 
     private int level = 1; //Current level number
     //private bool doingSetup = true; //bool used to prevent Player from moving during setup.	
@@ -26,6 +31,12 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+
+        //Get a component reference to the attached BoardManager script
+        boardScript = GetComponent<BoardCreator>();
+
+        //Call the InitGame function to initialize the first level 
+        InitGame();
     }
 
     //this is called only once, and the paramter tell it to be called only after the scene was loaded
@@ -54,6 +65,25 @@ public class GameManager : MonoBehaviour
         //boardScript.SetupScene(level);
         //Instantiate(boardScript);
 
+        //Get a reference to our image LevelImage by finding it by name.
+        levelImage = GameObject.Find("LevelImage");
+        levelText = GameObject.Find("LevelText").GetComponent<Text>();
+        levelText.text = "Level " + level;
+
+        //Set levelImage to active blocking player's view of the game board during setup.
+        levelImage.SetActive(true);
+
+        //Call the HideLevelImage function with a delay in seconds of levelStartDelay.
+        Invoke("HideLevelImage", levelStartDelay);
+    }
+
+    //Hides black image used between levels
+    void HideLevelImage()
+    {
+        //Disable the levelImage gameObject.
+        levelImage.SetActive(false);
+
+        //Set doingSetup to false allowing player to move again.
         doingSetup = false;
     }
 
