@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 
         //Set levelImage to active blocking player's view of the game board during setup.
         levelImage.SetActive(true);
-
+        SFXManager.PlayMusic();
         //Call the HideLevelImage function with a delay in seconds of levelStartDelay.
         Invoke("HideLevelImage", levelStartDelay);
 

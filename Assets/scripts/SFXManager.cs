@@ -11,7 +11,8 @@ public class SFXManager : MonoBehaviour {
 
     public AudioSource stairs_down;
     public AudioSource[] sword_sounds;
-
+    public AudioSource[] music;
+    private static AudioSource lastSong = null;
     public static SFXManager instance = null; //singleton
 
     private void Awake()
@@ -45,6 +46,14 @@ public class SFXManager : MonoBehaviour {
                 break;
         }
     }
+
+    public static void PlayMusic()
+    {
+        if(lastSong) lastSong.Stop();
+        lastSong = instance.music[Random.Range(0, instance.music.Length)];
+        lastSong.Play();
+    }
+
     // Use this for initialization
     void Start () {
 		
