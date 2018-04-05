@@ -13,10 +13,15 @@ public enum Tile
     BRICKS1, BRICKS2, BRICKS3, BRICKS4, BRICKS5,
     BRICKS6, BRICKS7, BRICKS8, BRICKS9, BRICKS10,
 
+    //Overlay Tiles
+    MUSHROOM_1, MUSHROOM_2, MUSHROOM_3, MUSHROOM_4,
+
     //Wall Tiles
     SHRUB_GREEN, SHRUB_ORANGE, SHRUB_DARK_GREEN,
     WALL_TAN, WALL_GREY, WALL_WHITE, WALL_BROWN,
 
+    //Objects
+    STUMP_1, STUMP_2, STUMP_3,
 
     NOT_SET
 }
@@ -38,6 +43,18 @@ public class BoardCreator : MonoBehaviour
     public GameObject TILE_GREY;
     public GameObject WALL_GREY;
     public GameObject COBBLE;
+    public GameObject STUMP_1;
+    public GameObject STUMP_2;
+    public GameObject STUMP_3;
+    public GameObject MUSHROOM_1;
+    public GameObject MUSHROOM_2;
+    public GameObject MUSHROOM_3;
+    public GameObject MUSHROOM_4;
+    public GameObject SHRUB_GREEN;
+    public GameObject SHRUB_ORANGE;
+    public GameObject SHRUB_DARK_GREEN;
+
+
 
     private Dictionary<Tile, GameObject> TileObjects;
 
@@ -51,7 +68,7 @@ public class BoardCreator : MonoBehaviour
     public GameObject stairs;
 
     private float stairsDepth; // the percentage deep into the room sequence to spawn the stairs
-    public float minStairDepth = 0.3f; 
+    public float minStairDepth = 0.3f;
     public float maxStairDepth = 0.8f;
 
     private float spawnDepth; // the percentage deep into the room sequence to spawn the player
@@ -59,6 +76,8 @@ public class BoardCreator : MonoBehaviour
     public float maxSpawnDepth = 1f;
 
     private Tile[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
+    private Tile[][] overlay;
+    private Tile[][] objects;
     private DungeonObject[] dungeonObjects;
     private Room[] rooms;                                     // All the rooms that are created for this board.
     private Corridor[] corridors;                             // All the corridors that connect the rooms.
@@ -69,7 +88,7 @@ public class BoardCreator : MonoBehaviour
     //Tiles is an array with the dimensions of the specified rows and columns
     private void Start()
     {
-     }
+    }
 
     public void SetupBoard(int level)
     {
@@ -85,11 +104,21 @@ public class BoardCreator : MonoBehaviour
             {Tile.DIRT, DIRT},
             {Tile.TILE_GREY, TILE_GREY},
             {Tile.WALL_GREY, WALL_GREY},
-            {Tile.COBBLE, COBBLE}
+            {Tile.COBBLE, COBBLE},
+            {Tile.STUMP_1, STUMP_1},
+            {Tile.STUMP_2, STUMP_2},
+            {Tile.STUMP_3, STUMP_3},
+            {Tile.MUSHROOM_1, MUSHROOM_1},
+            {Tile.MUSHROOM_2, MUSHROOM_2},
+            {Tile.MUSHROOM_3, MUSHROOM_3},
+            {Tile.MUSHROOM_4, MUSHROOM_4},
+            {Tile.SHRUB_GREEN, SHRUB_GREEN},
+            {Tile.SHRUB_ORANGE, SHRUB_ORANGE},
+            {Tile.SHRUB_DARK_GREEN, SHRUB_DARK_GREEN},
         };
 
         GameObject bounds = GameObject.Find("Bounds");
-        if(bounds == null)
+        if (bounds == null)
         {
             bounds = new GameObject("Bounds");
         }
@@ -99,8 +128,8 @@ public class BoardCreator : MonoBehaviour
             bounds = new GameObject("Bounds");
         }
         boundsBox = bounds.AddComponent<BoxCollider2D>() as BoxCollider2D;
-        float mapWidth = columns + 8f;
-        float mapHeight = rows + 4f;
+        float mapWidth = columns;
+        float mapHeight = rows;
         boundsBox.size = new Vector2(mapWidth, mapHeight);
         boundsBox.gameObject.transform.position = new Vector3(mapWidth / 2f, mapHeight / 2f, 0f);
         boundsBox.isTrigger = true;
@@ -111,6 +140,7 @@ public class BoardCreator : MonoBehaviour
         if (holder == null)
         {
             boardHolder = new GameObject("BoardHolder");
+            boardHolder.transform.position = Vector3.zero;
         }
         else
         {
@@ -140,12 +170,18 @@ public class BoardCreator : MonoBehaviour
     {
         // Create the tiles array with the right rows and columns
         tiles = new Tile[columns][];
+        overlay = new Tile[columns][];
+        objects = new Tile[columns][];
         for (int col = 0; col < tiles.Length; col++)
         {
             tiles[col] = new Tile[rows];
+            overlay[col] = new Tile[rows];
+            objects[col] = new Tile[rows];
             for (int row = 0; row < tiles[col].Length; row++)
             {
                 tiles[col][row] = Tile.NOT_SET;
+                overlay[col][row] = Tile.NOT_SET;
+                objects[col][row] = Tile.NOT_SET;
             }
         }
     }
@@ -188,14 +224,14 @@ public class BoardCreator : MonoBehaviour
             }
 
 
-            if (i == (int) (rooms.Length * spawnDepth))
+            if (i == (int)(rooms.Length * spawnDepth))
             {
                 int offsetY = Random.Range(0, rooms[i].roomHeight);
                 int offsetX = Random.Range(0, rooms[i].roomWidth);
                 Vector3 playerPos = new Vector3(rooms[i].xPos + offsetX, rooms[i].yPos + offsetY, 0f);
                 Player.Move(playerPos);
             }
-            if(i == (int) (rooms.Length * stairsDepth))
+            if (i == (int)(rooms.Length * stairsDepth))
             {
                 int offsetY = Random.Range(0, rooms[i].roomHeight);
                 int offsetX = Random.Range(0, rooms[i].roomWidth);
@@ -212,7 +248,7 @@ public class BoardCreator : MonoBehaviour
         for (int i = 0; i < rooms.Length; i++)
         {
             Room currentRoom = rooms[i];
-            Tile[][] roomTiles = theme.GetRoomTiles(currentRoom.roomWidth, currentRoom.roomHeight);
+            LevelTheme.RoomInfo info = theme.GetRoomTiles(currentRoom.roomWidth, currentRoom.roomHeight);
             //DungeonObject[] roomObjects = theme.GetDungeonObjects(currentRoom.roomWidth, currentRoom.roomHeight);
 
             // ... and for each room go through it's width.
@@ -223,9 +259,16 @@ public class BoardCreator : MonoBehaviour
                 for (int k = 0; k < currentRoom.roomHeight; k++)
                 {
                     int yCoord = currentRoom.yPos + k;
-                    Tile tile = roomTiles[j][k];
+                    Tile tile = info.tiles[j][k];
+                    Tile obj = Tile.NOT_SET;
+                    Tile top = Tile.NOT_SET;
+                    if(info.objects != null) obj = info.objects[j][k];
+                    if (info.overlay_tiles != null) top = info.overlay_tiles[j][k];
+
                     // The coordinates in the jagged array are based on the room's position and it's width and height.
                     tiles[xCoord][yCoord] = tile;
+                    overlay[xCoord][yCoord] = top;
+                    objects[xCoord][yCoord] = obj;
                 }
             }
         }
@@ -237,6 +280,7 @@ public class BoardCreator : MonoBehaviour
         for (int i = 0; i < corridors.Length; i++)
         {
             Corridor currentCorridor = corridors[i];
+            Tile tile = theme.GetCorridorTile();
 
             // and go through it's length.
             for (int j = 0; j < currentCorridor.corridorLength; j++)
@@ -263,7 +307,6 @@ public class BoardCreator : MonoBehaviour
                         break;
                 }
 
-                Tile tile = theme.GetCorridorTile();
                 // Set the tile at these coordinates to Floor.
                 tiles[xCoord][yCoord] = tile;
             }
@@ -279,42 +322,27 @@ public class BoardCreator : MonoBehaviour
             for (int j = 0; j < tiles[i].Length; j++)
             {
                 Tile tile = tiles[i][j];
-                if (tile == Tile.NOT_SET) {
+                Tile top = overlay[i][j];
+                Tile obj = objects[i][j];
 
-                    if(i > 0)
-                    {
-                        if(tiles[i - 1][j] != Tile.NOT_SET)
-                        {
-                            InstantiateTile(Tile.WALL_GREY, i, j);
-                        }
-                    }
-                    if (j > 0)
-                    {
-                        if(tiles[i][j - 1] != Tile.NOT_SET)
-                        {
-                            InstantiateTile(Tile.WALL_GREY, i, j);
-                        }
-                    }
+                Tile wall = theme.wallTile;
 
-                    if(j < tiles[i].Length - 1)
-                    {
-                        if(tiles[i][j + 1] != Tile.NOT_SET)
-                        {
-                            InstantiateTile(Tile.WALL_GREY, i, j);
-                        }
-                    }
-                    if (i < tiles.Length - 1)
-                    {
-                        if(tiles[i + 1][j] != Tile.NOT_SET)
-                        {
-                            InstantiateTile(Tile.WALL_GREY, i, j);
-                        }
-                    }
-                }
-                else if (tile != Tile.NOT_SET)
+                if (tile == Tile.NOT_SET)
                 {
-                    InstantiateTile(tile, i, j);
+                    bool putWall = (i > 0 && tiles[i - 1][j] != Tile.NOT_SET);
+                    putWall = putWall || (j > 0 && tiles[i][j - 1] != Tile.NOT_SET);
+                    putWall = putWall || (j < tiles[i].Length - 1 && tiles[i][j + 1] != Tile.NOT_SET);
+                    putWall = putWall || (i < tiles.Length - 1 && tiles[i + 1][j] != Tile.NOT_SET);
+                    if (putWall) InstantiateTile(wall, i, j);
+                    if (obj == Tile.NOT_SET)
+                    {
+                        obj = theme.midWall;
+                        tile = theme.midFloor;
+                    }
                 }
+                if (tile != Tile.NOT_SET)InstantiateTile(tile, i, j);
+                if (top != Tile.NOT_SET) InstantiateTile(top, i, j);
+                if (obj != Tile.NOT_SET) InstantiateTile(obj, i, j);
             }
         }
     }

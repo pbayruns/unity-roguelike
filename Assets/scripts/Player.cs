@@ -125,14 +125,22 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        bool ePressed = Input.GetKeyDown(KeyCode.E);
+        if (other.tag == "Stairs")
         {
-            if (other.tag == "Stairs")
+            HUD.ShowInfoText("<Press E to descend>");
+            if (ePressed)
             {
+                HUD.HideInfoText();
                 SFXManager.PlaySFX(SFX_TYPE.STAIRS_DOWN);
                 Restart();
             }
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        HUD.HideInfoText();
     }
 
     //Restart reloads the scene when called.
