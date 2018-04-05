@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
 
     //public GameObject followTarget;
-    private GameObject followTarget;
+    public GameObject followTarget;
     private Vector3 targetPos;
     public float speed;
 
@@ -68,6 +68,11 @@ public class CameraController : MonoBehaviour
         //float roundedX = (int)(clampedX / ratio) * ratio;
         //float roundedY = (int)(clampedY / ratio) * ratio;
         //transform.position = new Vector3(roundedX, roundedY, transform.position.z);
+    }
+
+    public void SetFollowTarget(GameObject target)
+    {
+        followTarget = target;
     }
 
     //public void SetBounds(BoxCollider2D newBounds)

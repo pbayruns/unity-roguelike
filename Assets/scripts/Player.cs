@@ -28,7 +28,6 @@ public class Player : MonoBehaviour
         //Check if instance already exists
         if (instance == null)
         {
-
             //if not, set instance to this
             instance = this;
         }
@@ -52,9 +51,9 @@ public class Player : MonoBehaviour
         lastMove = new Vector2(0f, -1f);
     }
 
-    public void MoveTo(Vector3 target)
+    public static void Move(Vector3 destination)
     {
-        transform.position = target;
+        instance.gameObject.transform.position = destination;
     }
     // Update is called once per frame
     void Update()

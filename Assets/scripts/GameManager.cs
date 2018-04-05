@@ -9,8 +9,7 @@ public class GameManager : MonoBehaviour
     //Static instance of GameManager which allows it to be accessed by any other script.
     public static GameManager instance = null;
     public bool doingSetup;
-    public CameraController cam;
-
+    public Player player;
     private Text levelText;                                 //Text to display current level number.
     private GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
 
@@ -33,7 +32,9 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         boardScript = FindObjectOfType<BoardCreator>();
-
+        player = Instantiate(player);
+        //Instantiate(cam);
+        //cam.SetFollowTarget(player.transform.gameObject);
         //Call the InitGame function to initialize the first level 
         InitGame();
     }

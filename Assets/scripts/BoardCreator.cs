@@ -48,7 +48,6 @@ public class BoardCreator : MonoBehaviour
     public IntRange roomHeight = new IntRange(3, 10);        // The range of heights rooms can have.
     public IntRange corridorLength = new IntRange(6, 10);    // The range of lengths corridors between rooms can have.
     public GameObject[] outerWallTiles;                       // An array of outer wall tile prefabs.
-    public GameObject player;
     public GameObject stairs;
     private Tile[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
     private DungeonObject[] dungeonObjects;
@@ -56,10 +55,9 @@ public class BoardCreator : MonoBehaviour
     private Corridor[] corridors;                             // All the corridors that connect the rooms.
     public GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
     public LevelTheme theme;
-
     public static bool firstLevel = true;
     private float stairsDepth;
-
+    private Vector3 playerPos;
     //Tiles is an array with the dimensions of the specified rows and columns
     private void Start()
     {
@@ -163,13 +161,12 @@ public class BoardCreator : MonoBehaviour
             }
 
 
-            if (i == (int) rooms.Length * .5f)
+            if (true)//(i == rooms.Length * .5f)
             {
-                Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0f);
-                player.transform.position = playerPos;
-                //Instantiate(player, playerPos, Quaternion.identity);
+                playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0f);
+                Player.Move(playerPos);
             }
-            if(i == (int) (rooms.Length * this.stairsDepth))
+            if(i == (int) (rooms.Length * stairsDepth))
             {
                 int offsetY = Random.Range(0, rooms[i].roomHeight);
                 int offsetX = Random.Range(0, rooms[i].roomWidth);
