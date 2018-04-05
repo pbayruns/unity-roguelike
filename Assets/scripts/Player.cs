@@ -55,6 +55,12 @@ public class Player : MonoBehaviour
     {
         instance.gameObject.transform.position = destination;
     }
+
+    public static CameraController GetCamera()
+    {
+        return instance.GetComponentInChildren<CameraController>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -114,11 +120,14 @@ public class Player : MonoBehaviour
         anim.SetFloat("LastMoveY", lastMove.y);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if(other.tag == "Stairs")
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            Invoke("Restart", restartLevelDelay);
+            if (other.tag == "Stairs")
+            {
+                Restart();
+            }
         }
     }
 

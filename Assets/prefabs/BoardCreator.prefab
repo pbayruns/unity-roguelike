@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1090535615067182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,4 +80,8 @@ MonoBehaviour:
   outerWallTiles:
   - {fileID: 1769205248934684, guid: 5fb473e7d7c5f8748af200367b7deb8f, type: 2}
   stairs: {fileID: 1454725695944596, guid: f23b84e74f1a416468c20aea39f614cf, type: 2}
+  minStairDepth: 0.3
+  maxStairDepth: 0.8
+  minSpawnDepth: 0.2
+  maxSpawnDepth: 1
   boardHolder: {fileID: 0}

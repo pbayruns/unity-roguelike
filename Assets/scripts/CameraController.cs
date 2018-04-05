@@ -23,15 +23,15 @@ public class CameraController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //DontDestroyOnLoad(transform.gameObject);
-        //if (!cameraExists)
-        //{
-        //    cameraExists = true;
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
+        DontDestroyOnLoad(transform.gameObject);
+        if (!cameraExists)
+        {
+            cameraExists = true;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         cam = GetComponent<Camera>();
         followTarget = gameObject.transform.parent.gameObject;
@@ -42,11 +42,11 @@ public class CameraController : MonoBehaviour
         //    maxBounds = boundBox.bounds.max;
         //}
 
-        //minBounds = boundBox.bounds.min;
-        //maxBounds = boundBox.bounds.max;
+        minBounds = boundBox.bounds.min;
+        maxBounds = boundBox.bounds.max;
 
-        //halfHeight = cam.orthographicSize;
-        //halfWidth = halfHeight * Screen.width / Screen.height;
+        halfHeight = cam.orthographicSize;
+        halfWidth = halfHeight * Screen.width / Screen.height;
     }
 
     // Update is called once per frame
@@ -62,12 +62,12 @@ public class CameraController : MonoBehaviour
         //    minBounds = boundBox.bounds.min;
         //    maxBounds = boundBox.bounds.max;
         //}
-        //float clampedX = Mathf.Clamp(transform.position.x, minBounds.x + halfWidth, maxBounds.x - halfWidth);
-        //float clampedY = Mathf.Clamp(transform.position.y, minBounds.y + halfHeight, maxBounds.y - halfHeight);
-        //const float ratio = .0625f;
-        //float roundedX = (int)(clampedX / ratio) * ratio;
-        //float roundedY = (int)(clampedY / ratio) * ratio;
-        //transform.position = new Vector3(roundedX, roundedY, transform.position.z);
+        float clampedX = Mathf.Clamp(transform.position.x, minBounds.x + halfWidth, maxBounds.x - halfWidth);
+        float clampedY = Mathf.Clamp(transform.position.y, minBounds.y + halfHeight, maxBounds.y - halfHeight);
+        const float ratio = .0625f;
+        float roundedX = (int)(clampedX / ratio) * ratio;
+        float roundedY = (int)(clampedY / ratio) * ratio;
+        transform.position = new Vector3(roundedX, roundedY, transform.position.z);
     }
 
     public void SetFollowTarget(GameObject target)
@@ -75,10 +75,10 @@ public class CameraController : MonoBehaviour
         followTarget = target;
     }
 
-    //public void SetBounds(BoxCollider2D newBounds)
-    //{
-    //    boundBox = newBounds;
-    //    minBounds = boundBox.bounds.min;
-    //    maxBounds = boundBox.bounds.max;
-    //}
+    public void SetBounds(BoxCollider2D newBounds)
+    {
+        boundBox = newBounds;
+        minBounds = boundBox.bounds.min;
+        maxBounds = boundBox.bounds.max;
+    }
 }

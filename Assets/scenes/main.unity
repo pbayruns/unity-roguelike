@@ -200,7 +200,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4926714021012680, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4926714021012680, guid: 173a2bff8f845f54d948a9ce89bfa6c9, type: 2}
       propertyPath: m_LocalPosition.z
@@ -427,7 +427,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelStartDelay: 2
   doingSetup: 0
-  cam: {fileID: 114753083268373692, guid: ac42632e9680d2d43999fc3568001675, type: 2}
   player: {fileID: 114045008644816476, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
   boardScript: {fileID: 1472798042}
 --- !u!4 &1834712975

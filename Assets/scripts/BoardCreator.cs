@@ -49,15 +49,23 @@ public class BoardCreator : MonoBehaviour
     public IntRange corridorLength = new IntRange(6, 10);    // The range of lengths corridors between rooms can have.
     public GameObject[] outerWallTiles;                       // An array of outer wall tile prefabs.
     public GameObject stairs;
+
+    private float stairsDepth; // the percentage deep into the room sequence to spawn the stairs
+    public float minStairDepth = 0.3f; 
+    public float maxStairDepth = 0.8f;
+
+    private float spawnDepth; // the percentage deep into the room sequence to spawn the player
+    public float minSpawnDepth = 0.2f;
+    public float maxSpawnDepth = 1f;
+
     private Tile[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
     private DungeonObject[] dungeonObjects;
     private Room[] rooms;                                     // All the rooms that are created for this board.
     private Corridor[] corridors;                             // All the corridors that connect the rooms.
     public GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
     public LevelTheme theme;
-    public static bool firstLevel = true;
-    private float stairsDepth;
-    private Vector3 playerPos;
+    private BoxCollider2D boundsBox;
+
     //Tiles is an array with the dimensions of the specified rows and columns
     private void Start()
     {
@@ -65,7 +73,8 @@ public class BoardCreator : MonoBehaviour
 
     public void SetupBoard(int level)
     {
-        stairsDepth = Random.Range(0.3f, 0.8f);
+        stairsDepth = Random.Range(minStairDepth, maxStairDepth);
+        spawnDepth = Random.Range(minSpawnDepth, maxSpawnDepth);
         TileObjects = new Dictionary<Tile, GameObject>()
         {
             {Tile.GRASS_NORMAL, GRASS_NORMAL},
@@ -78,6 +87,24 @@ public class BoardCreator : MonoBehaviour
             {Tile.WALL_GREY, WALL_GREY},
             {Tile.COBBLE, COBBLE}
         };
+
+        GameObject bounds = GameObject.Find("Bounds");
+        if(bounds == null)
+        {
+            bounds = new GameObject("Bounds");
+        }
+        else
+        {
+            Destroy(bounds.gameObject);
+            bounds = new GameObject("Bounds");
+        }
+        boundsBox = bounds.AddComponent<BoxCollider2D>() as BoxCollider2D;
+        float mapWidth = columns + 8f;
+        float mapHeight = rows + 4f;
+        boundsBox.size = new Vector2(mapWidth, mapHeight);
+        boundsBox.gameObject.transform.position = new Vector3(mapWidth / 2f, mapHeight / 2f, 0f);
+        boundsBox.isTrigger = true;
+        Player.GetCamera().SetBounds(boundsBox);
 
         // Create the board holder.
         GameObject holder = GameObject.Find("BoardHolder");
@@ -161,9 +188,11 @@ public class BoardCreator : MonoBehaviour
             }
 
 
-            if (true)//(i == rooms.Length * .5f)
+            if (i == (int) (rooms.Length * spawnDepth))
             {
-                playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0f);
+                int offsetY = Random.Range(0, rooms[i].roomHeight);
+                int offsetX = Random.Range(0, rooms[i].roomWidth);
+                Vector3 playerPos = new Vector3(rooms[i].xPos + offsetX, rooms[i].yPos + offsetY, 0f);
                 Player.Move(playerPos);
             }
             if(i == (int) (rooms.Length * stairsDepth))

@@ -99,4 +99,10 @@ public class GameManager : MonoBehaviour
     {
 
     }
+
+    public static void MovePlayer(Vector3 destination)
+    {
+        Debug.Log("player " + destination.x + "," + destination.y);
+        Player.instance.gameObject.transform.position = destination;
+    }
 }
