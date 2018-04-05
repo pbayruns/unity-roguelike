@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     private bool attacking;
     private float attackTimeCounter;
 
+    public AudioSource stairsSound;
+
     private void Awake()
     {
         //Check if instance already exists
@@ -111,6 +113,7 @@ public class Player : MonoBehaviour
             attacking = true;
             body.velocity = Vector2.zero;
             anim.SetBool("IsAttacking", true);
+            SFXManager.PlaySFX(SFX_TYPE.SWORD_ATTACK);
         }
 
         anim.SetFloat("MoveX", xIn);
@@ -126,6 +129,7 @@ public class Player : MonoBehaviour
         {
             if (other.tag == "Stairs")
             {
+                SFXManager.PlaySFX(SFX_TYPE.STAIRS_DOWN);
                 Restart();
             }
         }
