@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum SFX_TYPE
 {
-    SWORD_ATTACK, STAIRS_DOWN
+    SWORD_ATTACK, STAIRS_DOWN,
+    PLAYER_HURT
 };
 
 public class SFXManager : MonoBehaviour {

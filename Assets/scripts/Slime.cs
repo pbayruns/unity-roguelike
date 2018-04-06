@@ -23,8 +23,6 @@ public class Slime : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //timeBetweenMoveCounter = timeBetweenMove;
-        //timeToMoveCounter = timeToMove;
         timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
         timeToMoveCounter = Random.Range(timeToMove * 0.75f, timeToMove * 1.25f);
         myRigidBody = GetComponent<Rigidbody2D>();
@@ -57,16 +55,5 @@ public class Slime : MonoBehaviour
                 moveDirection = new Vector3(randX, randY, 0f);
             }
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        /*if(other.gameObject.name == "player")
-        {
-            other.gameObject.SetActive(false);
-            reloading = true;
-            thePlayer = other.gameObject;
-        }
-        */
     }
 }
