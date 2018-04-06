@@ -12,10 +12,11 @@ public class HurtPlayer : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            Debug.Log("Player Hit");
             int hit = damage - PlayerStats.defense;
             hit = (hit < 0) ? 0 : hit;
             PlayerHealthManager.HurtPlayer(hit);
-            var clone = (GameObject)Instantiate(damageDisplay, other.transform.position, Quaternion.Euler(Vector3.zero));
+            var clone = (GameObject)Instantiate(damageDisplay, Player.instance.transform.position, Quaternion.Euler(Vector3.zero));
             clone.GetComponent<FloatingNumber>().damage = hit;
         }
     }

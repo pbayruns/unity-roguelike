@@ -14,6 +14,7 @@ public class HurtEnemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
+            Debug.Log("Enemy Hit");
             int hit = damage + PlayerStats.attack;
             other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(hit);
             //Instantiate(damageBurst, hitpoint.position, hitpoint.rotation);

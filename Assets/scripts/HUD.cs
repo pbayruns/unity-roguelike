@@ -8,6 +8,9 @@ public class HUD : MonoBehaviour
 
     public static HUD instance = null;  //Static instance of Player which allows it to be accessed by any other script.
     public Text InfoText;
+    public Text HPText;
+    public Text GoldText;
+    public Text LevelText;
 
     private void Awake()
     {

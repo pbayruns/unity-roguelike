@@ -361,7 +361,7 @@ MonoBehaviour:
   damage: 3
   damageBurst: {fileID: 0}
   hitpoint: {fileID: 4046323112963322}
-  damageNumber: {fileID: 1782222450682942, guid: 95547cdbd5bc12f4da403a08d284ff2e,
+  damageNumber: {fileID: 1595340644041714, guid: 95547cdbd5bc12f4da403a08d284ff2e,
     type: 2}
 --- !u!114 &114567277888861100
 MonoBehaviour:
