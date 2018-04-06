@@ -34,7 +34,8 @@ public class Slime : MonoBehaviour
         if (moving)
         {
             timeToMoveCounter -= Time.deltaTime;
-            myRigidBody.velocity = moveDirection;
+            //myRigidBody.velocity = moveDirection;
+            myRigidBody.AddForce(new Vector2(moveDirection.x * 5, moveDirection.y * 5));
             if (timeToMoveCounter < 0f)
             {
                 moving = false;
@@ -44,7 +45,7 @@ public class Slime : MonoBehaviour
         else
         {
             timeBetweenMoveCounter -= Time.deltaTime;
-            myRigidBody.velocity = Vector2.zero;
+            //myRigidBody.velocity = Vector2.zero;
             if (timeBetweenMoveCounter < 0f)
             {
                 moving = true;

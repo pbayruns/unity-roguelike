@@ -8,17 +8,19 @@ public class PlayerHealthManager : MonoBehaviour
     public static int maxHP = PlayerStats.hp;
     public static int currentHP = PlayerStats.hp;
 
-    public static bool flashing;
-    public static float flashTime;
-    private static float flashCounter;
+    public static bool flashing = false;
+    public static float flashTime = 0.75f;
+    private static float flashCounter = flashTime;
 
     private SpriteRenderer playerSprite;
+    private SpriteRenderer[] childSprites;
 
     // Use this for initialization
     void Start()
     {
         currentHP = maxHP;
         playerSprite = GetComponent<SpriteRenderer>();
+        childSprites = GameObject.Find("Weapon").GetComponentsInChildren<SpriteRenderer>();
         HUD.UpdateHPDisplay(currentHP, maxHP);
     }
 
@@ -28,6 +30,7 @@ public class PlayerHealthManager : MonoBehaviour
 
         if (currentHP <= 0)
         {
+            //GameManager.GameOver();
             gameObject.SetActive(false);
         }
         if (flashing)
@@ -35,26 +38,30 @@ public class PlayerHealthManager : MonoBehaviour
             Color RGB = playerSprite.color;
             Color invisible = new Color(RGB.r, RGB.g, RGB.b, 0f);
             Color visible = new Color(RGB.r, RGB.g, RGB.b, 1f);
-            Color showColor = visible;
+            Color opacity = visible;
 
             if (flashCounter > flashTime * .66f)
             {
-                showColor = invisible;
+                opacity = invisible;
             }
             else if (flashCounter > flashTime * .33f)
             {
-                showColor = visible;
+                opacity = visible;
             }
             else if (flashCounter > 0)
             {
-                showColor = invisible;
+                opacity = invisible;
             }
             else
             {
                 flashing = false;
-                showColor = visible;
+                opacity = visible;
             }
-            playerSprite.color = showColor;
+            playerSprite.color = opacity;
+            for(int i = 0; i < childSprites.Length; i++)
+            {
+                childSprites[i].color = opacity;
+            }
             flashCounter -= Time.deltaTime;
         }
     }

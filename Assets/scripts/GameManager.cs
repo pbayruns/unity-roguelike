@@ -88,10 +88,11 @@ public class GameManager : MonoBehaviour
     }
 
     //GameOver is called when the player reaches 0 food points
-    public void GameOver()
+    public static void GameOver()
     {
         //Disable this GameManager.
-        enabled = false;
+        instance.level = 1;
+        //TODO: Handle game over
     }
 
     //Update is called every frame.

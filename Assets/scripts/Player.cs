@@ -43,6 +43,10 @@ public class Player : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public static Vector2 GetLastMove()
+    {
+        return instance.lastMove;
+    }
     // Use this for initialization
     void Start()
     {
