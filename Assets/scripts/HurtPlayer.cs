@@ -12,7 +12,6 @@ public class HurtPlayer : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Player Hit");
             int hit = damage - PlayerStats.defense;
             hit = (hit < 0) ? 0 : hit;
             PlayerHealthManager.HurtPlayer(hit);

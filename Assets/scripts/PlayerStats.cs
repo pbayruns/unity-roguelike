@@ -28,18 +28,20 @@ public class PlayerStats : MonoBehaviour
 
     public static int GetAttackForLevel(int level)
     {
-        return level / 2 + 1;
+        return level / 3 + 1;
     }
 
     public static int GetXPForLevel(int level)
     {
-        return (int) Mathf.Round((4 * (level ^ 3)) / 5);
+        return (int) Mathf.Round((4 * (Mathf.Pow(level, 3))) / 5);
     }
 
     public static void AddExperience(int xp)
     {
         currentExp += xp;
-        if (currentExp >= GetXPForLevel(currentLevel))
+        HUD.UpdateLevelDisplay(currentLevel, currentExp);
+        PlayerNotification.DisplayXPNotification(xp);
+        if (currentExp >= GetXPForLevel(currentLevel + 1))
         {
             LevelUp();
         }
@@ -48,11 +50,21 @@ public class PlayerStats : MonoBehaviour
     public static void LevelUp()
     {
         currentLevel++;
+        int hpDif = hp;
+        int atkDif = attack;
+        int defDif = defense;
+
         hp = GetHPForLevel(currentLevel);
         attack = GetAttackForLevel(currentLevel);
         defense = GetDefenseForLevel(currentLevel);
+
+        hpDif = hp - hpDif;
+        atkDif = attack - atkDif;
+        defDif = defense - defDif;
+
         PlayerHealthManager.SetMaxHP(hp);
         SFXManager.PlaySFX(SFX_TYPE.LEVEL_UP);
         HUD.UpdateLevelDisplay(currentLevel, currentExp);
+        PlayerNotification.DisplayLevelUpNotification(currentLevel, atkDif, defDif, hpDif);
     }
 }

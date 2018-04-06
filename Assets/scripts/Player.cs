@@ -58,6 +58,11 @@ public class Player : MonoBehaviour
         instance.gameObject.transform.position = destination;
     }
 
+    public static Vector3 GetPosition()
+    {
+        return instance.gameObject.transform.position;
+    }
+
     public static CameraController GetCamera()
     {
         return instance.GetComponentInChildren<CameraController>();

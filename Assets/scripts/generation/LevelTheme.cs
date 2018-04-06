@@ -21,6 +21,7 @@ public class LevelTheme
         public Tile[][] tiles;
         public Tile[][] overlay_tiles;
         public Tile[][] objects;
+
         public Enemy[][] enemies;
     };
 
@@ -96,11 +97,14 @@ public class LevelTheme
                     overlayTiles[x][y] = overL[Random.Range(0, overL.Length)];
                 }
                 tiles[x][y] = nextTile;
+
+                Enemy nextEnemy = Enemy.NONE;
                 if(Random.Range(0f, 1f) < 0.05f)
                 {
                     Enemy[] enemy = new Enemy[] { Enemy.SLIME_RED };
-                    enemies[x][y] = enemy[Random.Range(0, enemy.Length)];
+                    nextEnemy = enemy[Random.Range(0, enemy.Length)];
                 }
+                enemies[x][y] = nextEnemy;
             }
         }
         RoomInfo info = new RoomInfo();
@@ -120,7 +124,7 @@ public class LevelTheme
             for (int y = 0; y < row.Length; y++)
             {
                 tiles[x][y] = Tile.GRASS_NORMAL;
-                if (Random.Range(0f, 1f) < 0.08f)
+                if (Random.Range(0f, 1f) < 0.05f)
                 {
                     Tile[] objx = new Tile[] { Tile.STUMP_1, Tile.STUMP_2, Tile.STUMP_3 };
                     objects[x][y] = objx[Random.Range(0, objx.Length)];

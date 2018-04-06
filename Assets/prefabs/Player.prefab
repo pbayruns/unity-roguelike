@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1213558774016152
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 61843946572545840}
   - component: {fileID: 114937763984877576}
   - component: {fileID: 114036316683913740}
+  - component: {fileID: 114880657917866766}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -393,6 +394,19 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   speed: 5
   boundBox: {fileID: 0}
+--- !u!114 &114880657917866766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451610412765310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407ba1d2645314f4e9e89fc0593d3d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  display: {fileID: 1954018662335460, guid: b4dce3be5ac38df4c8bf37a66b68bd7f, type: 2}
 --- !u!114 &114937763984877576
 MonoBehaviour:
   m_ObjectHideFlags: 1
