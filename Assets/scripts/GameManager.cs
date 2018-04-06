@@ -98,7 +98,10 @@ public class GameManager : MonoBehaviour
     //Update is called every frame.
     void Update()
     {
-
+        if(Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
+        {
+            InventoryManager.DisplayInventory();
+        }
     }
 
     public static void MovePlayer(Vector3 destination)
