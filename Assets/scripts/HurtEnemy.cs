@@ -10,6 +10,20 @@ public class HurtEnemy : MonoBehaviour
     public Transform hitpoint;
     public GameObject damageNumber;
 
+    //public Color InvertColor(Color color)
+    //{
+    //    return new Color(1f - color.r, 1f - color.g, 1f - color.b);
+    //}
+
+    //public void InvertRendererColors(SpriteRenderer render)
+    //{
+    //    Color[] colors = render.sprite.texture.GetPixels();
+    //    for (int x = 0; x < colors.Length; x++)
+    //    {
+    //        InvertColor(colors[x]);
+    //    }
+    //}
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Enemy")
