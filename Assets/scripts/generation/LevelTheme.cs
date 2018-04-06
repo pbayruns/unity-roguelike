@@ -20,7 +20,8 @@ public class LevelTheme
     {
         public Tile[][] tiles;
         public Tile[][] overlay_tiles;
-        public Tile[][] objects;  
+        public Tile[][] objects;
+        public Enemy[][] enemies;
     };
 
     public const int THEME_GRAY = 1;
@@ -81,6 +82,8 @@ public class LevelTheme
     {
         Tile[][] tiles = GetTilesArray(width, height);
         Tile[][] overlayTiles = GetTilesArray(width, height);
+        Enemy[][] enemies = GetEnemiesArray(width, height);
+
         for (int x = 0; x < tiles.Length; x++)
         {
             Tile[] row = tiles[x];
@@ -93,9 +96,15 @@ public class LevelTheme
                     overlayTiles[x][y] = overL[Random.Range(0, overL.Length)];
                 }
                 tiles[x][y] = nextTile;
+                if(Random.Range(0f, 1f) < 0.05f)
+                {
+                    Enemy[] enemy = new Enemy[] { Enemy.SLIME_RED };
+                    enemies[x][y] = enemy[Random.Range(0, enemy.Length)];
+                }
             }
         }
         RoomInfo info = new RoomInfo();
+        info.enemies = enemies;
         info.tiles = tiles;
         info.overlay_tiles = overlayTiles;
         return info;
@@ -173,5 +182,16 @@ public class LevelTheme
             tiles[i] = new Tile[height];
         }
         return tiles;
+    }
+
+    private Enemy[][] GetEnemiesArray(int width, int height)
+    {
+        // Create the enemies array with the right rows and columns
+        Enemy[][] enemies = new Enemy[width][];
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i] = new Enemy[height];
+        }
+        return enemies;
     }
 }

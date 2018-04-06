@@ -48,6 +48,20 @@ public class HUD : MonoBehaviour
         instance.InfoText.gameObject.SetActive(false);
     }
 
+    public static void UpdateHPDisplay(int current, int max)
+    {
+        instance.HPText.text = "HP: " + current + "+" + max;
+    }
+
+    public static void UpdateLevelDisplay(int level, int xp)
+    {
+        instance.LevelText.text = "LVL " + level + " (" + xp + "XP)";
+    }
+
+    public static void UpdateGoldDisplay(int current)
+    {
+        instance.GoldText.text = "Gold: " + current;
+    }
     // Update is called once per frame
     void Update()
     {

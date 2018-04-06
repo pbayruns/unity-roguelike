@@ -26,6 +26,13 @@ public enum Tile
     NOT_SET
 }
 
+public enum Enemy
+{
+    SLIME_RED,
+
+    NONE,
+}
+
 public enum DungeonObject
 {
     CHEST
@@ -54,9 +61,10 @@ public class BoardCreator : MonoBehaviour
     public GameObject SHRUB_ORANGE;
     public GameObject SHRUB_DARK_GREEN;
 
-
+    public GameObject SLIME_RED;
 
     private Dictionary<Tile, GameObject> TileObjects;
+    private Dictionary<Enemy, GameObject> EnemyObjects;
 
     public int columns = 100;                                 // The number of columns on the board (how wide it will be).
     public int rows = 100;                                    // The number of rows on the board (how tall it will be).
@@ -78,6 +86,8 @@ public class BoardCreator : MonoBehaviour
     private Tile[][] tiles;                               // A jagged array of tile types representing the board, like a grid.
     private Tile[][] overlay;
     private Tile[][] objects;
+    private Enemy[][] enemies;
+
     private DungeonObject[] dungeonObjects;
     private Room[] rooms;                                     // All the rooms that are created for this board.
     private Corridor[] corridors;                             // All the corridors that connect the rooms.
@@ -94,6 +104,11 @@ public class BoardCreator : MonoBehaviour
     {
         stairsDepth = Random.Range(minStairDepth, maxStairDepth);
         spawnDepth = Random.Range(minSpawnDepth, maxSpawnDepth);
+        EnemyObjects = new Dictionary<Enemy, GameObject>()
+        {
+            {Enemy.SLIME_RED, SLIME_RED }
+        };
+
         TileObjects = new Dictionary<Tile, GameObject>()
         {
             {Tile.GRASS_NORMAL, GRASS_NORMAL},
@@ -172,16 +187,19 @@ public class BoardCreator : MonoBehaviour
         tiles = new Tile[columns][];
         overlay = new Tile[columns][];
         objects = new Tile[columns][];
+        enemies = new Enemy[columns][];
         for (int col = 0; col < tiles.Length; col++)
         {
             tiles[col] = new Tile[rows];
             overlay[col] = new Tile[rows];
             objects[col] = new Tile[rows];
+            enemies[col] = new Enemy[rows];
             for (int row = 0; row < tiles[col].Length; row++)
             {
                 tiles[col][row] = Tile.NOT_SET;
                 overlay[col][row] = Tile.NOT_SET;
                 objects[col][row] = Tile.NOT_SET;
+                enemies[col][row] = Enemy.NONE;
             }
         }
     }
@@ -262,13 +280,16 @@ public class BoardCreator : MonoBehaviour
                     Tile tile = info.tiles[j][k];
                     Tile obj = Tile.NOT_SET;
                     Tile top = Tile.NOT_SET;
+                    Enemy enemy = Enemy.NONE;
                     if(info.objects != null) obj = info.objects[j][k];
+                    if (info.enemies != null) enemy = info.enemies[j][k];
                     if (info.overlay_tiles != null) top = info.overlay_tiles[j][k];
 
                     // The coordinates in the jagged array are based on the room's position and it's width and height.
                     tiles[xCoord][yCoord] = tile;
                     overlay[xCoord][yCoord] = top;
                     objects[xCoord][yCoord] = obj;
+                    enemies[xCoord][yCoord] = enemy;
                 }
             }
         }
@@ -324,7 +345,7 @@ public class BoardCreator : MonoBehaviour
                 Tile tile = tiles[i][j];
                 Tile top = overlay[i][j];
                 Tile obj = objects[i][j];
-
+                Enemy enemy = enemies[i][j];
                 Tile wall = theme.wallTile;
 
                 if (tile == Tile.NOT_SET)
@@ -342,7 +363,14 @@ public class BoardCreator : MonoBehaviour
                 }
                 if (tile != Tile.NOT_SET)InstantiateTile(tile, i, j);
                 if (top != Tile.NOT_SET) InstantiateTile(top, i, j);
-                if (obj != Tile.NOT_SET) InstantiateTile(obj, i, j);
+                if (obj != Tile.NOT_SET)
+                {
+                    InstantiateTile(obj, i, j);
+                }
+                else if(enemy != Enemy.NONE)
+                {
+                    InstantiateEnemy(enemy, i, j);
+                }
             }
         }
     }
@@ -426,5 +454,20 @@ public class BoardCreator : MonoBehaviour
 
         // Set the tile's parent to the board holder.
         tileInstance.transform.parent = boardHolder.transform;
+    }
+
+    void InstantiateEnemy(Enemy enemy, float xCoord, float yCoord)
+    {
+        // The position to be instantiated at is based on the coordinates.
+        Vector3 position = new Vector3(xCoord, yCoord, 0f);
+
+        // Get the gameobject for this enemy from the dictionary
+        GameObject enemyObject = EnemyObjects[enemy];
+
+        // Create an instance of the prefab from the random index of the array.
+        GameObject enemyInstance = Instantiate(enemyObject, position, Quaternion.identity) as GameObject;
+
+        // Set the enemy's parent to the board holder.
+        enemyInstance.transform.parent = boardHolder.transform;
     }
 }

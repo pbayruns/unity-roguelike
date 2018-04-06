@@ -22,7 +22,7 @@ public class EnemyHealthManager : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             Destroy(gameObject);
-            PlayerStats.addExperience(expToGive);
+            PlayerStats.AddExperience(expToGive);
         }
     }
 
@@ -31,7 +31,7 @@ public class EnemyHealthManager : MonoBehaviour
         CurrentHealth -= damage;
     }
 
-    public void setMaxHealth()
+    public void SetMaxHealth()
     {
         CurrentHealth = MaxHealth;
     }

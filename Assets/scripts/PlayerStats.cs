@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public static int currentLevel;
-    public static int currentExp;
+    public static int currentLevel = 1;
+    public static int currentExp = 0;
 
     public static int hp = 20;
     public static int attack = 3;
     public static int defense = 0;
+
+    public void Start()
+    {
+        HUD.UpdateLevelDisplay(currentLevel, currentExp);
+    }
 
     public static int GetHPForLevel(int level)
     {
@@ -30,7 +35,8 @@ public class PlayerStats : MonoBehaviour
     {
         return (int) Mathf.Round((4 * (level ^ 3)) / 5);
     }
-    public static void addExperience(int xp)
+
+    public static void AddExperience(int xp)
     {
         currentExp += xp;
         if (currentExp >= GetXPForLevel(currentLevel))
@@ -46,5 +52,7 @@ public class PlayerStats : MonoBehaviour
         attack = GetAttackForLevel(currentLevel);
         defense = GetDefenseForLevel(currentLevel);
         PlayerHealthManager.SetMaxHP(hp);
+        SFXManager.PlaySFX(SFX_TYPE.LEVEL_UP);
+        HUD.UpdateLevelDisplay(currentLevel, currentExp);
     }
 }

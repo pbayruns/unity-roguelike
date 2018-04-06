@@ -5,7 +5,7 @@ using UnityEngine;
 public enum SFX_TYPE
 {
     SWORD_ATTACK, STAIRS_DOWN,
-    PLAYER_HURT
+    PLAYER_HURT, LEVEL_UP
 };
 
 public class SFXManager : MonoBehaviour {
@@ -13,6 +13,8 @@ public class SFXManager : MonoBehaviour {
     public AudioSource stairs_down;
     public AudioSource[] sword_sounds;
     public AudioSource[] music;
+    public AudioSource level_up;
+
     private static AudioSource lastSong = null;
     public static SFXManager instance = null; //singleton
 
@@ -44,6 +46,9 @@ public class SFXManager : MonoBehaviour {
             case SFX_TYPE.SWORD_ATTACK:
                 int i = Random.Range(0, instance.sword_sounds.Length);
                 instance.sword_sounds[i].Play();
+                break;
+            case SFX_TYPE.LEVEL_UP:
+                instance.level_up.Play();
                 break;
         }
     }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerHealthManager : MonoBehaviour
 {
 
-    public static int maxHP;
-    public static int currentHP;
+    public static int maxHP = PlayerStats.hp;
+    public static int currentHP = PlayerStats.hp;
 
     public static bool flashing;
     public static float flashTime;
@@ -19,6 +19,7 @@ public class PlayerHealthManager : MonoBehaviour
     {
         currentHP = maxHP;
         playerSprite = GetComponent<SpriteRenderer>();
+        HUD.UpdateHPDisplay(currentHP, maxHP);
     }
 
     // Update is called once per frame
@@ -64,6 +65,7 @@ public class PlayerHealthManager : MonoBehaviour
         flashing = true;
         flashCounter = flashTime;
         SFXManager.PlaySFX(SFX_TYPE.PLAYER_HURT);
+        HUD.UpdateHPDisplay(currentHP, maxHP);
     }
 
     public static void SetMaxHP(int hp)
@@ -80,5 +82,6 @@ public class PlayerHealthManager : MonoBehaviour
             maxHP = hp;
             if (currentHP > maxHP) currentHP = maxHP;
         }
+        HUD.UpdateHPDisplay(currentHP, maxHP);
     }
 }
