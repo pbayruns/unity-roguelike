@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthManager : MonoBehaviour
 {
@@ -30,8 +32,8 @@ public class PlayerHealthManager : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            //GameManager.GameOver();
-            gameObject.SetActive(false);
+            Start();
+            GameManager.GameOver();
         }
         if (flashing)
         {

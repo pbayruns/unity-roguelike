@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private Text levelText;                                 //Text to display current level number.
     private GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
     private float defaultDeltaTime;
-    private int level = 1; //Current level number
+    public int level = 1; //Current level number
     //private bool doingSetup = true; //bool used to prevent Player from moving during setup.	
     public BoardCreator boardScript; //BoardManager which will set up the level.
     private PausableRigidBody2D[] RBs;
@@ -87,14 +87,6 @@ public class GameManager : MonoBehaviour
         doingSetup = false;
     }
 
-    //GameOver is called when the player reaches 0 food points
-    public static void GameOver()
-    {
-        //Disable this GameManager.
-        instance.level = 1;
-        //TODO: Handle game over
-    }
-
     //Update is called every frame.
     void Update()
     {
@@ -139,5 +131,13 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("player " + destination.x + "," + destination.y);
         Player.instance.gameObject.transform.position = destination;
+    }
+
+    public static void GameOver()
+    {
+        SFXManager.PauseMusic();
+        instance.Pause();
+        instance.level = 0;
+        HUD.GameOver();
     }
 }

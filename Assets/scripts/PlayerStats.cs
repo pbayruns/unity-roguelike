@@ -4,12 +4,27 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public static PlayerStats instance = null;
+
     public static int currentLevel = 1;
     public static int currentExp = 0;
 
     public static int hp = 20;
     public static int attack = 3;
     public static int defense = 0;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void Start()
     {

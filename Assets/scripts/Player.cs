@@ -152,6 +152,7 @@ public class Player : MonoBehaviour
         HUD.HideInfoText();
     }
 
+
     //Restart reloads the scene when called.
     private void Restart()
     {

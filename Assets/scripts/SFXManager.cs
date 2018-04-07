@@ -6,6 +6,7 @@ public enum SFX_TYPE
 {
     SWORD_ATTACK, STAIRS_DOWN,
     PLAYER_HURT, LEVEL_UP, ENEMY_HURT,
+    DEATH_GRUNT, DEATH_EXPLOSION,
     ATTACK_FAILED
 };
 
@@ -17,6 +18,8 @@ public class SFXManager : MonoBehaviour {
     public AudioSource level_up;
     public AudioSource[] enemy_hurt;
     public AudioSource[] player_hurt;
+    public AudioSource death_grunt;
+    public AudioSource death_explosion;
 
     private static AudioSource lastSong = null;
     public static SFXManager instance = null; //singleton
@@ -61,12 +64,18 @@ public class SFXManager : MonoBehaviour {
             case SFX_TYPE.LEVEL_UP:
                 instance.level_up.Play();
                 break;
+            case SFX_TYPE.DEATH_GRUNT:
+                instance.death_grunt.Play();
+                break;
+            case SFX_TYPE.DEATH_EXPLOSION:
+                instance.death_explosion.Play();
+                break;
         }
     }
 
     public static void PauseMusic()
     {
-
+        if (lastSong) lastSong.Stop();
     }
 
     public static void PauseSFX()

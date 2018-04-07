@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
@@ -11,6 +13,7 @@ public class HUD : MonoBehaviour
     public Text HPText;
     public Text GoldText;
     public Text LevelText;
+    public Text GameOverText;
 
     private void Awake()
     {
@@ -34,6 +37,38 @@ public class HUD : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+    }
+
+    public static void GameOver()
+    {
+        instance.GameOverText.gameObject.SetActive(true);
+        instance.GameOverText.text = "YOU";
+        SFXManager.PlaySFX(SFX_TYPE.DEATH_EXPLOSION);
+        instance.StartCoroutine(instance.GameOverFinish("YOU DIED", 1f));
+    }
+
+
+    public IEnumerator GameOverFinish(string text, float delayTime = 1f)
+    {
+        yield return WaitForRealSeconds(delayTime);
+        instance.GameOverText.text = text;
+        SFXManager.PlaySFX(SFX_TYPE.DEATH_EXPLOSION);
+        PrefabUtility.ResetToPrefabState(Player.instance);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        GameManager.instance.Resume();
+    }
+
+    public IEnumerator _WaitForRealSeconds(float aTime)
+    {
+        while (aTime > 0f)
+        {
+            aTime -= Mathf.Clamp(Time.unscaledDeltaTime, 0, 0.2f);
+            yield return null;
+        }
+    }
+    public Coroutine WaitForRealSeconds(float aTime)
+    {
+        return StartCoroutine(_WaitForRealSeconds(aTime));
     }
 
     //TODO: make this work later

@@ -21,6 +21,7 @@ public class EnemyHealthManager : MonoBehaviour
     {
         if (CurrentHealth <= 0)
         {
+            SFXManager.PlaySFX(SFX_TYPE.DEATH_EXPLOSION);
             Destroy(gameObject);
             PlayerStats.AddExperience(expToGive);
         }
