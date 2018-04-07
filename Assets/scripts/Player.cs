@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
             anim.SetBool("IsAttacking", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J) || Input.GetMouseButtonDown(0))
         {
             attackTimeCounter = attackTime;
             attacking = true;

@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryMenu : MonoBehaviour {
 
     public static InventoryMenu instance = null;
-
+    public Image menuPanel;
+    
     //Awake is always called before any Start functions
     void Awake()
     {
@@ -21,14 +23,12 @@ public class InventoryMenu : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public static void ShowDisplay()
+    public static bool ToggleDisplay()
     {
-        instance.gameObject.SetActive(true);
-    }
-
-    public static void HideDisplay()
-    {
-        instance.gameObject.SetActive(false);
+        bool state = instance.menuPanel.gameObject.activeSelf;
+        bool menuOpen = !state;
+        instance.menuPanel.gameObject.SetActive(menuOpen);
+        return menuOpen;
     }
 
     // Use this for initialization

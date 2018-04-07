@@ -64,18 +64,4 @@ public class InventoryManager : MonoBehaviour {
         }
         return null;
     }
-
-    public static void DisplayInventory()
-    {
-        InventoryMenu.ShowDisplay();
-    }
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

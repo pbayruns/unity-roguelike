@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 50213338833194364}
   - component: {fileID: 114600632397535690}
   - component: {fileID: 114919116809585084}
+  - component: {fileID: 114285238692436830}
   m_Layer: 0
   m_Name: Slime [Red]
   m_TagString: Enemy
@@ -98,6 +99,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114285238692436830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1783330861710642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a0a56f4c0f4e0449e1f648f095ea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114600632397535690
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,11 +12,11 @@ public class GameManager : MonoBehaviour
     public Player player;
     private Text levelText;                                 //Text to display current level number.
     private GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
-
+    private float defaultDeltaTime;
     private int level = 1; //Current level number
     //private bool doingSetup = true; //bool used to prevent Player from moving during setup.	
     public BoardCreator boardScript; //BoardManager which will set up the level.
-
+    private PausableRigidBody2D[] RBs;
     //Awake is always called before any Start functions
     void Awake()
     {
@@ -100,7 +100,26 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
         {
-            InventoryManager.DisplayInventory();
+            bool menuOpen = InventoryMenu.ToggleDisplay();
+            if (menuOpen) {
+                Time.timeScale = 0f;
+                instance.RBs = Object.FindObjectsOfType<PausableRigidBody2D>();
+                for(int i = 0; i< instance.RBs.Length; i++)
+                {
+                    instance.RBs[i].Pause();
+                }
+                instance.defaultDeltaTime = Time.fixedDeltaTime;
+                Time.fixedDeltaTime = float.MaxValue;
+            }
+            else
+            {
+                for (int i = 0; i < instance.RBs.Length; i++)
+                {
+                    instance.RBs[i].Resume();
+                }
+                Time.timeScale = 1f;
+                Time.fixedDeltaTime = defaultDeltaTime;
+            }
         }
     }
 
