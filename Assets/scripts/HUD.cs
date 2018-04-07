@@ -36,6 +36,13 @@ public class HUD : MonoBehaviour
     {
     }
 
+    //TODO: make this work later
+    public static void ShowInfoTextTimed(string text, float time = 1f)
+    {
+        ShowInfoText(text);
+        instance.Invoke("HideInfoText", time);
+    }
+
     public static void ShowInfoText(string text)
     {
         instance.InfoText.gameObject.SetActive(true);

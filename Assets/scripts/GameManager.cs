@@ -102,25 +102,37 @@ public class GameManager : MonoBehaviour
         {
             bool menuOpen = InventoryMenu.ToggleDisplay();
             if (menuOpen) {
-                Time.timeScale = 0f;
-                instance.RBs = Object.FindObjectsOfType<PausableRigidBody2D>();
-                for(int i = 0; i< instance.RBs.Length; i++)
-                {
-                    instance.RBs[i].Pause();
-                }
-                instance.defaultDeltaTime = Time.fixedDeltaTime;
-                Time.fixedDeltaTime = float.MaxValue;
+                Pause();
             }
             else
             {
-                for (int i = 0; i < instance.RBs.Length; i++)
-                {
-                    instance.RBs[i].Resume();
-                }
-                Time.timeScale = 1f;
-                Time.fixedDeltaTime = defaultDeltaTime;
+                Resume();
             }
         }
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+        instance.RBs = Object.FindObjectsOfType<PausableRigidBody2D>();
+        for (int i = 0; i < instance.RBs.Length; i++)
+        {
+            instance.RBs[i].Pause();
+        }
+        SFXManager.Pause();
+        instance.defaultDeltaTime = Time.fixedDeltaTime;
+        Time.fixedDeltaTime = float.MaxValue;
+    }
+
+    public void Resume()
+    {
+        for (int i = 0; i < instance.RBs.Length; i++)
+        {
+            instance.RBs[i].Resume();
+        }
+        SFXManager.Resume();
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = defaultDeltaTime;
     }
 
     public static void MovePlayer(Vector3 destination)

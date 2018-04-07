@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 114937763984877576}
   - component: {fileID: 114036316683913740}
   - component: {fileID: 114880657917866766}
+  - component: {fileID: 114244177910175326}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -364,6 +365,19 @@ MonoBehaviour:
   sprintModifier: 1.5
   stairsSound: {fileID: 82934056602698164, guid: 18c2ecc0853bb1c4882ff3ed50698a36,
     type: 2}
+--- !u!114 &114244177910175326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451610412765310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a14485c49ad53d54aa75c94008999874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item_limit: 10
+  inventory: []
 --- !u!114 &114362851396377450
 MonoBehaviour:
   m_ObjectHideFlags: 1

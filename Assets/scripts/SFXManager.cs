@@ -63,6 +63,26 @@ public class SFXManager : MonoBehaviour {
         }
     }
 
+    public static void PauseMusic()
+    {
+
+    }
+
+    public static void PauseSFX()
+    {
+
+    }
+
+    public static void Pause()
+    {
+        lastSong.Pause();
+    }
+
+    public static void Resume()
+    {
+        lastSong.Play();
+    }
+
     public static void PlayMusic()
     {
         if(lastSong) lastSong.Stop();

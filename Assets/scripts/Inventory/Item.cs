@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour {
 
+    public Sprite icon;
 	// Use this for initializationss
 	void Start () {
 		
@@ -13,4 +14,9 @@ public class Item : MonoBehaviour {
 	void Update () {
 		
 	}
+    
+    public void Use()
+    {
+
+    }
 }
