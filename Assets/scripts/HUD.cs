@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -53,7 +52,6 @@ public class HUD : MonoBehaviour
         yield return WaitForRealSeconds(delayTime);
         instance.GameOverText.text = text;
         SFXManager.PlaySFX(SFX_TYPE.DEATH_EXPLOSION);
-        PrefabUtility.ResetToPrefabState(Player.instance);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
         GameManager.instance.Resume();
     }

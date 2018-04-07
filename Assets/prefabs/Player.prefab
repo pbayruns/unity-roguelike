@@ -359,7 +359,7 @@ MonoBehaviour:
   restartLevelDelay: 0.3
   speed: 5
   lastMove: {x: 0, y: 0}
-  attackTime: 0.25
+  attackTime: 0.15
   startPoint: 
   canMove: 0
   sprintModifier: 1.5
