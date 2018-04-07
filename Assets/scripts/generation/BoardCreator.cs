@@ -29,7 +29,8 @@ public enum Tile
 public enum Enemy
 {
     SLIME_RED,
-
+    KNIGHT_DEFAULT,
+    ORC_DEFAULT,
     NONE,
 }
 
@@ -62,6 +63,8 @@ public class BoardCreator : MonoBehaviour
     public GameObject SHRUB_DARK_GREEN;
 
     public GameObject SLIME_RED;
+    public GameObject KNIGHT_DEFAULT;
+    public GameObject ORC_DEFAULT;
 
     private Dictionary<Tile, GameObject> TileObjects;
     private Dictionary<Enemy, GameObject> EnemyObjects;
@@ -106,7 +109,9 @@ public class BoardCreator : MonoBehaviour
         spawnDepth = Random.Range(minSpawnDepth, maxSpawnDepth);
         EnemyObjects = new Dictionary<Enemy, GameObject>()
         {
-            {Enemy.SLIME_RED, SLIME_RED }
+            {Enemy.SLIME_RED, SLIME_RED },
+            {Enemy.KNIGHT_DEFAULT, KNIGHT_DEFAULT },
+            {Enemy.ORC_DEFAULT, ORC_DEFAULT }            
         };
 
         TileObjects = new Dictionary<Tile, GameObject>()

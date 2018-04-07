@@ -77,6 +77,10 @@ MonoBehaviour:
   SHRUB_DARK_GREEN: {fileID: 1799672844040014, guid: 0768531b09fd2b548b201f25f10d8739,
     type: 2}
   SLIME_RED: {fileID: 1783330861710642, guid: b2f8319e3e8d9f54597cd12d2b31e0a2, type: 2}
+  KNIGHT_DEFAULT: {fileID: 1198636283905714, guid: 587c214ed0cfa5f48950864e2f59e13f,
+    type: 2}
+  ORC_DEFAULT: {fileID: 1986767166734390, guid: 64bae4f17e51252488755bc52d056da0,
+    type: 2}
   columns: 100
   rows: 100
   numRooms:
@@ -84,10 +88,10 @@ MonoBehaviour:
     m_Max: 20
   roomWidth:
     m_Min: 5
-    m_Max: 30
+    m_Max: 15
   roomHeight:
-    m_Min: 5
-    m_Max: 30
+    m_Min: 6
+    m_Max: 14
   corridorLength:
     m_Min: 6
     m_Max: 10

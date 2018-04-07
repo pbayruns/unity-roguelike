@@ -19,6 +19,10 @@ public class InventoryManager : MonoBehaviour {
     };
     public static Dictionary<EquipSlot, Item> equipped;
 
+    public static int GetInventoryLimit()
+    {
+        return instance.item_limit;
+    }
     private void Awake()
     {
         if (instance == null)

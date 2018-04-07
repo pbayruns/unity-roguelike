@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     public static Player instance = null;				//Static instance of Player which allows it to be accessed by any other script.
 
-    public float restartLevelDelay = 1f;		//Delay time in seconds to restart level.
+    public float restartLevelDelay = 0.3f;		//Delay time in seconds to restart level.
     public float speed; // Player's movement speed in units
     public Vector2 lastMove;
     public float attackTime;

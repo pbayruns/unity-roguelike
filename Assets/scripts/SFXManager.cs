@@ -5,7 +5,8 @@ using UnityEngine;
 public enum SFX_TYPE
 {
     SWORD_ATTACK, STAIRS_DOWN,
-    PLAYER_HURT, LEVEL_UP, ENEMY_HURT
+    PLAYER_HURT, LEVEL_UP, ENEMY_HURT,
+    ATTACK_FAILED
 };
 
 public class SFXManager : MonoBehaviour {

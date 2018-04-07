@@ -26,12 +26,7 @@ public class LevelTheme
     };
 
     public const int THEME_GRAY = 1;
-    private Tile[] gray_theme_tiles = new Tile[]
-    {
-        Tile.DIRT,
-        Tile.WALL_GREY,
-        Tile.TILE_GREY
-    };
+
     //What is a Theme?
     //A way of generating rooms
     // Having different treasure and enemy structure
@@ -57,6 +52,8 @@ public class LevelTheme
     private RoomInfo GetForestDefaultRoom(int width, int height)
     {
         Tile[][] tiles = GetTilesArray(width, height);
+        Tile[][] overlayTiles = GetTilesArray(width, height);
+        Enemy[][] enemies = GetEnemiesArray(width, height);
         for (int x = 0; x < tiles.Length; x++)
         {
             Tile[] row = tiles[x];
@@ -72,10 +69,20 @@ public class LevelTheme
                     nextTile = Tile.FLOWERS_BLUE;
                 }
                 tiles[x][y] = nextTile;
+
+                Enemy nextEnemy = Enemy.NONE;
+                if (Random.Range(0f, 1f) < 0.005f)
+                {
+                    Enemy[] enemy = new Enemy[] { Enemy.ORC_DEFAULT };
+                    nextEnemy = enemy[Random.Range(0, enemy.Length)];
+                }
+                enemies[x][y] = nextEnemy;
             }
         }
         RoomInfo info = new RoomInfo();
+        info.enemies = enemies;
         info.tiles = tiles;
+        info.overlay_tiles = overlayTiles;
         return info;
     }
 
@@ -118,6 +125,8 @@ public class LevelTheme
     {
         Tile[][] tiles = GetTilesArray(width, height);
         Tile[][] objects = GetTilesArray(width, height);
+        Enemy[][] enemies = GetEnemiesArray(width, height);
+
         for (int x = 0; x < tiles.Length; x++)
         {
             Tile[] row = tiles[x];
@@ -129,11 +138,19 @@ public class LevelTheme
                     Tile[] objx = new Tile[] { Tile.STUMP_1, Tile.STUMP_2, Tile.STUMP_3 };
                     objects[x][y] = objx[Random.Range(0, objx.Length)];
                 }
+
+                Enemy nextEnemy = Enemy.NONE;
+                if (Random.Range(0f, 1f) < 0.01f)
+                {
+                    Enemy[] enemy = new Enemy[] { Enemy.KNIGHT_DEFAULT };
+                    nextEnemy = enemy[Random.Range(0, enemy.Length)];
+                }
+                enemies[x][y] = nextEnemy;
             }
         }
         RoomInfo info = new RoomInfo();
+        info.enemies = enemies;
         info.tiles = tiles;
-        info.objects = objects;
         return info;
     }
 

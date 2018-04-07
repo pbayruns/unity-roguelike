@@ -22,6 +22,7 @@ public class PickupItem : MonoBehaviour {
         {
             if (InventoryManager.AddItem(item))
             {
+                Debug.Log("added to inventory");
                 HUD.ShowInfoTextTimed("Item added to inventory", 1f);
                 Destroy(gameObject);
             }

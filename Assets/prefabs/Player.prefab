@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01604aeb1990da44aaa90883827f6b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restartLevelDelay: 1
+  restartLevelDelay: 0.3
   speed: 5
   lastMove: {x: 0, y: 0}
   attackTime: 0.25
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14485c49ad53d54aa75c94008999874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item_limit: 10
+  item_limit: 16
   inventory: []
 --- !u!114 &114362851396377450
 MonoBehaviour:
@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06743efb524b33c4f964d74d5d2aea26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followTarget: {fileID: 0}
+  followTarget: {fileID: 1451610412765310}
   speed: 5
   boundBox: {fileID: 0}
 --- !u!114 &114880657917866766

@@ -40,7 +40,7 @@ public class HUD : MonoBehaviour
     public static void ShowInfoTextTimed(string text, float time = 1f)
     {
         ShowInfoText(text);
-        instance.Invoke("HideInfoText", time);
+        //instance.Invoke("HideInfoText", time);
     }
 
     public static void ShowInfoText(string text)

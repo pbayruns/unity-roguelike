@@ -9,6 +9,7 @@ public class InventoryMenu : MonoBehaviour {
 
     public Transform itemsParent;   // The parent object of all the items
     public GameObject inventoryUI;  // The entire UI
+    public InventorySlot slotPrefab;
 
     InventoryManager inventory;    // Our current inventory
 
@@ -33,7 +34,10 @@ public class InventoryMenu : MonoBehaviour {
     {
         inventory = InventoryManager.instance;
         inventory.onItemChangedCallback += UpdateUI;    // Subscribe to the onItemChanged callback
-
+        for (int i = 0; i < InventoryManager.GetInventoryLimit(); i++) {
+            InventorySlot slot = Instantiate(slotPrefab);
+            slot.transform.SetParent(itemsParent);
+        }
         // Populate our slots array
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
