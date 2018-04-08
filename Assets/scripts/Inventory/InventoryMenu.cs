@@ -33,7 +33,7 @@ public class InventoryMenu : MonoBehaviour {
     void Start()
     {
         inventory = InventoryManager.instance;
-        inventory.onItemChangedCallback += UpdateUI;    // Subscribe to the onItemChanged callback
+        inventory.onItemChangedCallback = UpdateUI;    // Subscribe to the onItemChanged callback
         for (int i = 0; i < InventoryManager.GetInventoryLimit(); i++) {
             InventorySlot slot = Instantiate(slotPrefab);
             slot.transform.SetParent(itemsParent);

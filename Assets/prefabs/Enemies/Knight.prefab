@@ -107,7 +107,7 @@ MonoBehaviour:
   expToGive: 25
   smokeburst: {fileID: 198696692842491780, guid: ee696986b50396c408e3359cc4a34396,
     type: 2}
-  enemyType: 0
+  enemyType: 1
 --- !u!114 &114396601896506810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,7 +180,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1510494703
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300736, guid: 7929b1290e450fb439305cf0b1b5f7af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
