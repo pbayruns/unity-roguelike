@@ -66,12 +66,12 @@ public class HurtEnemy : MonoBehaviour
 
     int DealDamage(Collider2D other, int hit)
     {
-        other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(hit);
+        other.gameObject.GetComponent<EnemyHealthManager>().DealDamage(hit);
         var clone = (GameObject)Instantiate(damageNumber, hitpoint.position, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<FloatingNumber>().damage = hit;
         return hit;
     }
-    void Knockback(Collider2D other)
+    public static void Knockback(Collider2D other)
     {
         Rigidbody2D otherBody = other.gameObject.GetComponent<Rigidbody2D>();
         Vector2 direction = Player.GetLastMove().normalized;

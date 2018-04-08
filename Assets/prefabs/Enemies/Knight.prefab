@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50701929929511038}
   - component: {fileID: 114396601896506810}
   - component: {fileID: 114784109999863524}
+  - component: {fileID: 114977896159014308}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Enemy
@@ -104,6 +105,9 @@ MonoBehaviour:
   MaxHealth: 30
   CurrentHealth: 30
   expToGive: 25
+  smokeburst: {fileID: 198696692842491780, guid: ee696986b50396c408e3359cc4a34396,
+    type: 2}
+  enemyType: 0
 --- !u!114 &114396601896506810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,6 +137,17 @@ MonoBehaviour:
   timeBetweenMove: 2
   timeToMove: 1
   waitToReload: 0
+--- !u!114 &114977896159014308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198636283905714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a0a56f4c0f4e0449e1f648f095ea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212968725130945430
 SpriteRenderer:
   m_ObjectHideFlags: 1

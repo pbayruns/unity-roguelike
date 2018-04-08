@@ -153,6 +153,8 @@ MonoBehaviour:
   MaxHealth: 15
   CurrentHealth: 15
   expToGive: 10
+  smokeburst: {fileID: 198696692842491780, guid: ee696986b50396c408e3359cc4a34396,
+    type: 2}
 --- !u!212 &212364632507090946
 SpriteRenderer:
   m_ObjectHideFlags: 1
