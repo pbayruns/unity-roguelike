@@ -55,9 +55,9 @@ GameObject:
   - component: {fileID: 61970336728096820}
   - component: {fileID: 50753373664900732}
   - component: {fileID: 114129935655538208}
-  - component: {fileID: 114149584273646680}
   - component: {fileID: 114390695261658394}
   - component: {fileID: 114019143599259700}
+  - component: {fileID: 114166634339425754}
   m_Layer: 0
   m_Name: Orc
   m_TagString: Enemy
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a0a56f4c0f4e0449e1f648f095ea77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114149584273646680
+--- !u!114 &114166634339425754
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -184,12 +184,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1986767166734390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abe98f966f1f2b34ba0e149ea40a1aa6, type: 3}
+  m_Script: {fileID: 11500000, guid: dc50ffc47f6d4b241b0a820c3522add7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  timeBetweenMove: 2
-  timeToMove: 1
+  moveSpeed: 20
+  timeBetweenMove: 1
+  timeToMove: 4
+  maxFollowRange: 15
   waitToReload: 0
 --- !u!114 &114390695261658394
 MonoBehaviour:

@@ -24,8 +24,8 @@ GameObject:
   - component: {fileID: 61197786991237656}
   - component: {fileID: 50701929929511038}
   - component: {fileID: 114396601896506810}
-  - component: {fileID: 114784109999863524}
   - component: {fileID: 114977896159014308}
+  - component: {fileID: 114954815158379046}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Enemy
@@ -122,7 +122,7 @@ MonoBehaviour:
   damage: 10
   damageDisplay: {fileID: 1595340644041714, guid: 95547cdbd5bc12f4da403a08d284ff2e,
     type: 2}
---- !u!114 &114784109999863524
+--- !u!114 &114954815158379046
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -130,12 +130,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1198636283905714}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abe98f966f1f2b34ba0e149ea40a1aa6, type: 3}
+  m_Script: {fileID: 11500000, guid: cbd8ecdc4a40619479415307b7ab82d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
-  timeBetweenMove: 2
-  timeToMove: 1
+  timeBetweenMove: 1.5
+  timeToMove: 5
   waitToReload: 0
 --- !u!114 &114977896159014308
 MonoBehaviour:
