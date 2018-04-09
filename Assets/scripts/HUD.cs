@@ -84,8 +84,11 @@ public class HUD : MonoBehaviour
 
     public static void HideInfoText()
     {
-        instance.InfoText.text = "";
-        instance.InfoText.gameObject.SetActive(false);
+        if(instance != null)
+        {
+            instance.InfoText.text = "";
+            instance.InfoText.gameObject.SetActive(false);
+        }
     }
 
     public static void UpdateHPDisplay(int current, int max)

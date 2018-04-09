@@ -11,27 +11,28 @@ public class HurtEnemy : MonoBehaviour
     public GameObject damageNumber;
     public static Color damageColor = new Color(0.7f, 0.35f, 0.3f, 1f);
     public static Color normalColor = new Color(1f, 1f, 1f, 1f);
-    //public Color InvertColor(Color color)
-    //{
-    //    return new Color(1f - color.r, 1f - color.g, 1f - color.b);
-    //}
 
-    //public void InvertRendererColors(SpriteRenderer render)
-    //{
-    //    Color[] colors = render.sprite.texture.GetPixels();
-    //    for (int x = 0; x < colors.Length; x++)
-    //    {
-    //        InvertColor(colors[x]);
-    //    }
-    //}
+    public static float damageCooldown = 0.3f;
+    public static HashSet<int> enemiesGettingDamage = null;  
+
+    void Awake()
+    {
+        if(enemiesGettingDamage == null)
+        {
+            enemiesGettingDamage = new HashSet<int>();
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Enemy")
         {
+            int id = other.gameObject.GetInstanceID();
             int hit = damage + PlayerStats.attack;
-            if (hit > 0)
+            if (hit > 0 && !enemiesGettingDamage.Contains(id))
             {
+                enemiesGettingDamage.Add(id);
+                GameManager.instance.StartCoroutine(EnemyCanBeDamaged(id, damageCooldown));
                 SFXManager.PlaySFX(SFX_TYPE.ENEMY_HURT);
                 DealDamage(other, hit);
                 Knockback(other);
@@ -47,6 +48,7 @@ public class HurtEnemy : MonoBehaviour
 
         }
     }
+
     void DamageFlash(SpriteRenderer sprite)
     {
         float flashTime = 0.05f;
@@ -55,7 +57,14 @@ public class HurtEnemy : MonoBehaviour
         StartCoroutine(SetColor(sprite, damageColor, flashTime * 2));
         StartCoroutine(SetColor(sprite, normalColor, flashTime * 3));
         StartCoroutine(SetColor(sprite, damageColor, flashTime * 4));
-        StartCoroutine(SetColor(sprite, normalColor, flashTime * 5));
+        StartCoroutine(SetColor(sprite, normalColor, flashTime * 10));
+    }
+
+
+    public static IEnumerator EnemyCanBeDamaged(int enemyID, float delayTime = 0.2f)
+    {
+        yield return new WaitForSeconds(delayTime);
+        enemiesGettingDamage.Remove(enemyID);
     }
 
     public IEnumerator SetColor(SpriteRenderer sprite, Color color, float delayTime = 0.2f)

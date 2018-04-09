@@ -64,7 +64,8 @@ public class Player : MonoBehaviour
 
     public static Vector3 GetPosition()
     {
-        return instance.gameObject.transform.position;
+        if (instance != null) return instance.gameObject.transform.position;
+        else return Vector3.zero;
     }
 
     public static CameraController GetCamera()
