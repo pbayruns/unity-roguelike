@@ -36,8 +36,15 @@ public class HUD : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        RefreshDataDisplay();
     }
 
+    public static void RefreshDataDisplay()
+    {
+        UpdateHPDisplay(PlayerHealthManager.currentHP, PlayerHealthManager.maxHP);
+        UpdateGoldDisplay(ResourceManager.GetGold());
+        UpdateLevelDisplay(PlayerStats.currentLevel, PlayerStats.currentExp, PlayerStats.GetXPToNextLvl());
+    }
     public static void GameOver()
     {
         instance.GameOverText.gameObject.SetActive(true);
@@ -73,7 +80,18 @@ public class HUD : MonoBehaviour
     public static void ShowInfoTextTimed(string text, float time = 1f)
     {
         ShowInfoText(text);
+        GameManager.instance.StartCoroutine(HideInfoTextTimed(1f));
         //instance.Invoke("HideInfoText", time);
+    }
+
+    public static IEnumerator HideInfoTextTimed(float delayTime = 1f)
+    {
+        yield return new WaitForSeconds(delayTime);
+        if (instance != null)
+        {
+            instance.InfoText.text = "";
+            instance.InfoText.gameObject.SetActive(false);
+        }
     }
 
     public static void ShowInfoText(string text)
@@ -84,7 +102,7 @@ public class HUD : MonoBehaviour
 
     public static void HideInfoText()
     {
-        if(instance != null)
+        if (instance != null)
         {
             instance.InfoText.text = "";
             instance.InfoText.gameObject.SetActive(false);
@@ -96,9 +114,9 @@ public class HUD : MonoBehaviour
         instance.HPText.text = "HP: " + current + "+" + max;
     }
 
-    public static void UpdateLevelDisplay(int level, int xp)
+    public static void UpdateLevelDisplay(int level, int xp, int nextLvlXp = -1)
     {
-        instance.LevelText.text = "LVL " + level + " (" + xp + "XP)";
+        instance.LevelText.text = "LVL " + level + " (" + nextLvlXp + "XP To Next LVL)";
     }
 
     public static void UpdateGoldDisplay(int current)

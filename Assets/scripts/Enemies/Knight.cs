@@ -56,9 +56,6 @@ public class Knight : MonoBehaviour {
             {
                 moving = true;
                 timeToMoveCounter = timeToMove;
-
-                float randX = Random.Range(-1f, 1f) * moveSpeed;
-                float randY = Random.Range(-1f, 1f) * moveSpeed;
             }
         }
     }

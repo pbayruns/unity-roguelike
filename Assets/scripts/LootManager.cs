@@ -38,23 +38,23 @@ public class LootManager : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
+            items = new Dictionary<ItemType, Item>();
+            resources = new Dictionary<ResourceItemType, Resource>();
+            foreach (ResourcePair pair in resourcePairs)
+            {
+                instance.resources.Add(pair.resourceType, pair.resource);
+            }
+
+            foreach (ItemPair pair in itemPairs)
+            {
+                instance.items.Add(pair.itemType, pair.item);
+            }
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        items = new Dictionary<ItemType, Item>();
-        resources = new Dictionary<ResourceItemType, Resource>();
-        foreach(ResourcePair pair in resourcePairs)
-        {
-            instance.resources.Add(pair.resourceType, pair.resource);
-        }
-
-        foreach (ItemPair pair in itemPairs)
-        {
-            instance.items.Add(pair.itemType, pair.item);
-        }
     }
 
     public static void DropLoot(Enemy enemy, Vector3 position)

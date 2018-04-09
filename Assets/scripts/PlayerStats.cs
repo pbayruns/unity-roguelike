@@ -54,12 +54,17 @@ public class PlayerStats : MonoBehaviour
     public static void AddExperience(int xp)
     {
         currentExp += xp;
-        HUD.UpdateLevelDisplay(currentLevel, currentExp);
+        HUD.UpdateLevelDisplay(currentLevel, currentExp, GetXPToNextLvl());
         PlayerNotification.DisplayXPNotification(xp);
         if (currentExp >= GetXPForLevel(currentLevel + 1))
         {
             LevelUp();
         }
+    }
+
+    public static int GetXPToNextLvl()
+    {
+        return GetXPForLevel(currentLevel + 1);
     }
 
     public static void LevelUp()
@@ -79,7 +84,7 @@ public class PlayerStats : MonoBehaviour
 
         PlayerHealthManager.SetMaxHP(hp);
         SFXManager.PlaySFX(SFX_TYPE.LEVEL_UP);
-        HUD.UpdateLevelDisplay(currentLevel, currentExp);
+        HUD.RefreshDataDisplay();
         PlayerNotification.DisplayLevelUpNotification(currentLevel, atkDif, defDif, hpDif);
     }
 }

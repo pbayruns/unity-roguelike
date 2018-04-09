@@ -148,9 +148,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        bool ePressed = Input.GetKeyDown(KeyCode.E);
+        if (other.tag == "Stairs")
+        {
+            HUD.ShowInfoTextTimed("<Press E to descend>", 1f);
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D other)
     {
-        HUD.HideInfoText();
+        if (other.tag == "Stairs")
+        {
+            HUD.HideInfoText();
+        }
     }
 
 
