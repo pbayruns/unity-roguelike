@@ -20,7 +20,7 @@ public class PlayerHealthManager : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
-        playerSprite = GetComponent<SpriteRenderer>();
+        playerSprite = GetComponentInChildren<SpriteRenderer>();
         childSprites = GameObject.Find("Weapon").GetComponentsInChildren<SpriteRenderer>();
         HUD.UpdateHPDisplay(currentHP, maxHP);
     }

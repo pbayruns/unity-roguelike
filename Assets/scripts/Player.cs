@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         body = GetComponent<Rigidbody2D>();
 
         canMove = true;
