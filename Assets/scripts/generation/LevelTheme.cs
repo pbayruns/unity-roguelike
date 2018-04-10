@@ -54,6 +54,8 @@ public class LevelTheme
         Tile[][] tiles = GetTilesArray(width, height);
         Tile[][] overlayTiles = GetTilesArray(width, height);
         Enemy[][] enemies = GetEnemiesArray(width, height);
+        int enemyCount = 0;
+        int maxEnemies = width * height / 20;
         for (int x = 0; x < tiles.Length; x++)
         {
             Tile[] row = tiles[x];
@@ -71,10 +73,11 @@ public class LevelTheme
                 tiles[x][y] = nextTile;
 
                 Enemy nextEnemy = Enemy.NONE;
-                if (Random.Range(0f, 1f) < 0.005f)
+                if (enemyCount < maxEnemies && Random.Range(0f, 1f) < 0.05f)
                 {
-                    Enemy[] enemy = new Enemy[] { Enemy.ORC_DEFAULT };
+                    Enemy[] enemy = new Enemy[] { Enemy.ORC_DEFAULT, Enemy.SLIME_RED, Enemy.KNIGHT_DEFAULT };
                     nextEnemy = enemy[Random.Range(0, enemy.Length)];
+                    enemyCount++;
                 }
                 enemies[x][y] = nextEnemy;
             }
@@ -140,7 +143,7 @@ public class LevelTheme
                 }
 
                 Enemy nextEnemy = Enemy.NONE;
-                if (Random.Range(0f, 1f) < 0.01f)
+                if (Random.Range(0f, 1f) < 0.03f)
                 {
                     Enemy[] enemy = new Enemy[] { Enemy.KNIGHT_DEFAULT };
                     nextEnemy = enemy[Random.Range(0, enemy.Length)];
@@ -149,6 +152,7 @@ public class LevelTheme
             }
         }
         RoomInfo info = new RoomInfo();
+        info.objects = objects;
         info.enemies = enemies;
         info.tiles = tiles;
         return info;

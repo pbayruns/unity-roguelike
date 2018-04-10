@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114069447956434426}
   - component: {fileID: 114433223888580510}
   - component: {fileID: 114134937471341776}
+  - component: {fileID: 114857292162851312}
   m_Layer: 0
   m_Name: Knight 1
   m_TagString: Enemy
@@ -107,7 +108,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.34}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -118,7 +119,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7, y: 0.65}
   m_EdgeRadius: 0
 --- !u!95 &95933638747128682
 Animator:
@@ -159,10 +160,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e07884fec87be4eb83eda3a80d8330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  timeBetweenMove: 1
-  timeToMove: 2
-  maxFollowRange: 10
+  speed: 2
+  knockbackTime: 1
+  knockbackSpeed: 10
+  maxFollowRange: 4
+  followTime: 3
+  movingTime: 1
+  stillTime: 1
 --- !u!114 &114433223888580510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,10 +180,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 30
   CurrentHealth: 30
-  expToGive: 25
+  expToGive: 30
   smokeburst: {fileID: 198696692842491780, guid: ee696986b50396c408e3359cc4a34396,
     type: 2}
   enemyType: 1
+--- !u!114 &114857292162851312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1358634050119294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3e6143cd8ba52408d663a7e9eae35d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 7
+  damageDisplay: {fileID: 1595340644041714, guid: 95547cdbd5bc12f4da403a08d284ff2e,
+    type: 2}
 --- !u!212 &212347917298580362
 SpriteRenderer:
   m_ObjectHideFlags: 1

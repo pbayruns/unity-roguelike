@@ -7,8 +7,8 @@ public class HurtPlayer : MonoBehaviour
 
     public int damage;
     public GameObject damageDisplay;
-    public float damageCooldown = 0.75f;
-    public bool canDamage;
+    public static float damageCooldown = 0.75f;
+    private bool canDamage;
 
     private void Start()
     {

@@ -36,7 +36,7 @@ public class HurtEnemy : MonoBehaviour
                 SFXManager.PlaySFX(SFX_TYPE.ENEMY_HURT);
                 DealDamage(other, hit);
                 Knockback(other);
-                SpriteRenderer sprite = other.GetComponent<SpriteRenderer>();
+                SpriteRenderer sprite = other.GetComponentInChildren<SpriteRenderer>();
                 DamageFlash(sprite);
             }
             else
@@ -82,8 +82,7 @@ public class HurtEnemy : MonoBehaviour
     }
     public static void Knockback(Collider2D other)
     {
-        Rigidbody2D otherBody = other.gameObject.GetComponent<Rigidbody2D>();
-        Vector2 direction = Player.GetLastMove().normalized;
-        otherBody.AddForce(new Vector2(direction.x * 700, direction.y * 700));
+        FollowPlayerEnemy enemy = other.gameObject.GetComponent<FollowPlayerEnemy>();
+        enemy.Knockback(Player.GetLastMove());
     }
 }
