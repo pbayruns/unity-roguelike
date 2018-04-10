@@ -106,7 +106,10 @@ public class Player : MonoBehaviour
                 body.velocity = Vector2.zero;
             }
         }
+        if (attacking)
+        {
 
+        }
         if (attackTimeCounter > 0)
         {
             attackTimeCounter -= Time.deltaTime;

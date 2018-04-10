@@ -422,7 +422,6 @@ MonoBehaviour:
   hitpoint: {fileID: 4952652496193574}
   damageNumber: {fileID: 1595340644041714, guid: 95547cdbd5bc12f4da403a08d284ff2e,
     type: 2}
-  damageCooldown: 0.3
 --- !u!114 &114767067405986500
 MonoBehaviour:
   m_ObjectHideFlags: 1
