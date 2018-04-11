@@ -53,7 +53,8 @@ public class BoardCreator : MonoBehaviour
     public GameObject SLIME_RED;
     public GameObject KNIGHT_DEFAULT;
     public GameObject ORC_DEFAULT;
-    private Dictionary<Enemy, GameObject> EnemyObjects;
+    private Dictionary<Enemy, Object> EnemyPool = new Dictionary<Enemy, Object>();
+    private Dictionary<Tile, Object> TilePool = new Dictionary<Tile, Object>();
 
     public int columns = 100;                                 // The number of columns on the board (how wide it will be).
     public int rows = 100;                                    // The number of rows on the board (how tall it will be).
@@ -102,12 +103,6 @@ public class BoardCreator : MonoBehaviour
     {
         stairsDepth = Random.Range(minStairDepth, maxStairDepth);
         spawnDepth = Random.Range(minSpawnDepth, maxSpawnDepth);
-        EnemyObjects = new Dictionary<Enemy, GameObject>()
-        {
-            {Enemy.SLIME_RED, SLIME_RED },
-            {Enemy.KNIGHT_DEFAULT, KNIGHT_DEFAULT },
-            {Enemy.ORC_DEFAULT, ORC_DEFAULT }            
-        };
 
         GameObject bounds = GameObject.Find("Bounds");
         if (bounds == null)
@@ -120,7 +115,7 @@ public class BoardCreator : MonoBehaviour
             bounds = new GameObject("Bounds");
         }
         boundsBox = bounds.AddComponent<BoxCollider2D>() as BoxCollider2D;
-        float mapWidth = columns + 2;
+        float mapWidth = columns + 1;
         float mapHeight = rows + 2;
         boundsBox.size = new Vector2(mapWidth, mapHeight);
         boundsBox.gameObject.transform.position = new Vector3((mapWidth / 2f) - 1f, (mapHeight / 2f) - 1f, 0f);
@@ -297,25 +292,25 @@ public class BoardCreator : MonoBehaviour
                     case Direction.North:
                         yCoord += j;
                         if (j == length - 1) tile = info.north_end;
-                        if (j == 0) tile = info.south_end;
+                        else if (j == 0) tile = info.south_end;
                         else tile = info.northSouth;
                         break;
                     case Direction.East:
                         xCoord += j;
                         if (j == length - 1) tile = info.east_end;
-                        if (j == 0) tile = info.west_end;
+                        else if (j == 0) tile = info.west_end;
                         else tile = info.eastWest;
                         break;
                     case Direction.South:
                         yCoord -= j;
                         if (j == length - 1) tile = info.south_end;
-                        if (j == 0) tile = info.north_end;
+                        else if (j == 0) tile = info.north_end;
                         else tile = info.northSouth;
                         break;
                     case Direction.West:
                         xCoord -= j;
                         if (j == length - 1) tile = info.west_end;
-                        if (j == 0) tile = info.east_end;
+                        else if (j == 0) tile = info.east_end;
                         else tile = info.eastWest;
                         break;
                 }
@@ -440,10 +435,19 @@ public class BoardCreator : MonoBehaviour
         // The position to be instantiated at is based on the coordinates.
         Vector3 position = new Vector3(xCoord, yCoord, 0f);
 
-        // Get the gameobject for this tile from the dictionary
-        string tileName = System.Enum.GetName(typeof(Tile), tile);
-        Object tileObject = Resources.Load("tiles/" + tileName);
-
+        Object tileObject;
+        // try to load the gameobject from our cache, if it doesn't load, load it from resources and cache it.
+        if (TilePool.ContainsKey(tile))
+        {
+            tileObject = TilePool[tile];
+        }
+        else
+        {
+            string tileName = System.Enum.GetName(typeof(Tile), tile);
+            tileObject = Resources.Load("tiles/" + tileName);
+            TilePool[tile] = tileObject;
+        }
+       
         // Create an instance of the prefab from the random index of the array.
         GameObject tileInstance = Instantiate(tileObject, position, Quaternion.identity) as GameObject;
 
@@ -453,11 +457,22 @@ public class BoardCreator : MonoBehaviour
 
     void InstantiateEnemy(Enemy enemy, float xCoord, float yCoord)
     {
+        if (enemy == Enemy.NONE) return;
         // The position to be instantiated at is based on the coordinates.
         Vector3 position = new Vector3(xCoord, yCoord, 0f);
 
-        // Get the gameobject for this enemy from the dictionary
-        GameObject enemyObject = EnemyObjects[enemy];
+        Object enemyObject;
+        // try to load the gameobject from our cache, if it doesn't load, load it from resources and cache it.
+        if (EnemyPool.ContainsKey(enemy))
+        {
+            enemyObject = EnemyPool[enemy];
+        }
+        else
+        {
+            string enemyName = System.Enum.GetName(typeof(Enemy), enemy);
+            enemyObject = Resources.Load("enemies/" + enemyName);
+            EnemyPool[enemy] = enemyObject;
+        }
 
         // Create an instance of the prefab from the random index of the array.
         GameObject enemyInstance = Instantiate(enemyObject, position, Quaternion.identity) as GameObject;

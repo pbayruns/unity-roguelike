@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 114019143599259700}
   - component: {fileID: 114166634339425754}
   m_Layer: 0
-  m_Name: Orc
+  m_Name: ORC_DEFAULT
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,10 +296,10 @@ MonoBehaviour:
   speed: 3
   knockbackTime: 0.5
   knockbackForce: 600
-  maxFollowRange: 3
-  followTime: 3
   movingTime: 1
   stillTime: 1
+  maxFollowRange: 3
+  followTime: 3
 --- !u!114 &114390695261658394
 MonoBehaviour:
   m_ObjectHideFlags: 1
