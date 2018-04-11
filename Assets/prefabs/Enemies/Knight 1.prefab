@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  knockbackTime: 1
-  knockbackSpeed: 10
+  knockbackTime: 0.5
+  knockbackForce: 600
   maxFollowRange: 4
   followTime: 3
   movingTime: 1

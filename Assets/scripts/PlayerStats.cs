@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
     public static int currentLevel = 1;
     public static int currentExp = 0;
 
-    public static int hp = 20;
+    public static int hp = 99999;
     public static int attack = 3;
     public static int defense = 0;
 

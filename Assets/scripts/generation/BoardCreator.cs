@@ -15,6 +15,13 @@ public enum Tile
 
     //Overlay Tiles
     MUSHROOM_1, MUSHROOM_2, MUSHROOM_3, MUSHROOM_4,
+    PATH_HORIZ_DIRT,
+    PATH_VERT_DIRT,
+    PATH_END_NORTH_DIRT,
+    PATH_END_SOUTH_DIRT,
+    PATH_END_EAST_DIRT,
+    PATH_END_WEST_DIRT,
+    PATH_SINGLE_DIRT,
 
     //Wall Tiles
     SHRUB_GREEN, SHRUB_ORANGE, SHRUB_DARK_GREEN,
@@ -41,32 +48,11 @@ public enum DungeonObject
 
 public class BoardCreator : MonoBehaviour
 {
-
-    public GameObject GRASS_NORMAL;
-    public GameObject GRASS_DARK;
-    public GameObject GRASS_RED;
-    public GameObject GRASS_PURPLE;
-    public GameObject FLOWERS_BLUE;
-    public GameObject DIRT;
-    public GameObject TILE_GREY;
-    public GameObject WALL_GREY;
-    public GameObject COBBLE;
-    public GameObject STUMP_1;
-    public GameObject STUMP_2;
-    public GameObject STUMP_3;
-    public GameObject MUSHROOM_1;
-    public GameObject MUSHROOM_2;
-    public GameObject MUSHROOM_3;
-    public GameObject MUSHROOM_4;
-    public GameObject SHRUB_GREEN;
-    public GameObject SHRUB_ORANGE;
-    public GameObject SHRUB_DARK_GREEN;
+    public static BoardCreator instance = null;
 
     public GameObject SLIME_RED;
     public GameObject KNIGHT_DEFAULT;
     public GameObject ORC_DEFAULT;
-
-    private Dictionary<Tile, GameObject> TileObjects;
     private Dictionary<Enemy, GameObject> EnemyObjects;
 
     public int columns = 100;                                 // The number of columns on the board (how wide it will be).
@@ -98,9 +84,18 @@ public class BoardCreator : MonoBehaviour
     public LevelTheme theme;
     private BoxCollider2D boundsBox;
 
-    //Tiles is an array with the dimensions of the specified rows and columns
-    private void Start()
+    //Singleton
+    private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     public void SetupBoard(int level)
@@ -114,29 +109,6 @@ public class BoardCreator : MonoBehaviour
             {Enemy.ORC_DEFAULT, ORC_DEFAULT }            
         };
 
-        TileObjects = new Dictionary<Tile, GameObject>()
-        {
-            {Tile.GRASS_NORMAL, GRASS_NORMAL},
-            {Tile.GRASS_DARK, GRASS_DARK},
-            {Tile.GRASS_RED, GRASS_RED},
-            {Tile.GRASS_PURPLE, GRASS_PURPLE},
-            {Tile.FLOWERS_BLUE, FLOWERS_BLUE },
-            {Tile.DIRT, DIRT},
-            {Tile.TILE_GREY, TILE_GREY},
-            {Tile.WALL_GREY, WALL_GREY},
-            {Tile.COBBLE, COBBLE},
-            {Tile.STUMP_1, STUMP_1},
-            {Tile.STUMP_2, STUMP_2},
-            {Tile.STUMP_3, STUMP_3},
-            {Tile.MUSHROOM_1, MUSHROOM_1},
-            {Tile.MUSHROOM_2, MUSHROOM_2},
-            {Tile.MUSHROOM_3, MUSHROOM_3},
-            {Tile.MUSHROOM_4, MUSHROOM_4},
-            {Tile.SHRUB_GREEN, SHRUB_GREEN},
-            {Tile.SHRUB_ORANGE, SHRUB_ORANGE},
-            {Tile.SHRUB_DARK_GREEN, SHRUB_DARK_GREEN},
-        };
-
         GameObject bounds = GameObject.Find("Bounds");
         if (bounds == null)
         {
@@ -148,10 +120,10 @@ public class BoardCreator : MonoBehaviour
             bounds = new GameObject("Bounds");
         }
         boundsBox = bounds.AddComponent<BoxCollider2D>() as BoxCollider2D;
-        float mapWidth = columns;
-        float mapHeight = rows;
+        float mapWidth = columns + 2;
+        float mapHeight = rows + 2;
         boundsBox.size = new Vector2(mapWidth, mapHeight);
-        boundsBox.gameObject.transform.position = new Vector3(mapWidth / 2f, mapHeight / 2f, 0f);
+        boundsBox.gameObject.transform.position = new Vector3((mapWidth / 2f) - 1f, (mapHeight / 2f) - 1f, 0f);
         boundsBox.isTrigger = true;
         Player.GetCamera().SetBounds(boundsBox);
 
@@ -178,8 +150,8 @@ public class BoardCreator : MonoBehaviour
 
         CreateRoomsAndCorridors();
 
-        SetTilesValuesForCorridors();
         SetTilesValuesForRooms();
+        SetTilesValuesForCorridors();
 
         InstantiateTiles();
         InstantiateOuterWalls();
@@ -282,11 +254,12 @@ public class BoardCreator : MonoBehaviour
                 for (int k = 0; k < currentRoom.roomHeight; k++)
                 {
                     int yCoord = currentRoom.yPos + k;
-                    Tile tile = info.tiles[j][k];
+                    Tile tile = Tile.NOT_SET;
                     Tile obj = Tile.NOT_SET;
                     Tile top = Tile.NOT_SET;
                     Enemy enemy = Enemy.NONE;
-                    if(info.objects != null) obj = info.objects[j][k];
+                    if (info.tiles != null) tile = info.tiles[j][k];
+                    if (info.objects != null) obj = info.objects[j][k];
                     if (info.enemies != null) enemy = info.enemies[j][k];
                     if (info.overlay_tiles != null) top = info.overlay_tiles[j][k];
 
@@ -306,9 +279,11 @@ public class BoardCreator : MonoBehaviour
         for (int i = 0; i < corridors.Length; i++)
         {
             Corridor currentCorridor = corridors[i];
-            Tile tile = theme.GetCorridorTile();
+            Tile tile = Tile.NOT_SET;
+            LevelTheme.CorridorInfo info = theme.GetCorridorInfo();
 
             // and go through it's length.
+            int length = currentCorridor.corridorLength;
             for (int j = 0; j < currentCorridor.corridorLength; j++)
             {
                 // Start the coordinates at the start of the corridor.
@@ -321,20 +296,33 @@ public class BoardCreator : MonoBehaviour
                 {
                     case Direction.North:
                         yCoord += j;
+                        if (j == length - 1) tile = info.north_end;
+                        if (j == 0) tile = info.south_end;
+                        else tile = info.northSouth;
                         break;
                     case Direction.East:
                         xCoord += j;
+                        if (j == length - 1) tile = info.east_end;
+                        if (j == 0) tile = info.west_end;
+                        else tile = info.eastWest;
                         break;
                     case Direction.South:
                         yCoord -= j;
+                        if (j == length - 1) tile = info.south_end;
+                        if (j == 0) tile = info.north_end;
+                        else tile = info.northSouth;
                         break;
                     case Direction.West:
                         xCoord -= j;
+                        if (j == length - 1) tile = info.west_end;
+                        if (j == 0) tile = info.east_end;
+                        else tile = info.eastWest;
                         break;
                 }
 
                 // Set the tile at these coordinates to Floor.
-                tiles[xCoord][yCoord] = tile;
+                overlay[xCoord][yCoord] = tile;
+                tiles[xCoord][yCoord] = info.bottom_tile;
             }
         }
     }
@@ -343,6 +331,7 @@ public class BoardCreator : MonoBehaviour
     void InstantiateTiles()
     {
         // Go through all the tiles in the jagged array...
+        Tile wall = theme.wallTile;
         for (int i = 0; i < tiles.Length; i++)
         {
             for (int j = 0; j < tiles[i].Length; j++)
@@ -351,7 +340,6 @@ public class BoardCreator : MonoBehaviour
                 Tile top = overlay[i][j];
                 Tile obj = objects[i][j];
                 Enemy enemy = enemies[i][j];
-                Tile wall = theme.wallTile;
 
                 if (tile == Tile.NOT_SET)
                 {
@@ -448,11 +436,13 @@ public class BoardCreator : MonoBehaviour
 
     void InstantiateTile(Tile tile, float xCoord, float yCoord)
     {
+        if (tile == Tile.NOT_SET) return;
         // The position to be instantiated at is based on the coordinates.
         Vector3 position = new Vector3(xCoord, yCoord, 0f);
 
         // Get the gameobject for this tile from the dictionary
-        GameObject tileObject = TileObjects[tile];
+        string tileName = System.Enum.GetName(typeof(Tile), tile);
+        Object tileObject = Resources.Load("tiles/" + tileName);
 
         // Create an instance of the prefab from the random index of the array.
         GameObject tileInstance = Instantiate(tileObject, position, Quaternion.identity) as GameObject;

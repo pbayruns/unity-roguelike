@@ -48,7 +48,6 @@ public class HurtPlayer : MonoBehaviour
 
     void SetDamageable()
     {
-        Debug.Log("setting damageable");
         canDamage = true;
     }
 }

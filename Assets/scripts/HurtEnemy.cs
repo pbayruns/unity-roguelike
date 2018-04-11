@@ -82,7 +82,7 @@ public class HurtEnemy : MonoBehaviour
     }
     public static void Knockback(Collider2D other)
     {
-        FollowPlayerEnemy enemy = other.gameObject.GetComponent<FollowPlayerEnemy>();
+        BaseEnemy enemy = other.gameObject.GetComponent<BaseEnemy>();
         enemy.Knockback(Player.GetLastMove());
     }
 }

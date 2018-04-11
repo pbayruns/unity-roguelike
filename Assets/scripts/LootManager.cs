@@ -59,7 +59,6 @@ public class LootManager : MonoBehaviour {
 
     public static void DropLoot(Enemy enemy, Vector3 position)
     {
-        Debug.Log("dropping loot");
         //Instantiate(instance.items[ItemType.CYSTAL_YELLOW], position, Quaternion.Euler(Vector3.zero));
         ResourceItemType drop = ResourceItemType.GOLD_1;
         switch (enemy)

@@ -25,6 +25,17 @@ public class LevelTheme
         public Enemy[][] enemies;
     };
 
+    public struct CorridorInfo
+    {
+        public Tile south_end;
+        public Tile north_end;
+        public Tile east_end;
+        public Tile west_end;
+        public Tile eastWest;
+        public Tile northSouth;
+        public Tile bottom_tile;
+    }
+
     public const int THEME_GRAY = 1;
 
     //What is a Theme?
@@ -55,18 +66,14 @@ public class LevelTheme
         Tile[][] overlayTiles = GetTilesArray(width, height);
         Enemy[][] enemies = GetEnemiesArray(width, height);
         int enemyCount = 0;
-        int maxEnemies = width * height / 20;
+        int maxEnemies = (width * height / 49) + 1;
         for (int x = 0; x < tiles.Length; x++)
         {
             Tile[] row = tiles[x];
             for (int y = 0; y < row.Length; y++)
             {
                 Tile nextTile = Tile.GRASS_DARK;
-                if (Random.Range(0f, 1f) < 0.1f)
-                {
-                    nextTile = Tile.GRASS_DARK;
-                }
-                else if (Random.Range(0f, 1f) < 0.1f)
+                 if (Random.Range(0f, 1f) < 0.1f)
                 {
                     nextTile = Tile.FLOWERS_BLUE;
                 }
@@ -94,7 +101,8 @@ public class LevelTheme
         Tile[][] tiles = GetTilesArray(width, height);
         Tile[][] overlayTiles = GetTilesArray(width, height);
         Enemy[][] enemies = GetEnemiesArray(width, height);
-
+        int enemyCount = 0;
+        int maxEnemies = (width * height / 25) + 1;
         for (int x = 0; x < tiles.Length; x++)
         {
             Tile[] row = tiles[x];
@@ -109,10 +117,11 @@ public class LevelTheme
                 tiles[x][y] = nextTile;
 
                 Enemy nextEnemy = Enemy.NONE;
-                if(Random.Range(0f, 1f) < 0.05f)
+                if(Random.Range(0f, 1f) < 0.05f && enemyCount < maxEnemies)
                 {
                     Enemy[] enemy = new Enemy[] { Enemy.SLIME_RED };
                     nextEnemy = enemy[Random.Range(0, enemy.Length)];
+                    enemyCount++;
                 }
                 enemies[x][y] = nextEnemy;
             }
@@ -135,7 +144,7 @@ public class LevelTheme
             Tile[] row = tiles[x];
             for (int y = 0; y < row.Length; y++)
             {
-                tiles[x][y] = Tile.GRASS_NORMAL;
+                tiles[x][y] = Tile.GRASS_DARK;
                 if (Random.Range(0f, 1f) < 0.05f)
                 {
                     Tile[] objx = new Tile[] { Tile.STUMP_1, Tile.STUMP_2, Tile.STUMP_3 };
@@ -193,9 +202,18 @@ public class LevelTheme
         }
     }
 
-    public Tile GetCorridorTile()
+    public CorridorInfo GetCorridorInfo()
     {
-        return Tile.DIRT;
+        CorridorInfo info = new CorridorInfo();
+        info.eastWest = Tile.PATH_HORIZ_DIRT;
+        info.northSouth = Tile.PATH_VERT_DIRT;
+        info.north_end = Tile.PATH_END_NORTH_DIRT;
+        info.south_end = Tile.PATH_END_SOUTH_DIRT;
+        info.east_end = Tile.PATH_END_EAST_DIRT;
+        info.west_end = Tile.PATH_END_WEST_DIRT;
+        info.bottom_tile = Tile.GRASS_DARK;
+
+        return info;
     }
 
     private Tile[][] GetTilesArray(int width, int height)
@@ -205,6 +223,10 @@ public class LevelTheme
         for (int i = 0; i < tiles.Length; i++)
         {
             tiles[i] = new Tile[height];
+            for (int x = 0; x < tiles[i].Length; x++)
+            {
+                tiles[i][x] = Tile.NOT_SET;
+            }
         }
         return tiles;
     }
@@ -216,6 +238,10 @@ public class LevelTheme
         for (int i = 0; i < enemies.Length; i++)
         {
             enemies[i] = new Enemy[height];
+            for (int x = 0; x < enemies[i].Length; x++)
+            {
+                enemies[i][x] = Enemy.NONE;
+            }
         }
         return enemies;
     }
