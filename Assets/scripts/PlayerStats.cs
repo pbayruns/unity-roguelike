@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
     public static int currentLevel = 1;
     public static int currentExp = 0;
 
-    public static int hp = 99999;
+    public static int hp = 15;
     public static int attack = 3;
     public static int defense = 0;
 
@@ -33,22 +33,22 @@ public class PlayerStats : MonoBehaviour
 
     public static int GetHPForLevel(int level)
     {
-        return level * 15;
+        return (level - 1 * 20) + 15;
     }
 
     public static int GetDefenseForLevel(int level)
     {
-        return level / 3 + 1;
+        return (int) (level / 2.5f + 1);
     }
 
     public static int GetAttackForLevel(int level)
     {
-        return level / 3 + 1;
+        return (int)(level / 2.5f + 1);
     }
 
     public static int GetXPForLevel(int level)
     {
-        return (int) Mathf.Round((4 * (Mathf.Pow(level, 3))) / 5);
+        return (int) Mathf.Round((12 * (Mathf.Pow(level, 3))) / 5);
     }
 
     public static void AddExperience(int xp)
@@ -64,7 +64,7 @@ public class PlayerStats : MonoBehaviour
 
     public static int GetXPToNextLvl()
     {
-        return GetXPForLevel(currentLevel + 1);
+        return GetXPForLevel(currentLevel + 1) - currentExp;
     }
 
     public static void LevelUp()

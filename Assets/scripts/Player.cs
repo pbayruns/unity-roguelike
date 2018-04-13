@@ -18,11 +18,12 @@ public class Player : MonoBehaviour
     private float currentSpeed;
     private Animator anim;
     private Rigidbody2D body;
+    private BoxCollider2D boxCollider;
     private bool moving;
     private Vector2 moveInput;
     private bool attacking;
     private float attackTimeCounter;
-
+    private bool paused = false;
     public AudioSource stairsSound;
 
     private void Awake()
@@ -41,20 +42,18 @@ public class Player : MonoBehaviour
         }
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
+
+        anim = GetComponentInChildren<Animator>();
+        body = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+
+        canMove = true;
+        lastMove = new Vector2(0f, -1f);
     }
 
     public static Vector2 GetLastMove()
     {
         return instance.lastMove;
-    }
-    // Use this for initialization
-    void Start()
-    {
-        anim = GetComponentInChildren<Animator>();
-        body = GetComponent<Rigidbody2D>();
-
-        canMove = true;
-        lastMove = new Vector2(0f, -1f);
     }
 
     public static void Move(Vector3 destination)
@@ -76,6 +75,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (paused)
+        {
+            return;
+        }
         moving = false;
         if (!canMove)
         {
@@ -175,6 +178,31 @@ public class Player : MonoBehaviour
         //Load the last scene loaded, in this case Main, the only scene in the game. And we load it in "Single" mode so it replace the existing one
         //and not load all the scene object in the current scene.
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
+
+    public static void EnableHitbox(float delay = 0f)
+    {
+        instance.Invoke("EnableHitbox", delay);
+    }
+
+    private void EnableHitbox()
+    {
+        instance.boxCollider.enabled = true;
+    }
+
+    public static void DisableHitbox()
+    {
+        instance.boxCollider.enabled = false;
+    }
+
+    public static void Pause()
+    {
+        instance.paused = true;
+    }
+
+    public static void Resume()
+    {
+        instance.paused = false;
     }
 }
 

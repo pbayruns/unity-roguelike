@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealthManager : MonoBehaviour
 {
-
+    public static PlayerHealthManager instance = null;
     public static int maxHP = PlayerStats.hp;
     public static int currentHP = PlayerStats.hp;
 
@@ -13,16 +13,51 @@ public class PlayerHealthManager : MonoBehaviour
     public static float flashTime = 0.75f;
     private static float flashCounter = flashTime;
 
+    private bool invulnerable = false;
+
     private SpriteRenderer playerSprite;
     private SpriteRenderer[] childSprites;
 
-    // Use this for initialization
-    void Start()
+    //Singleton
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
     {
         currentHP = maxHP;
         playerSprite = GetComponentInChildren<SpriteRenderer>();
         childSprites = GameObject.Find("Weapon").GetComponentsInChildren<SpriteRenderer>();
         HUD.UpdateHPDisplay(currentHP, maxHP);
+    }
+
+    public static void MakeInvulnerable(float delay = 0f)
+    {
+        instance.Invoke("MakeInvulnerable", delay);
+    }
+
+    private void MakeInvulnerable()
+    {
+        instance.invulnerable = true;
+    }
+
+    public static void MakeVulnerable(float delay = 0f)
+    {
+        instance.Invoke("MakeVulnerable", delay);
+    }
+
+    private void MakeVulnerable()
+    {
+        instance.invulnerable = false;
     }
 
     // Update is called once per frame
@@ -33,6 +68,13 @@ public class PlayerHealthManager : MonoBehaviour
         {
             Start();
             GameManager.GameOver();
+        }
+        if (invulnerable)
+        {
+            Color RGB = playerSprite.color;
+            Color visible = new Color(RGB.r, RGB.g, RGB.b, 1f);
+            playerSprite.color = visible;
+            return;
         }
         if (flashing)
         {
@@ -69,6 +111,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     public static void HurtPlayer(int damage)
     {
+        if (instance.invulnerable) return;
         currentHP -= damage;
         flashing = true;
         flashCounter = flashTime;

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public float levelStartDelay = 2f;	//Time to wait before starting level, in seconds.
+    public float playerStartInvulnerability = 4f;
     //Static instance of GameManager which allows it to be accessed by any other script.
     public static GameManager instance = null;
     public bool doingSetup;
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         //While doingSetup is true the player can't move, prevent player from moving while title card is up.
         doingSetup = true;
-
+        PlayerHealthManager.MakeInvulnerable();
         //Get a reference to our image LevelImage by finding it by name.
         levelImage = GameObject.Find("LevelImage");
         levelText = GameObject.Find("LevelText").GetComponent<Text>();
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
     {
         //Disable the levelImage gameObject.
         levelImage.SetActive(false);
-
+        PlayerHealthManager.MakeVulnerable(playerStartInvulnerability);
         //Set doingSetup to false allowing player to move again.
         doingSetup = false;
     }
@@ -100,6 +101,23 @@ public class GameManager : MonoBehaviour
             {
                 Resume();
             }
+        }
+    }
+
+    public void PauseRigidBodies()
+    {
+        instance.RBs = Object.FindObjectsOfType<PausableRigidBody2D>();
+        for (int i = 0; i < instance.RBs.Length; i++)
+        {
+            instance.RBs[i].Pause();
+        }
+    }
+
+    public void ResumeRigidBodies()
+    {
+        for (int i = 0; i < instance.RBs.Length; i++)
+        {
+            instance.RBs[i].Resume();
         }
     }
 
