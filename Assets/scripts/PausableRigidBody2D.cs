@@ -14,6 +14,7 @@ public class PausableRigidBody2D : MonoBehaviour
 
     public void Pause()
     {
+        if (body == null) return;
         savedVelocity = body.velocity;
         savedAngularVelocity = body.angularVelocity;
         body.isKinematic = true;
@@ -21,6 +22,7 @@ public class PausableRigidBody2D : MonoBehaviour
 
     public void Resume()
     {
+        if (body == null) return;
         body.isKinematic = false;
         body.velocity = savedVelocity;
         body.angularVelocity = savedAngularVelocity;
@@ -29,6 +31,7 @@ public class PausableRigidBody2D : MonoBehaviour
 
     public void Reactivate()
     {
+        if (body == null) return;
         body.isKinematic = false;
         body.WakeUp();
     }

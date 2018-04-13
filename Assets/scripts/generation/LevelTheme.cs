@@ -65,9 +65,14 @@ public class LevelTheme
     private int GetMaxEnemies(int width, int height)
     {
         float squares = width * height;
-        float enemiesPerSquare = Mathf.Log(level) / 25;
+        float enemiesPerSquare = GetEnemiesPerSquare(width, height);
         int max = (int) Mathf.Ceil(squares * enemiesPerSquare);
         return (max >= 1) ? max : 1;
+    }
+
+    private float GetEnemiesPerSquare(int width, int height)
+    {
+        return Mathf.Log(level) / 50;
     }
     private RoomInfo GetForestDefaultRoom(int width, int height)
     {
@@ -89,9 +94,10 @@ public class LevelTheme
                 tiles[x][y] = nextTile;
 
                 Enemy nextEnemy = Enemy.NONE;
-                if (enemyCount < maxEnemies && Random.Range(0f, 1f) < 0.05f)
+                if (enemyCount < maxEnemies && Random.Range(0f, 1f) < 0.08f)
                 {
-                    Enemy[] enemy = new Enemy[] { Enemy.ORC_DEFAULT, Enemy.SLIME_RED, Enemy.KNIGHT_DEFAULT };
+                    Enemy[] enemy = new Enemy[] { Enemy.ORC_DEFAULT, Enemy.SORCERER_DEFAULT,
+                        Enemy.SLIME_RED, Enemy.KNIGHT_DEFAULT };
                     nextEnemy = enemy[Random.Range(0, enemy.Length)];
                     enemyCount++;
                 }
@@ -126,7 +132,7 @@ public class LevelTheme
                 tiles[x][y] = nextTile;
 
                 Enemy nextEnemy = Enemy.NONE;
-                if(Random.Range(0f, 1f) < 0.05f && enemyCount < maxEnemies)
+                if(Random.Range(0f, 1f) < 0.08f && enemyCount < maxEnemies)
                 {
                     Enemy[] enemy = new Enemy[] { Enemy.SORCERER_DEFAULT };
                     nextEnemy = enemy[Random.Range(0, enemy.Length)];
@@ -161,7 +167,7 @@ public class LevelTheme
                 }
 
                 Enemy nextEnemy = Enemy.NONE;
-                if (Random.Range(0f, 1f) < 0.03f)
+                if (Random.Range(0f, 1f) < 0.08f)
                 {
                     Enemy[] enemy = new Enemy[] { Enemy.KNIGHT_DEFAULT };
                     nextEnemy = enemy[Random.Range(0, enemy.Length)];

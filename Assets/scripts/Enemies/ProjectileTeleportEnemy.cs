@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileTeleportEnemy : BaseEnemy {
+public class ProjectileTeleportEnemy : BaseEnemy
+{
 
     public float maxTriggerRange = 10f;
     public float checkTriggerFrequency = 0.2f;
@@ -23,6 +24,7 @@ public class ProjectileTeleportEnemy : BaseEnemy {
     private bool teleporting = false;
     private bool focusingAttack = false;
     private bool focusingTeleport = false;
+    private bool first = true;
 
     public GameObject projectile_left;
     public GameObject projectile_up;
@@ -37,10 +39,11 @@ public class ProjectileTeleportEnemy : BaseEnemy {
 
         tilStopAttack = attackTime;
         tilStopFocus = focusTime;
-        tilStopTeleport = 0f;
+        tilStopTeleport = teleportTime;
 
         tilStop = movingTime;
         tilNextMove = stillTime;
+        first = true;
     }
 
     new void Update()
@@ -59,7 +62,7 @@ public class ProjectileTeleportEnemy : BaseEnemy {
             tilCheckTrigger = checkTriggerFrequency;
             //get the direction closest to the player
             toPlayer = Player.GetPosition() - base.transform.position;
-            distance = moveDirection.magnitude;
+            distance = toPlayer.magnitude;
         }
 
         bool inRange = (distance < maxTriggerRange);
@@ -71,22 +74,19 @@ public class ProjectileTeleportEnemy : BaseEnemy {
         // Standing idle -> player walks up 
         //  -> attention -> attacks 
         //  -> attention -> teleports
-        if (inRange 
-            || focusingAttack || focusingTeleport 
-            || attacking || teleporting)
+        if (inRange)
         {
-            if (tilStopTeleport <= 0)
+            if (first)
             {
-                teleporting = false;
+                first = false;
                 focusingAttack = true;
                 tilStopFocus = focusTime;
-                tilStopTeleport = teleportTime;
             }
 
             if (focusingAttack)
             {
                 tilStopFocus -= Time.deltaTime;
-                if(tilStopFocus <= 0)
+                if (tilStopFocus <= 0)
                 {
                     focusingAttack = false;
                     attacking = true;
@@ -131,6 +131,15 @@ public class ProjectileTeleportEnemy : BaseEnemy {
         }
         else
         {
+            //this means we were in range but left it.
+            //reset parameters to allow animation cycle to reset
+            if (!first)
+            {
+                attacking = false;
+                teleporting = false;
+                focusingTeleport = false;
+                first = true;
+            }
             IdleMovement();
         }
 
@@ -144,8 +153,14 @@ public class ProjectileTeleportEnemy : BaseEnemy {
         //spawn a projectile here
         Vector3 pos = gameObject.transform.position;
         Vector3 norm = toPlayer.normalized;
+
+        //get the angle towards the player (subtract 90 bc the sprite is facing up and it should be facing right)
+        float angle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg - 90;
+        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+        //Quaternion rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed)
+
         Vector2 velocity = new Vector2(norm.x * projectileSpeed, norm.y * projectileSpeed);
-        ProjectileManager.CreateProjectile(projectile_up, pos, velocity, Quaternion.Euler(norm));
+        ProjectileManager.CreateProjectile(projectile_up, pos, velocity, q);
 
     }
 
@@ -179,8 +194,7 @@ public class ProjectileTeleportEnemy : BaseEnemy {
     {
         base.moving = false;
         base.lastMove = base.move;
-        tilNextMove = stillTime;
-        idleDirection = MovementUtil.GetRandomDirection();
+        tilNextMove = 0f;
     }
 
     private void OnCollisionEnter2D(Collision2D other)

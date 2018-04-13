@@ -46,11 +46,12 @@ public class ProjectileManager : MonoBehaviour {
         }
 	}
 
-    public static void CreateProjectile(GameObject prefab, Vector3 position, Vector3 velocity, Quaternion rotation)
+    public static void CreateProjectile(GameObject prefab, Vector3 position, Vector2 velocity, Quaternion rotation)
     {
-        GameObject projectileObj = Instantiate(prefab, position, rotation);
+        Vector3 predictedPos = new Vector2(position.x, position.y) + velocity * 0.5f;
+        GameObject projectileObj = Instantiate(prefab, predictedPos, rotation);
         Rigidbody2D projectile = projectileObj.GetComponent<Rigidbody2D>();
-        projectile.transform.rotation = rotation;
+        projectileObj.transform.rotation = rotation;
         ProjectileInfo info = new ProjectileInfo();
         info.body = projectile;
         info.velocity = velocity;
