@@ -109,27 +109,29 @@ public class Player : MonoBehaviour
                 body.velocity = Vector2.zero;
             }
         }
+
+
         if (attacking)
         {
-
-        }
-        if (attackTimeCounter > 0)
-        {
             attackTimeCounter -= Time.deltaTime;
-        }
-        if (attackTimeCounter <= 0)
-        {
-            attacking = false;
-            anim.SetBool("IsAttacking", false);
+            if (attackTimeCounter <= 0)
+            {
+                attacking = false;
+                anim.SetBool("IsAttacking", false);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.J) || Input.GetMouseButtonDown(0))
         {
-            attackTimeCounter = attackTime;
-            attacking = true;
-            body.velocity = Vector2.zero;
-            anim.SetBool("IsAttacking", true);
-            SFXManager.PlaySFX(SFX_TYPE.SWORD_ATTACK);
+            if(attackTimeCounter <= 0)
+            {
+                attackTimeCounter = attackTime;
+                attacking = true;
+                body.velocity = Vector2.zero;
+                anim.SetBool("IsAttacking", true);
+                anim.SetTrigger("Attack");
+                SFXManager.PlaySFX(SFX_TYPE.SWORD_ATTACK);
+            }
         }
 
         anim.SetFloat("MoveX", xIn);

@@ -52,7 +52,7 @@ public class HUD : MonoBehaviour
         instance.GameOverText.text = "YOU";
 
         SFXManager.PlaySFX(SFX_TYPE.DEATH_EXPLOSION);
-        instance.StartCoroutine(instance.GameOverFinish("YOU DIED", 1f));
+        instance.StartCoroutine(instance.GameOverFinish("DIED", 1f));
     }
 
 
