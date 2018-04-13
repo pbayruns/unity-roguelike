@@ -51,22 +51,31 @@ public class LevelTheme
     public Tile midWall;
     public Tile midFloor;
 
-    public LevelTheme()
+    public int level;
+
+    public LevelTheme(int level)
     {
         //theme = UnityEngine.Random.Range(MIN_THEME, MAX_THEME);
+        this.level = level;
         theme = Theme.NORMAL_FOREST;
         wallTile = Tile.SHRUB_DARK_GREEN;
         midFloor = Tile.GRASS_DARK;
         midWall = Tile.SHRUB_DARK_GREEN;
     }
-
+    private int GetMaxEnemies(int width, int height)
+    {
+        float squares = width * height;
+        float enemiesPerSquare = Mathf.Log(level) / 25;
+        int max = (int) Mathf.Ceil(squares * enemiesPerSquare);
+        return (max >= 1) ? max : 1;
+    }
     private RoomInfo GetForestDefaultRoom(int width, int height)
     {
         Tile[][] tiles = GetTilesArray(width, height);
         Tile[][] overlayTiles = GetTilesArray(width, height);
         Enemy[][] enemies = GetEnemiesArray(width, height);
         int enemyCount = 0;
-        int maxEnemies = (width * height / 49) + 1;
+        int maxEnemies = GetMaxEnemies(width, height);
         for (int x = 0; x < tiles.Length; x++)
         {
             Tile[] row = tiles[x];
@@ -102,7 +111,7 @@ public class LevelTheme
         Tile[][] overlayTiles = GetTilesArray(width, height);
         Enemy[][] enemies = GetEnemiesArray(width, height);
         int enemyCount = 0;
-        int maxEnemies = (width * height / 25) + 1;
+        int maxEnemies = GetMaxEnemies(width, height);
         for (int x = 0; x < tiles.Length; x++)
         {
             Tile[] row = tiles[x];
@@ -119,7 +128,7 @@ public class LevelTheme
                 Enemy nextEnemy = Enemy.NONE;
                 if(Random.Range(0f, 1f) < 0.05f && enemyCount < maxEnemies)
                 {
-                    Enemy[] enemy = new Enemy[] { Enemy.SLIME_RED };
+                    Enemy[] enemy = new Enemy[] { Enemy.SORCERER_DEFAULT };
                     nextEnemy = enemy[Random.Range(0, enemy.Length)];
                     enemyCount++;
                 }

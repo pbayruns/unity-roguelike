@@ -38,6 +38,7 @@ public enum Enemy
     SLIME_RED,
     KNIGHT_DEFAULT,
     ORC_DEFAULT,
+    SORCERER_DEFAULT,
     NONE,
 }
 
@@ -50,9 +51,6 @@ public class BoardCreator : MonoBehaviour
 {
     public static BoardCreator instance = null;
 
-    public GameObject SLIME_RED;
-    public GameObject KNIGHT_DEFAULT;
-    public GameObject ORC_DEFAULT;
     private Dictionary<Enemy, Object> EnemyPool = new Dictionary<Enemy, Object>();
     private Dictionary<Tile, Object> TilePool = new Dictionary<Tile, Object>();
 
@@ -139,7 +137,7 @@ public class BoardCreator : MonoBehaviour
         }
 
         // Get the theme for this level
-        theme = new LevelTheme();
+        theme = new LevelTheme(level);
 
         SetupTilesArray();
 

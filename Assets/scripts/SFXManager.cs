@@ -14,7 +14,7 @@ public class SFXManager : MonoBehaviour {
 
     public AudioSource stairs_down;
     public AudioSource[] sword_sounds;
-    public AudioSource[] music;
+    public AudioSource[] music = new AudioSource[1];
     public AudioSource level_up;
     public AudioSource[] enemy_hurt;
     public AudioSource[] player_hurt;

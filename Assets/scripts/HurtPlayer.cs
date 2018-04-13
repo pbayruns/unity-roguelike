@@ -30,6 +30,21 @@ public class HurtPlayer : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player" && canDamage)
+        {
+            canDamage = false;
+            Invoke("SetDamageable", damageCooldown);
+            int hit = damage - PlayerStats.defense;
+            hit = (hit < 0) ? 0 : hit;
+            PlayerHealthManager.HurtPlayer(hit);
+            SFXManager.PlaySFX(SFX_TYPE.PLAYER_HURT);
+            var clone = (GameObject)Instantiate(damageDisplay, Player.instance.transform.position, Quaternion.Euler(Vector3.zero));
+            clone.GetComponent<FloatingNumber>().damage = hit;
+        }
+    }
+
     private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player" && canDamage)

@@ -6,6 +6,9 @@ public class FollowPlayerEnemy : BaseEnemy
 {
    
     public float maxFollowRange = 10f;
+    public float checkFollowFrequency = 0.2f;
+    private float tilCheckFollow = 0f;
+    private float distance = 0f;
 
     public float followTime = 3f;
     private float tilStopFollow;
@@ -28,9 +31,17 @@ public class FollowPlayerEnemy : BaseEnemy
 
     protected override void SetMovement()
     {
-        //get the direction closest to the player
-        Vector3 moveDirection = Player.GetPosition() - base.transform.position;
-        float distance = moveDirection.magnitude;
+        // dont check player position every frame for performance
+        // I think this is more efficient
+        tilCheckFollow -= Time.deltaTime;
+        if(tilCheckFollow <= 0)
+        {
+            tilCheckFollow = checkFollowFrequency;
+            //get the direction closest to the player
+            moveDirection = Player.GetPosition() - base.transform.position;
+            distance = moveDirection.magnitude;
+        }
+
 
         bool inRange = (distance < maxFollowRange);
         bool followPlayer = false;
