@@ -316,6 +316,7 @@ public class BoardCreator : MonoBehaviour
                 // Set the tile at these coordinates to Floor.
                 overlay[xCoord][yCoord] = tile;
                 tiles[xCoord][yCoord] = info.bottom_tile;
+                objects[xCoord][yCoord] = Tile.NOT_SET;
             }
         }
     }

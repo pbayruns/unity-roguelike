@@ -47,7 +47,10 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void MakeInvulnerable()
     {
-        instance.invulnerable = true;
+        Color RGB = playerSprite.color;
+        Color ghost = new Color(RGB.r, RGB.g, RGB.b, 0.3f);
+        playerSprite.color = ghost;
+        invulnerable = true;
     }
 
     public static void MakeVulnerable(float delay = 0f)
@@ -57,7 +60,11 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void MakeVulnerable()
     {
-        instance.invulnerable = false;
+        Color RGB = playerSprite.color;
+        Color solid = new Color(RGB.r, RGB.g, RGB.b, 1f);
+        playerSprite.color = solid;
+        invulnerable = false;
+        flashing = true;
     }
 
     // Update is called once per frame
@@ -71,9 +78,7 @@ public class PlayerHealthManager : MonoBehaviour
         }
         if (invulnerable)
         {
-            Color RGB = playerSprite.color;
-            Color visible = new Color(RGB.r, RGB.g, RGB.b, 1f);
-            playerSprite.color = visible;
+
             return;
         }
         if (flashing)

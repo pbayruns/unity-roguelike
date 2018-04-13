@@ -134,13 +134,13 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = float.MaxValue;
     }
 
-    public void Resume()
+    public void Resume(bool withMusic = true)
     {
         for (int i = 0; i < instance.RBs.Length; i++)
         {
             instance.RBs[i].Resume();
         }
-        SFXManager.Resume();
+        if(withMusic) SFXManager.Resume();
         Time.timeScale = 1f;
         Time.fixedDeltaTime = defaultDeltaTime;
     }
@@ -156,6 +156,7 @@ public class GameManager : MonoBehaviour
         SFXManager.PauseMusic();
         instance.Pause();
         instance.level = 0;
+        PlayerStats.Reset();
         HUD.GameOver();
     }
 }

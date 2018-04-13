@@ -26,19 +26,27 @@ public class PlayerStats : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public static void Reset()
+    {
+        currentLevel = 1;
+        currentExp = 0;
+        hp = 15;
+        attack = 3;
+        defense = 0;
+    }
     public void Start()
     {
-        HUD.UpdateLevelDisplay(currentLevel, currentExp);
+        HUD.UpdateLevelDisplay(currentLevel, currentExp, GetXPToNextLvl());
     }
 
     public static int GetHPForLevel(int level)
     {
-        return (level - 1 * 20) + 15;
+        return ((level - 1) * 10) + 15;
     }
 
     public static int GetDefenseForLevel(int level)
     {
-        return (int) (level / 2.5f + 1);
+        return (int)(level / 2.5f + 1);
     }
 
     public static int GetAttackForLevel(int level)
@@ -48,7 +56,7 @@ public class PlayerStats : MonoBehaviour
 
     public static int GetXPForLevel(int level)
     {
-        return (int) Mathf.Round((12 * (Mathf.Pow(level, 3))) / 5);
+        return (int)Mathf.Round((12 * (Mathf.Pow(level, 3))) / 5);
     }
 
     public static void AddExperience(int xp)

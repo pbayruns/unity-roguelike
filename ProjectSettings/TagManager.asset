@@ -57,6 +57,9 @@ TagManager:
   - name: WorldObjects
     uniqueID: 2671424861
     locked: 0
+  - name: Projectiles
+    uniqueID: 2092110913
+    locked: 0
   - name: Player
     uniqueID: 2784472593
     locked: 0

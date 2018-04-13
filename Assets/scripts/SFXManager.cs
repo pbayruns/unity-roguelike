@@ -80,7 +80,7 @@ public class SFXManager : MonoBehaviour {
 
     public static void PauseMusic()
     {
-        if (lastSong) lastSong.Stop();
+        if (lastSong) lastSong.Pause();
     }
 
     public static void PauseSFX()

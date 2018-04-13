@@ -47,8 +47,10 @@ public class HUD : MonoBehaviour
     }
     public static void GameOver()
     {
+        RefreshDataDisplay();
         instance.GameOverText.gameObject.SetActive(true);
         instance.GameOverText.text = "YOU";
+
         SFXManager.PlaySFX(SFX_TYPE.DEATH_EXPLOSION);
         instance.StartCoroutine(instance.GameOverFinish("YOU DIED", 1f));
     }
@@ -60,7 +62,7 @@ public class HUD : MonoBehaviour
         instance.GameOverText.text = text;
         SFXManager.PlaySFX(SFX_TYPE.DEATH_EXPLOSION);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-        GameManager.instance.Resume();
+        GameManager.instance.Resume(false);
     }
 
     public IEnumerator _WaitForRealSeconds(float aTime)
