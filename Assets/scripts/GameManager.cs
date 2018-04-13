@@ -157,6 +157,8 @@ public class GameManager : MonoBehaviour
         instance.Pause();
         instance.level = 0;
         PlayerStats.Reset();
+        PlayerHealthManager.Reset();
+        ResourceManager.Reset();
         HUD.GameOver();
     }
 }

@@ -20,6 +20,10 @@ public class ResourceManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    public static void Reset()
+    {
+        instance.gold = 0;
+    }
     public static bool IsFull(ResourceType type)
     {
         //Put checks for resource limits here (i.e. only being able to hold

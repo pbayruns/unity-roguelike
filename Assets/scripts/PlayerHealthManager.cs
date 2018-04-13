@@ -18,6 +18,12 @@ public class PlayerHealthManager : MonoBehaviour
     private SpriteRenderer playerSprite;
     private SpriteRenderer[] childSprites;
 
+    public static void Reset()
+    {
+        maxHP = PlayerStats.hp;
+        currentHP = PlayerStats.hp;
+    }
+
     //Singleton
     private void Awake()
     {
