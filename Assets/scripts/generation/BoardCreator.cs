@@ -5,13 +5,7 @@ using UnityEngine;
 public enum Tile
 {
     //Floor Tiles
-    GRASS_NORMAL, GRASS_DARK, GRASS_RED, GRASS_PURPLE,
-    FLOWERS_RED, FLOWERS_WHITE, FLOWERS_BLUE,
-    DIRT, GRAVEL, SAND,
-    TILE_TAN, TILE_GREY, TILE_WHITE, TILE_BROWN,
-    WOOD, COBBLE, COBBLE_TAN, COBBLE_GRASS,
-    BRICKS1, BRICKS2, BRICKS3, BRICKS4, BRICKS5,
-    BRICKS6, BRICKS7, BRICKS8, BRICKS9, BRICKS10,
+    GRASS_DARK, GRASS_DARK_1, GRASS_DARK_2, FLOWERS_BLUE,
 
     //Overlay Tiles
     MUSHROOM_1, MUSHROOM_2, MUSHROOM_3, MUSHROOM_4,
@@ -24,8 +18,7 @@ public enum Tile
     PATH_SINGLE_DIRT,
 
     //Wall Tiles
-    SHRUB_GREEN, SHRUB_ORANGE, SHRUB_DARK_GREEN,
-    WALL_TAN, WALL_GREY, WALL_WHITE, WALL_BROWN,
+    SHRUB_DARK_GREEN, SHRUB_PINE_DARK_GREEN,
 
     //Objects
     STUMP_1, STUMP_2, STUMP_3,
@@ -341,10 +334,15 @@ public class BoardCreator : MonoBehaviour
                     putWall = putWall || (j > 0 && tiles[i][j - 1] != Tile.NOT_SET);
                     putWall = putWall || (j < tiles[i].Length - 1 && tiles[i][j + 1] != Tile.NOT_SET);
                     putWall = putWall || (i < tiles.Length - 1 && tiles[i + 1][j] != Tile.NOT_SET);
-                    if (putWall) InstantiateTile(wall, i, j);
+                    if (putWall)
+                    {
+                        //InstantiateTile(wall, i, j);
+                        obj = theme.GetMidWall();
+                        tile = theme.midFloor;
+                    }
                     if (obj == Tile.NOT_SET)
                     {
-                        obj = theme.midWall;
+                        obj = theme.GetMidWall();
                         tile = theme.midFloor;
                     }
                 }

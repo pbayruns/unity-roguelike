@@ -48,7 +48,7 @@ public class LevelTheme
 
     public Theme theme;
     public Tile wallTile;
-    public Tile midWall;
+    public Tile[] midWalls;
     public Tile midFloor;
 
     public int level;
@@ -60,8 +60,20 @@ public class LevelTheme
         theme = Theme.NORMAL_FOREST;
         wallTile = Tile.SHRUB_DARK_GREEN;
         midFloor = Tile.GRASS_DARK;
-        midWall = Tile.SHRUB_DARK_GREEN;
+        midWalls = new Tile[] { Tile.SHRUB_DARK_GREEN, Tile.SHRUB_PINE_DARK_GREEN };
     }
+
+    public Tile GetMidWall()
+    { 
+        return midWalls[Random.Range(0, midWalls.Length)];
+    }
+
+    public Tile GetBaseTile()
+    {
+        Tile[] floor = new Tile[] { Tile.GRASS_DARK, Tile.GRASS_DARK, Tile.GRASS_DARK, Tile.GRASS_DARK_1, Tile.GRASS_DARK_2 };
+        return floor[Random.Range(0, floor.Length)];
+    }
+
     private int GetMaxEnemies(int width, int height)
     {
         float squares = width * height;
@@ -123,13 +135,14 @@ public class LevelTheme
             Tile[] row = tiles[x];
             for (int y = 0; y < row.Length; y++)
             {
-                Tile nextTile = Tile.GRASS_DARK;
+                Tile nextTile = GetBaseTile();
+                tiles[x][y] = nextTile;
+
                 if (Random.Range(0f, 1f) < 0.1f)
                 {
                     Tile[] overL = new Tile[] { Tile.MUSHROOM_1, Tile.MUSHROOM_2, Tile.MUSHROOM_3, Tile.MUSHROOM_4 };
                     overlayTiles[x][y] = overL[Random.Range(0, overL.Length)];
                 }
-                tiles[x][y] = nextTile;
 
                 Enemy nextEnemy = Enemy.NONE;
                 if(Random.Range(0f, 1f) < 0.08f && enemyCount < maxEnemies)
@@ -159,7 +172,8 @@ public class LevelTheme
             Tile[] row = tiles[x];
             for (int y = 0; y < row.Length; y++)
             {
-                tiles[x][y] = Tile.GRASS_DARK;
+                Tile nextTile = GetBaseTile();
+                tiles[x][y] = nextTile;
                 if (Random.Range(0f, 1f) < 0.05f)
                 {
                     Tile[] objx = new Tile[] { Tile.STUMP_1, Tile.STUMP_2, Tile.STUMP_3 };

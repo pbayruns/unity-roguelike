@@ -14,7 +14,7 @@ public class ProjectileManager : MonoBehaviour {
     }
 
     //Singleton
-    private void Awake()
+    void Awake()
     {
         if (instance == null)
         {
@@ -31,16 +31,20 @@ public class ProjectileManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		for(int i = 0; i < projectiles.Count; i++)
+        if(instance == null || instance.projectiles == null || instance.projectiles.Count == 0)
         {
-            ProjectileInfo info = projectiles[i];
+            return;
+        }
+		for(int i = 0; i < instance.projectiles.Count; i++)
+        {
+            ProjectileInfo info = instance.projectiles[i];
             if(info.body != null)
             {
                 info.body.velocity = info.velocity;
             }
             else
             {
-                projectiles.RemoveAt(i);
+                instance.projectiles.RemoveAt(i);
                 i--;
             }
         }
