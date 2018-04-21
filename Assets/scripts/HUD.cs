@@ -61,8 +61,7 @@ public class HUD : MonoBehaviour
         yield return WaitForRealSeconds(delayTime);
         instance.GameOverText.text = text;
         SFXManager.PlaySFX(SFX_TYPE.DEATH_EXPLOSION);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-        GameManager.instance.Resume(false);
+        GameManager.instance.Resume(false, false);
     }
 
     public IEnumerator _WaitForRealSeconds(float aTime)

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private Text levelText;                                 //Text to display current level number.
     private GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
     private float defaultDeltaTime;
-    public int level = 1; //Current level number
+    public int level = 0; //Current level number
     //private bool doingSetup = true; //bool used to prevent Player from moving during setup.	
     public BoardCreator boardScript; //BoardManager which will set up the level.
     private PausableRigidBody2D[] RBs;
@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         //While doingSetup is true the player can't move, prevent player from moving while title card is up.
         doingSetup = true;
         PlayerHealthManager.MakeInvulnerable();
+
         //Get a reference to our image LevelImage by finding it by name.
         levelImage = GameObject.Find("LevelImage");
         levelText = GameObject.Find("LevelText").GetComponent<Text>();
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
         Invoke("HideLevelImage", levelStartDelay);
 
         boardScript.SetupBoard(level);
+        instance.PauseRigidBodies();
     }
 
     //Hides black image used between levels
@@ -84,6 +86,7 @@ public class GameManager : MonoBehaviour
         //Disable the levelImage gameObject.
         levelImage.SetActive(false);
         PlayerHealthManager.MakeVulnerable(playerStartInvulnerability);
+        instance.ResumeRigidBodies();
         //Set doingSetup to false allowing player to move again.
         doingSetup = false;
     }
@@ -134,11 +137,14 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = float.MaxValue;
     }
 
-    public void Resume(bool withMusic = true)
+    public void Resume(bool withMusic = true, bool withEnemies = true)
     {
-        for (int i = 0; i < instance.RBs.Length; i++)
+        if (withEnemies)
         {
-            instance.RBs[i].Resume();
+            for (int i = 0; i < instance.RBs.Length; i++)
+            {
+                instance.RBs[i].Resume();
+            }
         }
         if(withMusic) SFXManager.Resume();
         Time.timeScale = 1f;
@@ -160,5 +166,26 @@ public class GameManager : MonoBehaviour
         PlayerHealthManager.Reset();
         ResourceManager.Reset();
         HUD.GameOver();
+        instance.Invoke("InstanceGoToMenu", 1.5f);        
+    }
+
+    private void InstanceGoToMenu()
+    {
+        GoToMenu();
+    }
+
+    public static void GoToMenu()
+    {
+        DestroyOnMenuObjects();
+        SceneManager.LoadScene("menu", LoadSceneMode.Single);
+    }
+
+    public static void DestroyOnMenuObjects()
+    {
+        DestroyOnMenu[] notInMenu = GameObject.FindObjectsOfType<DestroyOnMenu>();
+        for (int i = 0; i < notInMenu.Length; i++)
+        {
+            Destroy(notInMenu[i].gameObject);
+        }
     }
 }
