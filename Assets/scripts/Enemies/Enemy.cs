@@ -49,6 +49,7 @@ public class BaseEnemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        if (GameManager.EnemiesPaused) return;
         if (knockback)
         {
             if (tilStopKnockback > 0)

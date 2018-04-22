@@ -19,6 +19,34 @@ public class GameManager : MonoBehaviour
     public BoardCreator boardScript; //BoardManager which will set up the level.
     private PausableRigidBody2D[] RBs;
     //Awake is always called before any Start functions
+    private static bool isGameOver = false;
+    private static bool _paused = true;
+    public static bool Paused
+    {
+        get
+        {
+            return _paused;
+        }
+        set
+        {
+            _paused = value;
+        }
+    }
+
+    public static bool EnemiesPaused
+    {
+        get
+        {
+            return _enemiespaused;
+        }
+        set
+        {
+            _enemiespaused = value;
+        }
+    }
+
+    //public static bool Paused = true;
+    private static bool _enemiespaused = true;
     void Awake()
     {
         // Make sure there is always only one instance
@@ -37,7 +65,7 @@ public class GameManager : MonoBehaviour
         //Instantiate(cam);
         //cam.SetFollowTarget(player.transform.gameObject);
         //Call the InitGame function to initialize the first level 
-        InitGame();
+        //InitGame();
     }
 
     //this is called only once, and the paramter tell it to be called only after the scene was loaded
@@ -59,6 +87,9 @@ public class GameManager : MonoBehaviour
     //Initializes the game for each level.
     void InitGame()
     {
+        _enemiespaused = true;
+
+        if (isGameOver) return;
         boardScript = FindObjectOfType<BoardCreator>();
 
         //While doingSetup is true the player can't move, prevent player from moving while title card is up.
@@ -89,15 +120,17 @@ public class GameManager : MonoBehaviour
         instance.ResumeRigidBodies();
         //Set doingSetup to false allowing player to move again.
         doingSetup = false;
+        _enemiespaused = false;
     }
 
     //Update is called every frame.
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
         {
             bool menuOpen = InventoryMenu.ToggleDisplay();
-            if (menuOpen) {
+            if (menuOpen)
+            {
                 Pause();
             }
             else
@@ -126,6 +159,8 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
+        _paused = true;
+        _enemiespaused = true;
         Time.timeScale = 0f;
         instance.RBs = Object.FindObjectsOfType<PausableRigidBody2D>();
         for (int i = 0; i < instance.RBs.Length; i++)
@@ -139,14 +174,17 @@ public class GameManager : MonoBehaviour
 
     public void Resume(bool withMusic = true, bool withEnemies = true)
     {
+        _paused = false;
+        Debug.Log("with enemies" + withEnemies);
         if (withEnemies)
         {
+            _enemiespaused = true;
             for (int i = 0; i < instance.RBs.Length; i++)
             {
                 instance.RBs[i].Resume();
             }
         }
-        if(withMusic) SFXManager.Resume();
+        if (withMusic) SFXManager.Resume();
         Time.timeScale = 1f;
         Time.fixedDeltaTime = defaultDeltaTime;
     }
@@ -159,6 +197,7 @@ public class GameManager : MonoBehaviour
 
     public static void GameOver()
     {
+        isGameOver = true;
         SFXManager.PauseMusic();
         instance.Pause();
         instance.level = 0;
@@ -166,7 +205,7 @@ public class GameManager : MonoBehaviour
         PlayerHealthManager.Reset();
         ResourceManager.Reset();
         HUD.GameOver();
-        instance.Invoke("InstanceGoToMenu", 1.5f);        
+        instance.Invoke("InstanceGoToMenu", 1.5f);
     }
 
     private void InstanceGoToMenu()
@@ -176,8 +215,8 @@ public class GameManager : MonoBehaviour
 
     public static void GoToMenu()
     {
-        DestroyOnMenuObjects();
         SceneManager.LoadScene("menu", LoadSceneMode.Single);
+        DestroyOnMenuObjects();
     }
 
     public static void DestroyOnMenuObjects()

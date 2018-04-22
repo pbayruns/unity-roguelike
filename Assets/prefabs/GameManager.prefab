@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4208767608832514}
   - component: {fileID: 114763037222997040}
+  - component: {fileID: 114846865947722108}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -52,7 +53,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelStartDelay: 2
+  playerStartInvulnerability: 4
   doingSetup: 0
   player: {fileID: 114045008644816476, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
-  level: 1
+  level: 0
   boardScript: {fileID: 0}
+--- !u!114 &114846865947722108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1181341603640622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925b500b23c47904bb8a14ab731df0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

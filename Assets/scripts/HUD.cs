@@ -112,11 +112,13 @@ public class HUD : MonoBehaviour
 
     public static void UpdateHPDisplay(int current, int max)
     {
+        if (instance == null) return;
         instance.HPText.text = "HP: " + current + "+" + max;
     }
 
     public static void UpdateLevelDisplay(int level, int xp, int nextLvlXp = -1)
     {
+        if (instance == null) return;
         instance.LevelText.text = "LVL " + level + " (" + nextLvlXp + "XP To Next LVL)";
     }
 
