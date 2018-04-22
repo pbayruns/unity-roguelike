@@ -53,8 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelStartDelay: 2
-  playerStartInvulnerability: 4
-  doingSetup: 0
+  playerStartInvulnerability: 2
   player: {fileID: 114045008644816476, guid: f4ba8164db2633b41a38c73ab7617825, type: 2}
   level: 0
   boardScript: {fileID: 0}

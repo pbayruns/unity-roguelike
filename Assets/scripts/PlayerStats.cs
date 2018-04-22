@@ -5,13 +5,17 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats instance = null;
-
+    public const int STATS_PER_LVL = 3;
     public static int currentLevel = 1;
     public static int currentExp = 0;
+    public static int availableStatpoints = 0;
 
-    public static int hp = 15;
+    public static int strength = 1;
+    public static int agility = 1;
+    public static int wisdom = 1;
     public static int attack = 3;
     public static int defense = 0;
+    public static int hp = 15;
 
     private void Awake()
     {
@@ -33,7 +37,26 @@ public class PlayerStats : MonoBehaviour
         hp = 15;
         attack = 3;
         defense = 0;
+        strength = 1;
+        agility = 1;
+        wisdom = 1;
     }
+
+    public static void AddStrength(int amt = 1)
+    {
+        strength += amt;
+    }
+
+    public static void AddAgility(int amt = 1)
+    {
+        agility += amt;
+    }
+
+    public static void AddWisdom(int amt = 1)
+    {
+        wisdom += amt;
+    }
+
     public void Start()
     {
         HUD.UpdateLevelDisplay(currentLevel, currentExp, GetXPToNextLvl());
@@ -81,6 +104,8 @@ public class PlayerStats : MonoBehaviour
         int hpDif = hp;
         int atkDif = attack;
         int defDif = defense;
+
+        availableStatpoints += STATS_PER_LVL;
 
         hp = GetHPForLevel(currentLevel);
         attack = GetAttackForLevel(currentLevel);

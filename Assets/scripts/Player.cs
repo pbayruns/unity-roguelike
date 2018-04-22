@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     public float speed; // Player's movement speed in units
     public Vector2 lastMove;
     public float attackTime;
-    public string startPoint;
     public bool canMove;
     public float sprintModifier = 1.5f;
 
@@ -23,7 +22,6 @@ public class Player : MonoBehaviour
     private Vector2 moveInput;
     private bool attacking;
     private float attackTimeCounter;
-    private bool paused = false;
     public AudioSource stairsSound;
 
     private void Awake()
@@ -75,7 +73,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (paused)
+        if (GameManager.Paused && GameManager.instance != null)
         {
             return;
         }
@@ -195,16 +193,6 @@ public class Player : MonoBehaviour
     public static void DisableHitbox()
     {
         instance.boxCollider.enabled = false;
-    }
-
-    public static void Pause()
-    {
-        instance.paused = true;
-    }
-
-    public static void Resume()
-    {
-        instance.paused = false;
     }
 }
 

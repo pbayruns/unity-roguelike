@@ -6,21 +6,22 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public float levelStartDelay = 2f;	//Time to wait before starting level, in seconds.
-    public float playerStartInvulnerability = 4f;
+    public float playerStartInvulnerability = 2f;
     //Static instance of GameManager which allows it to be accessed by any other script.
     public static GameManager instance = null;
-    public bool doingSetup;
     public Player player;
     private Text levelText;                                 //Text to display current level number.
     private GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
     private float defaultDeltaTime;
     public int level = 0; //Current level number
-    //private bool doingSetup = true; //bool used to prevent Player from moving during setup.	
+
     public BoardCreator boardScript; //BoardManager which will set up the level.
     private PausableRigidBody2D[] RBs;
+
     //Awake is always called before any Start functions
-    private static bool isGameOver = false;
-    private static bool _paused = true;
+    private static bool _paused = false;
+    private static bool _enemiespaused = true;
+
     public static bool Paused
     {
         get
@@ -45,8 +46,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //public static bool Paused = true;
-    private static bool _enemiespaused = true;
     void Awake()
     {
         // Make sure there is always only one instance
@@ -61,9 +60,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         boardScript = FindObjectOfType<BoardCreator>();
-        player = Instantiate(player);
-        //Instantiate(cam);
-        //cam.SetFollowTarget(player.transform.gameObject);
+        player = FindObjectOfType<Player>();
+       
         //Call the InitGame function to initialize the first level 
         //InitGame();
     }
@@ -78,22 +76,23 @@ public class GameManager : MonoBehaviour
     }
 
     //This is called each time a scene is loaded.
-    static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    static private void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
     {
-        instance.level++;
-        instance.InitGame();
+        if (scene.name == "main") {
+            instance.level++;
+            instance.InitGame();
+        }
     }
 
     //Initializes the game for each level.
     void InitGame()
     {
         _enemiespaused = true;
+        _paused = true;
 
-        if (isGameOver) return;
         boardScript = FindObjectOfType<BoardCreator>();
 
         //While doingSetup is true the player can't move, prevent player from moving while title card is up.
-        doingSetup = true;
         PlayerHealthManager.MakeInvulnerable();
 
         //Get a reference to our image LevelImage by finding it by name.
@@ -104,11 +103,11 @@ public class GameManager : MonoBehaviour
         //Set levelImage to active blocking player's view of the game board during setup.
         levelImage.SetActive(true);
         SFXManager.PlayMusic();
+
         //Call the HideLevelImage function with a delay in seconds of levelStartDelay.
         Invoke("HideLevelImage", levelStartDelay);
 
         boardScript.SetupBoard(level);
-        instance.PauseRigidBodies();
     }
 
     //Hides black image used between levels
@@ -117,10 +116,9 @@ public class GameManager : MonoBehaviour
         //Disable the levelImage gameObject.
         levelImage.SetActive(false);
         PlayerHealthManager.MakeVulnerable(playerStartInvulnerability);
-        instance.ResumeRigidBodies();
-        //Set doingSetup to false allowing player to move again.
-        doingSetup = false;
+
         _enemiespaused = false;
+        _paused = false;
     }
 
     //Update is called every frame.
@@ -128,45 +126,42 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
         {
-            bool menuOpen = InventoryMenu.ToggleDisplay();
-            if (menuOpen)
-            {
-                Pause();
-            }
-            else
-            {
-                Resume();
-            }
+            MenuManager.Toggle(Menu.INVENTORY);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            MenuManager.Toggle(Menu.STATS);
         }
     }
 
-    public void PauseRigidBodies()
-    {
-        instance.RBs = Object.FindObjectsOfType<PausableRigidBody2D>();
-        for (int i = 0; i < instance.RBs.Length; i++)
-        {
-            instance.RBs[i].Pause();
-        }
-    }
+    //public void PauseRigidBodies()
+    //{
+    //    instance.RBs = Object.FindObjectsOfType<PausableRigidBody2D>();
+    //    for (int i = 0; i < instance.RBs.Length; i++)
+    //    {
+    //        instance.RBs[i].Pause();
+    //    }
+    //}
 
-    public void ResumeRigidBodies()
-    {
-        for (int i = 0; i < instance.RBs.Length; i++)
-        {
-            instance.RBs[i].Resume();
-        }
-    }
+    //public void ResumeRigidBodies()
+    //{
+    //    for (int i = 0; i < instance.RBs.Length; i++)
+    //    {
+    //        instance.RBs[i].Resume();
+    //    }
+    //}
 
     public void Pause()
     {
         _paused = true;
         _enemiespaused = true;
         Time.timeScale = 0f;
-        instance.RBs = Object.FindObjectsOfType<PausableRigidBody2D>();
-        for (int i = 0; i < instance.RBs.Length; i++)
-        {
-            instance.RBs[i].Pause();
-        }
+        //instance.RBs = Object.FindObjectsOfType<PausableRigidBody2D>();
+        //for (int i = 0; i < instance.RBs.Length; i++)
+        //{
+        //    instance.RBs[i].Pause();
+        //}
         SFXManager.Pause();
         instance.defaultDeltaTime = Time.fixedDeltaTime;
         Time.fixedDeltaTime = float.MaxValue;
@@ -178,11 +173,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("with enemies" + withEnemies);
         if (withEnemies)
         {
-            _enemiespaused = true;
-            for (int i = 0; i < instance.RBs.Length; i++)
-            {
-                instance.RBs[i].Resume();
-            }
+            _enemiespaused = false;
+            //for (int i = 0; i < instance.RBs.Length; i++)
+            //{
+            //    instance.RBs[i].Resume();
+            //}
         }
         if (withMusic) SFXManager.Resume();
         Time.timeScale = 1f;
@@ -197,7 +192,6 @@ public class GameManager : MonoBehaviour
 
     public static void GameOver()
     {
-        isGameOver = true;
         SFXManager.PauseMusic();
         instance.Pause();
         instance.level = 0;
@@ -205,11 +199,12 @@ public class GameManager : MonoBehaviour
         PlayerHealthManager.Reset();
         ResourceManager.Reset();
         HUD.GameOver();
-        instance.Invoke("InstanceGoToMenu", 1.5f);
+        instance.Invoke("InstanceGoToMenu", 2f);
     }
 
     private void InstanceGoToMenu()
     {
+        _paused = false;
         GoToMenu();
     }
 

@@ -70,4 +70,9 @@ public class InventoryMenu : MonoBehaviour {
         instance.inventoryUI.gameObject.SetActive(menuOpen);
         return menuOpen;
     }
+
+    public static void Close()
+    {
+        instance.inventoryUI.gameObject.SetActive(false);
+    }
 }
