@@ -4,14 +4,9 @@ using UnityEngine;
 
 public enum Menu
 {
-    STATS, INVENTORY
+    STATS, INVENTORY, SETTINGS
 }
 public class MenuManager : MonoBehaviour {
-    
-	// Use this for initialization
-	void Start () {
-		
-	}
 
     public static void Toggle(Menu menu)
     {
@@ -20,11 +15,15 @@ public class MenuManager : MonoBehaviour {
         {
             case Menu.INVENTORY:
                 menuOpen = InventoryMenu.ToggleDisplay();
-                StatMenu.Close();
+                CloseMenusExcept(Menu.INVENTORY);
                 break;
             case Menu.STATS:
                 menuOpen = StatMenu.ToggleDisplay();
-                InventoryMenu.Close();
+                CloseMenusExcept(Menu.STATS);
+                break;
+            case Menu.SETTINGS:
+                menuOpen = SettingsMenu.ToggleDisplay();
+                CloseMenusExcept(Menu.SETTINGS);
                 break;
         }
         if (menuOpen && !GameManager.Paused)
@@ -35,5 +34,12 @@ public class MenuManager : MonoBehaviour {
         {
             GameManager.instance.Resume();
         }
+    }
+
+    static void CloseMenusExcept(Menu dontClose)
+    {
+        if (dontClose != Menu.INVENTORY) InventoryMenu.Close();
+        if (dontClose != Menu.SETTINGS) SettingsMenu.Close();
+        if (dontClose != Menu.STATS) StatMenu.Close();
     }
 }

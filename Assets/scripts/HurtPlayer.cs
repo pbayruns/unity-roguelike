@@ -19,6 +19,10 @@ public class HurtPlayer : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && canDamage)
         {
+            if (PlayerHealthManager.Invulnerable)
+            {
+                return;
+            }
             canDamage = false;
             Invoke("SetDamageable", damageCooldown);
             int hit = damage - PlayerStats.defense;
@@ -34,6 +38,10 @@ public class HurtPlayer : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && canDamage)
         {
+            if (PlayerHealthManager.Invulnerable)
+            {
+                return;
+            }
             canDamage = false;
             Invoke("SetDamageable", damageCooldown);
             int hit = damage - PlayerStats.defense;
@@ -49,6 +57,10 @@ public class HurtPlayer : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && canDamage)
         {
+            if (PlayerHealthManager.Invulnerable)
+            {
+                return;
+            }
             canDamage = false;
             Invoke("SetDamageable", damageCooldown);
             int hit = damage - PlayerStats.defense;

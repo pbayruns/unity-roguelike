@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
        
         //Call the InitGame function to initialize the first level 
-        //InitGame();
+        InitGame();
     }
 
     //this is called only once, and the paramter tell it to be called only after the scene was loaded
@@ -133,6 +133,11 @@ public class GameManager : MonoBehaviour
         {
             MenuManager.Toggle(Menu.STATS);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            MenuManager.Toggle(Menu.SETTINGS);
+        }
     }
 
     //public void PauseRigidBodies()
@@ -170,7 +175,7 @@ public class GameManager : MonoBehaviour
     public void Resume(bool withMusic = true, bool withEnemies = true)
     {
         _paused = false;
-        Debug.Log("with enemies" + withEnemies);
+
         if (withEnemies)
         {
             _enemiespaused = false;
@@ -193,6 +198,7 @@ public class GameManager : MonoBehaviour
     public static void GameOver()
     {
         SFXManager.PauseMusic();
+        PlayerHealthManager.MakeInvulnerable();
         instance.Pause();
         instance.level = 0;
         PlayerStats.Reset();
@@ -210,6 +216,7 @@ public class GameManager : MonoBehaviour
 
     public static void GoToMenu()
     {
+        instance.Resume(false, false);
         SceneManager.LoadScene("menu", LoadSceneMode.Single);
         DestroyOnMenuObjects();
     }

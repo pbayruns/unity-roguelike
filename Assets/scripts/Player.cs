@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
         {
             return;
         }
+
         moving = false;
         if (!canMove)
         {
@@ -119,7 +120,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.J) || Input.GetMouseButtonDown(0))
+        if (GameManager.instance != null && (Input.GetKeyDown(KeyCode.J) || Input.GetMouseButtonDown(0)))
         {
             if(attackTimeCounter <= 0)
             {

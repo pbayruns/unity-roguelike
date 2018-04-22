@@ -34,6 +34,7 @@ public class PlayerStats : MonoBehaviour
     {
         currentLevel = 1;
         currentExp = 0;
+        availableStatpoints = 0;
         hp = 15;
         attack = 3;
         defense = 0;

@@ -11,7 +11,7 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         Player.Move(Vector3.zero);
-
+        PlayerHealthManager.MakeVulnerable();
         Player.GetCamera().SetBounds(Bounds);
         Button btn = GetComponentInChildren<Button>();
         btn.onClick.AddListener(StartGameOnClick);
