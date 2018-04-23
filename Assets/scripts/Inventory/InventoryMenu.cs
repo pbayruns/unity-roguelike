@@ -10,10 +10,17 @@ public class InventoryMenu : MonoBehaviour {
     public Transform itemsParent;   // The parent object of all the items
     public GameObject inventoryUI;  // The entire UI
     public InventorySlot slotPrefab;
+    public GameObject equipUI;
+    public Transform equipParent;
+
+    public InventorySlot armor;
+    public InventorySlot weapon;
+    public InventorySlot ring;
 
     InventoryManager inventory;    // Our current inventory
 
     InventorySlot[] slots;  // List of all the slots
+    InventorySlot[] equipment;
 
     //Awake is always called before any Start functions
     void Awake()
@@ -61,6 +68,28 @@ public class InventoryMenu : MonoBehaviour {
                 slots[i].ClearSlot();
             }
         }
+
+        if(InventoryManager.equipped.ContainsKey(EquipSlot.ARMOR) &&
+            InventoryManager.equipped[EquipSlot.ARMOR] != null)
+        {
+            armor.AddItem(InventoryManager.equipped[EquipSlot.ARMOR]);
+        }
+        else
+        {
+            armor.ClearSlot();
+        }
+
+        if (InventoryManager.equipped.ContainsKey(EquipSlot.WEAPON) &&
+            InventoryManager.equipped[EquipSlot.WEAPON] != null)
+        {
+            Debug.Log("weap quip");
+            weapon.AddItem(InventoryManager.equipped[EquipSlot.WEAPON]);
+        }
+        else
+        {
+            Debug.Log("nope");
+            weapon.ClearSlot();
+        }
     }
 
     public static bool ToggleDisplay()
@@ -68,6 +97,7 @@ public class InventoryMenu : MonoBehaviour {
         bool state = instance.inventoryUI.gameObject.activeSelf;
         bool menuOpen = !state;
         instance.inventoryUI.gameObject.SetActive(menuOpen);
+        instance.equipUI.gameObject.SetActive(menuOpen);
         return menuOpen;
     }
 

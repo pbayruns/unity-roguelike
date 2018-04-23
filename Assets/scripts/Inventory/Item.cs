@@ -5,6 +5,8 @@ using UnityEngine;
 public class Item : MonoBehaviour {
 
     public Sprite icon;
+    public EquipSlot EquipSlot;
+
 	// Use this for initializationss
 	void Start () {
 		

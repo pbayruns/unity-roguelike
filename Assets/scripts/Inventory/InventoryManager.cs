@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EquipSlot
+{
+    ARMOR,
+    RING_1, RING_2, WEAPON,
+    NONE
+};
 public class InventoryManager : MonoBehaviour {
 
     public static InventoryManager instance = null;
@@ -10,14 +16,10 @@ public class InventoryManager : MonoBehaviour {
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
-    public int item_limit = 10;
+    public int item_limit = 16;
     public List<Item> inventory = new List<Item>();
-    public enum EquipSlot {
-        HEAD, BODY, LEGS, ARMS,
-        RING_1, RING_2, WEAPON,
-        NONE
-    };
-    public static Dictionary<EquipSlot, Item> equipped;
+
+    public static Dictionary<EquipSlot, Item> equipped = new Dictionary<EquipSlot, Item>();
 
     public static int GetInventoryLimit()
     {
@@ -58,10 +60,13 @@ public class InventoryManager : MonoBehaviour {
         // remove new item from inventory
         // add equipped to inventory
         // add item to equipped
-        Item current = equipped[slot];
+        Item current = null;
+        equipped.TryGetValue(slot, out current);
         Item removed = Remove(index);
-        instance.inventory[index] = current;
-        equipped[slot] = removed;
+        Debug.Log("removed" + removed);
+        AddItem(current, index);
+        //equipped[slot] = removed;
+        equipped.Add(slot, removed);
         OnChange();
         return true;
     }

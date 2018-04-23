@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224096222075009360}
   - component: {fileID: 222505454296287780}
   - component: {fileID: 114593919667497836}
+  - component: {fileID: 114317473838894544}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -46,6 +47,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114317473838894544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449220898843588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 820cc639464ba174f91d64cd8b969359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114377974470422368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
