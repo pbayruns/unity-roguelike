@@ -3,26 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler//, IDropHandler
+public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler//, IDropHandler
 {
     public Item item;
     public InventorySlot slot;
 
+    private Transform originalParent;
+
+    public static GameObject itemBeingDragged;
+    Vector3 startPosition;
+    Transform startParent;
+    Transform canvas;
+
     // DRAG
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData data)
     {
         slot = GetComponentInParent<InventorySlot>();
         item = slot.GetItem();
+
+        itemBeingDragged = gameObject;
+        startPosition = transform.position;
+        startParent = transform.parent;
+        canvas = GameObject.FindGameObjectWithTag("UI").transform;
+        gameObject.transform.SetParent(canvas, false);
     }
 
     public void OnDrag(PointerEventData data)
     {
-        transform.position = Input.mousePosition;
+        transform.position = data.position;
     }
 
     // DROP
     public void OnEndDrag(PointerEventData data)
     {
+        itemBeingDragged = null;
+        if (transform.parent == canvas)
+        {
+            transform.position = startPosition;
+            transform.SetParent(originalParent, false);
+        }
+
         RectTransform invPanel = InventoryMenu.instance.inventoryUI.transform as RectTransform;
         RectTransform equipPanel = InventoryMenu.instance.equipUI.transform as RectTransform;
 
@@ -47,6 +67,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler//, I
         else
         {
             transform.localPosition = Vector3.zero;
+            transform.SetParent(originalParent, false);
         }
     }
 }

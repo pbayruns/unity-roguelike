@@ -66,14 +66,14 @@ public class InventoryManager : MonoBehaviour {
         Debug.Log("removed" + removed);
         AddItem(current, index);
         //equipped[slot] = removed;
-        equipped.Add(slot, removed);
+        equipped[slot] = removed;
         OnChange();
         return true;
     }
 
     public static bool AddItem(Item item, int index = -1)
     {
-        if(instance.inventory.Count != instance.item_limit)
+        if(instance.inventory.Count < instance.item_limit)
         {
             if(index >= 0) instance.inventory.Insert(index, item);
             else instance.inventory.Add(item);

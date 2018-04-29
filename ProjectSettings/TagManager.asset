@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Item
   - WorldObject
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Top
   - 
   - 
   - 

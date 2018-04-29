@@ -4,33 +4,22 @@ using UnityEngine;
 
 public enum ItemType
 {
-    CYSTAL_YELLOW,
+    NONE,
+    CYSTAL_YELLOW, 
+    SWORD_COPPER
 }
 
 public enum ResourceItemType
 {
+    NONE,
     GOLD_1, GOLD_3, GOLD_STACK
 }
 
 public class LootManager : MonoBehaviour {
 
     public static LootManager instance = null;
-    [System.Serializable]
-    public struct ItemPair
-    {
-        public Item item;
-        public ItemType itemType;
-    }
-    [System.Serializable]
-    public struct ResourcePair
-    {
-        public Resource resource;
-        public ResourceItemType resourceType;
-    }
-    public List<ItemPair> itemPairs;
-    public List<ResourcePair> resourcePairs;
-    private Dictionary<ItemType, Item> items;
-    private Dictionary<ResourceItemType, Resource> resources;
+    private Dictionary<ItemType, Object> ItemPool = new Dictionary<ItemType, Object>();
+    private Dictionary<ResourceItemType, Object> ResourcePool = new Dictionary<ResourceItemType, Object>();
 
     //Singleton
     private void Awake()
@@ -38,17 +27,6 @@ public class LootManager : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
-            items = new Dictionary<ItemType, Item>();
-            resources = new Dictionary<ResourceItemType, Resource>();
-            foreach (ResourcePair pair in resourcePairs)
-            {
-                instance.resources.Add(pair.resourceType, pair.resource);
-            }
-
-            foreach (ItemPair pair in itemPairs)
-            {
-                instance.items.Add(pair.itemType, pair.item);
-            }
         }
         else if (instance != this)
         {
@@ -59,23 +37,65 @@ public class LootManager : MonoBehaviour {
 
     public static void DropLoot(Enemy enemy, Vector3 position)
     {
-        //Instantiate(instance.items[ItemType.CYSTAL_YELLOW], position, Quaternion.Euler(Vector3.zero));
-        ResourceItemType drop = ResourceItemType.GOLD_1;
+        InstantiateItem(ItemType.SWORD_COPPER, position);
+
         switch (enemy)
         {
             case Enemy.SLIME_RED:
-                drop = ResourceItemType.GOLD_1;
-                break;
+                InstantiateResource(ResourceItemType.GOLD_1, position);
+                return;
             case Enemy.KNIGHT_DEFAULT:
-                drop = ResourceItemType.GOLD_3;
-                break;
+                InstantiateResource(ResourceItemType.GOLD_3, position);
+                return;
             case Enemy.ORC_DEFAULT:
-                drop = ResourceItemType.GOLD_STACK;
-                break;
+                InstantiateResource(ResourceItemType.GOLD_STACK, position);
+                return;
             default:
-                break;
+                return;
         }
-        Instantiate(instance.resources[drop], position, Quaternion.Euler(Vector3.zero));
+    }
+
+
+    public static void InstantiateItem(ItemType item, Vector3 position)
+    {
+        if (item == ItemType.NONE) return;
+
+        Object itemObject;
+        // try to load the gameobject from our cache, if it doesn't load, load it from resources and cache it.
+        if (instance.ItemPool.ContainsKey(item))
+        {
+            itemObject = instance.ItemPool[item];
+        }
+        else
+        {
+            string itemName = System.Enum.GetName(typeof(ItemType), item);
+            itemObject = Resources.Load("Items/" + itemName);
+            instance.ItemPool[item] = itemObject;
+        }
+
+        // Spawn the item
+        Instantiate(itemObject, position, Quaternion.identity);
+    }
+
+    public static void InstantiateResource(ResourceItemType resource, Vector3 position)
+    {
+        if (resource == ResourceItemType.NONE) return;
+
+        Object resourceObject;
+        // try to load the gameobject from our cache, if it doesn't load, load it from resources and cache it.
+        if (instance.ResourcePool.ContainsKey(resource))
+        {
+            resourceObject = instance.ResourcePool[resource];
+        }
+        else
+        {
+            string resourceName = System.Enum.GetName(typeof(ResourceItemType), resource);
+            resourceObject = Resources.Load("Stackables/" + resourceName);
+            instance.ResourcePool[resource] = resourceObject;
+        }
+
+        // Spawn the resource
+        Instantiate(resourceObject, position, Quaternion.identity);
     }
 
 }
