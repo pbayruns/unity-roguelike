@@ -19,6 +19,13 @@ public class PickupItem : MonoBehaviour {
             {
                 HUD.ShowInfoTextTimed("Item added to inventory", 1f);
                 //Destroy(gameObject);
+                Destroy(GetComponent<BoxCollider2D>());
+                Destroy(GetComponent<DestroyOnMenu>());
+                foreach (Transform child in transform)
+                {
+                    Destroy(child.gameObject);
+                }
+                Destroy(this);
             }
         }
     }

@@ -8,9 +8,6 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public Item item;
     public InventorySlot slot;
 
-    private Transform originalParent;
-
-    public static GameObject itemBeingDragged;
     Vector3 startPosition;
     Transform startParent;
     Transform canvas;
@@ -21,7 +18,6 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         slot = GetComponentInParent<InventorySlot>();
         item = slot.GetItem();
 
-        itemBeingDragged = gameObject;
         startPosition = transform.position;
         startParent = transform.parent;
         canvas = GameObject.FindGameObjectWithTag("UI").transform;
@@ -36,11 +32,10 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // DROP
     public void OnEndDrag(PointerEventData data)
     {
-        itemBeingDragged = null;
         if (transform.parent == canvas)
         {
             transform.position = startPosition;
-            transform.SetParent(originalParent, false);
+            transform.SetParent(startParent, false);
         }
 
         RectTransform invPanel = InventoryMenu.instance.inventoryUI.transform as RectTransform;
@@ -51,23 +46,18 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (!onInv && !onEquip)
         {
             //drop is outside inv and equip
-            transform.localPosition = Vector3.zero;
         }
         else if (onInv)
         {
-            transform.localPosition = Vector3.zero;
         }
         else if (onEquip)
         {
-            slot = GetComponentInParent<InventorySlot>();
-            item = slot.GetItem();
             Debug.Log("item quipslot " + item.EquipSlot);
             InventoryManager.Equip(item, item.EquipSlot);
         }
         else
         {
-            transform.localPosition = Vector3.zero;
-            transform.SetParent(originalParent, false);
+
         }
     }
 }

@@ -64,6 +64,7 @@ public class InventoryManager : MonoBehaviour {
         equipped.TryGetValue(slot, out current);
         Item removed = Remove(index);
         Debug.Log("removed" + removed);
+        Debug.Log("current" + current);
         AddItem(current, index);
         //equipped[slot] = removed;
         equipped[slot] = removed;

@@ -6,9 +6,14 @@ public class Item : MonoBehaviour {
 
     public Sprite icon;
     public EquipSlot EquipSlot;
+    public int attack = 0;
+    public int defense = 0;
+    public int strength = 0;
+    public int agility = 0;
+    public int wisdom = 0;
 
-	// Use this for initializationss
-	void Start () {
+    // Use this for initializationss
+    void Start () {
 		
 	}
 	

@@ -27,7 +27,7 @@ public class HurtPlayer : MonoBehaviour
             Invoke("SetDamageable", damageCooldown);
             int hit = damage - PlayerStats.defense;
             hit = (hit < 0) ? 0 : hit;
-            PlayerHealthManager.HurtPlayer(hit);
+            PlayerHealthManager.HurtPlayer(damage);
             SFXManager.PlaySFX(SFX_TYPE.PLAYER_HURT);
             var clone = (GameObject)Instantiate(damageDisplay, Player.instance.transform.position, Quaternion.Euler(Vector3.zero));
             clone.GetComponent<FloatingNumber>().damage = hit;

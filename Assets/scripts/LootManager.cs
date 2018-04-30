@@ -6,7 +6,7 @@ public enum ItemType
 {
     NONE,
     CYSTAL_YELLOW, 
-    SWORD_COPPER
+    SWORD_COPPER, SWORD_IRON, SWORD_GOLD, SWORD_DIAMOND
 }
 
 public enum ResourceItemType
@@ -37,21 +37,21 @@ public class LootManager : MonoBehaviour {
 
     public static void DropLoot(Enemy enemy, Vector3 position)
     {
-        InstantiateItem(ItemType.SWORD_COPPER, position);
-
+        if(Random.Range(0f, 1f) > 0.5) InstantiateItem(ItemType.SWORD_IRON, position);
+        else InstantiateItem(ItemType.SWORD_COPPER, position);
         switch (enemy)
         {
             case Enemy.SLIME_RED:
                 InstantiateResource(ResourceItemType.GOLD_1, position);
-                return;
+                break;
             case Enemy.KNIGHT_DEFAULT:
                 InstantiateResource(ResourceItemType.GOLD_3, position);
-                return;
+                break;
             case Enemy.ORC_DEFAULT:
                 InstantiateResource(ResourceItemType.GOLD_STACK, position);
-                return;
+                break;
             default:
-                return;
+                break;
         }
     }
 
