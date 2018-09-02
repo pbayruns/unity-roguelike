@@ -70,9 +70,9 @@ public class BoardCreator : MonoBehaviour
     private Enemy[][] enemies;
 
     private DungeonObject[] dungeonObjects;
-    private Room[] rooms;                                     // All the rooms that are created for this board.
-    private Corridor[] corridors;                             // All the corridors that connect the rooms.
-    public GameObject boardHolder;                           // GameObject that acts as a container for all other tiles.
+    private Room[] rooms;              // All the rooms that are created for this board.
+    private Corridor[] corridors;      // All the corridors that connect the rooms.
+    public GameObject boardHolder;     // GameObject that acts as a container for all other tiles.
     public LevelTheme theme;
     private BoxCollider2D boundsBox;
 
@@ -144,7 +144,7 @@ public class BoardCreator : MonoBehaviour
     }
 
 
-    void SetupTilesArray()
+    private void SetupTilesArray()
     {
         // Create the tiles array with the right rows and columns
         tiles = new Tile[columns][];
@@ -168,7 +168,7 @@ public class BoardCreator : MonoBehaviour
     }
 
 
-    void CreateRoomsAndCorridors()
+    private void CreateRoomsAndCorridors()
     {
         // Create rooms array with a random size.
         rooms = new Room[numRooms.Random];
@@ -223,7 +223,7 @@ public class BoardCreator : MonoBehaviour
         }
     }
 
-    void SetTilesValuesForRooms()
+    private void SetTilesValuesForRooms()
     {
         // Go through all the rooms...
         for (int i = 0; i < rooms.Length; i++)
@@ -259,7 +259,7 @@ public class BoardCreator : MonoBehaviour
         }
     }
 
-    void SetTilesValuesForCorridors()
+    private void SetTilesValuesForCorridors()
     {
         // Go through every corridor...
         for (int i = 0; i < corridors.Length; i++)
@@ -315,25 +315,26 @@ public class BoardCreator : MonoBehaviour
     }
 
 
-    void InstantiateTiles()
+    private void InstantiateTiles()
     {
         // Go through all the tiles in the jagged array...
         Tile wall = theme.wallTile;
-        for (int i = 0; i < tiles.Length; i++)
+        for (int row = 0; row < tiles.Length; row++)
         {
-            for (int j = 0; j < tiles[i].Length; j++)
+            for (int col = 0; col < tiles[row].Length; col++)
             {
-                Tile tile = tiles[i][j];
-                Tile top = overlay[i][j];
-                Tile obj = objects[i][j];
-                Enemy enemy = enemies[i][j];
+                Tile tile = tiles[row][col];
+                Tile top = overlay[row][col];
+                Tile obj = objects[row][col];
+                Enemy enemy = enemies[row][col];
 
                 if (tile == Tile.NOT_SET)
                 {
-                    bool putWall = (i > 0 && tiles[i - 1][j] != Tile.NOT_SET);
-                    putWall = putWall || (j > 0 && tiles[i][j - 1] != Tile.NOT_SET);
-                    putWall = putWall || (j < tiles[i].Length - 1 && tiles[i][j + 1] != Tile.NOT_SET);
-                    putWall = putWall || (i < tiles.Length - 1 && tiles[i + 1][j] != Tile.NOT_SET);
+                    // We want to put a wall if the tile above, below, left, or right is set
+                    bool putWall = (row > 0 && tiles[row - 1][col] != Tile.NOT_SET);
+                    putWall = putWall || (col > 0 && tiles[row][col - 1] != Tile.NOT_SET);
+                    putWall = putWall || (col < tiles[row].Length - 1 && tiles[row][col + 1] != Tile.NOT_SET);
+                    putWall = putWall || (row < tiles.Length - 1 && tiles[row + 1][col] != Tile.NOT_SET);
                     if (putWall)
                     {
                         //InstantiateTile(wall, i, j);
@@ -346,22 +347,25 @@ public class BoardCreator : MonoBehaviour
                         tile = theme.midFloor;
                     }
                 }
-                if (tile != Tile.NOT_SET)InstantiateTile(tile, i, j);
-                if (top != Tile.NOT_SET) InstantiateTile(top, i, j);
-                if (obj != Tile.NOT_SET)
-                {
-                    InstantiateTile(obj, i, j);
-                }
-                else if(enemy != Enemy.NONE)
-                {
-                    InstantiateEnemy(enemy, i, j);
+                // Create the tile, overlay, and dungeon objects
+                if (tile != Tile.NOT_SET) { InstantiateTile(tile, row, col); }
+                // Create only one of these types, in this order of precedence:
+                // 1. any dungeon object for this tile (i.e. a chest)
+                // 2. any overlay for this tile (i.e. flowers)
+                // 3. any enemy for this tile
+               if (obj != Tile.NOT_SET) {
+                    InstantiateTile(obj, row, col);
+                } else if (top != Tile.NOT_SET) { 
+                    InstantiateTile(top, row, col); 
+                } else if(enemy != Enemy.NONE) {
+                    InstantiateEnemy(enemy, row, col);
                 }
             }
         }
     }
 
 
-    void InstantiateOuterWalls()
+    private void InstantiateOuterWalls()
     {
         // The outer walls are one unit left, right, up and down from the board.
         float leftEdgeX = -1f;
@@ -379,7 +383,7 @@ public class BoardCreator : MonoBehaviour
     }
 
 
-    void InstantiateVerticalOuterWall(float xCoord, float startingY, float endingY)
+    private void InstantiateVerticalOuterWall(float xCoord, float startingY, float endingY)
     {
         // Start the loop at the starting value for Y.
         float currentY = startingY;
@@ -395,7 +399,7 @@ public class BoardCreator : MonoBehaviour
     }
 
 
-    void InstantiateHorizontalOuterWall(float startingX, float endingX, float yCoord)
+    private void InstantiateHorizontalOuterWall(float startingX, float endingX, float yCoord)
     {
         // Start the loop at the starting value for X.
         float currentX = startingX;
@@ -411,7 +415,7 @@ public class BoardCreator : MonoBehaviour
     }
 
 
-    void InstantiateFromArray(GameObject[] prefabs, float xCoord, float yCoord)
+    private void InstantiateFromArray(GameObject[] prefabs, float xCoord, float yCoord)
     {
         // Create a random index for the array.
         int randomIndex = Random.Range(0, prefabs.Length);
@@ -426,7 +430,7 @@ public class BoardCreator : MonoBehaviour
         tileInstance.transform.parent = boardHolder.transform;
     }
 
-    void InstantiateTile(Tile tile, float xCoord, float yCoord)
+    private void InstantiateTile(Tile tile, float xCoord, float yCoord)
     {
         if (tile == Tile.NOT_SET) return;
         // The position to be instantiated at is based on the coordinates.
@@ -452,7 +456,7 @@ public class BoardCreator : MonoBehaviour
         tileInstance.transform.parent = boardHolder.transform;
     }
 
-    void InstantiateEnemy(Enemy enemy, float xCoord, float yCoord)
+    private void InstantiateEnemy(Enemy enemy, float xCoord, float yCoord)
     {
         if (enemy == Enemy.NONE) return;
         // The position to be instantiated at is based on the coordinates.
@@ -477,4 +481,5 @@ public class BoardCreator : MonoBehaviour
         // Set the enemy's parent to the board holder.
         enemyInstance.transform.parent = boardHolder.transform;
     }
+
 }

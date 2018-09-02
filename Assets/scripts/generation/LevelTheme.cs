@@ -13,7 +13,7 @@ public class LevelTheme
     public enum RoomType
     {
         NORMAL_FOREST_DEFAULT, NORMAL_FOREST_MUSHROOM, NORMAL_FOREST_LOGGING, NORMAL_FOREST_CAMP,
-        NORMAL_FOREST_POND, NORMAL_FOREST_GARDEN
+        NORMAL_FOREST_POND, NORMAL_FOREST_GARDEN, NORMAL_FOREST_TREASURE
     }
 
     public struct RoomInfo
@@ -196,6 +196,76 @@ public class LevelTheme
         return info;
     }
 
+    private RoomInfo GetForestTreasureRoom(int width, int height)
+    {
+        Tile[][] tiles = GetTilesArray(width, height);
+        Tile[][] objects = GetTilesArray(width, height);
+        Enemy[][] enemies = GetEnemiesArray(width, height);
+
+        for (int x = 0; x < tiles.Length; x++)
+        {
+            Tile[] row = tiles[x];
+            for (int y = 0; y < row.Length; y++)
+            {
+                Tile nextTile = GetBaseTile();
+                tiles[x][y] = nextTile;
+                if (Random.Range(0f, 1f) < 0.05f)
+                {
+                    Tile[] objx = new Tile[] { Tile.STUMP_1, Tile.STUMP_2, Tile.STUMP_3 };
+                    objects[x][y] = objx[Random.Range(0, objx.Length)];
+                }
+
+                Enemy nextEnemy = Enemy.NONE;
+                if (Random.Range(0f, 1f) < 0.08f)
+                {
+                    Enemy[] enemy = new Enemy[] { Enemy.KNIGHT_DEFAULT };
+                    nextEnemy = enemy[Random.Range(0, enemy.Length)];
+                }
+                enemies[x][y] = nextEnemy;
+            }
+        }
+        RoomInfo info = new RoomInfo();
+        info.objects = objects;
+        info.enemies = enemies;
+        info.tiles = tiles;
+        return info;
+    }
+
+    public RoomInfo GetGenericRoomTiles(int width, int height){
+        Tile[][] tiles = GetTilesArray(width, height);
+        Tile[][] objects = GetTilesArray(width, height);
+        Enemy[][] enemies = GetEnemiesArray(width, height);
+
+        for (int x = 0; x < tiles.Length; x++)
+        {
+            Tile[] row = tiles[x];
+            for (int y = 0; y < row.Length; y++)
+            {
+                Tile nextTile = GetBaseTile();
+                tiles[x][y] = nextTile;
+                
+                if (Random.Range(0f, 1f) < 0.05f)
+                {
+                    Tile[] objx = new Tile[] { Tile.STUMP_1, Tile.STUMP_2, Tile.STUMP_3 };
+                    objects[x][y] = objx[Random.Range(0, objx.Length)];
+                }
+
+                Enemy nextEnemy = Enemy.NONE;
+                if (Random.Range(0f, 1f) < 0.08f)
+                {
+                    Enemy[] enemy = new Enemy[] { Enemy.KNIGHT_DEFAULT };
+                    nextEnemy = enemy[Random.Range(0, enemy.Length)];
+                }
+                enemies[x][y] = nextEnemy;
+            }
+        }
+        RoomInfo info = new RoomInfo();
+        info.objects = objects;
+        info.enemies = enemies;
+        info.tiles = tiles;
+        return info;
+    }
+
     public RoomInfo GetForestRoomTiles(int width, int height, RoomType type)
     {
 
@@ -207,6 +277,8 @@ public class LevelTheme
                 return GetForestMushroomRoom(width, height);
             case RoomType.NORMAL_FOREST_LOGGING:
                 return GetForestLoggingRoom(width, height);
+            case RoomType.NORMAL_FOREST_TREASURE:
+                return GetForestTreasureRoom(width, height);
             default:
                 return GetForestDefaultRoom(width, height);
                 //case RoomType.NORMAL_FOREST_CAMP:
