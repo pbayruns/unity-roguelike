@@ -22,6 +22,7 @@ public enum Tile
 
     //Objects
     STUMP_1, STUMP_2, STUMP_3,
+    CHEST_CLOSED, CHEST_OPEN,
 
     NOT_SET
 }
