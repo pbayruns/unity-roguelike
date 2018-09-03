@@ -21,10 +21,10 @@ public abstract class Interactable : MonoBehaviour
         }
     }
 
-        private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         bool ePressed = Input.GetKeyDown(KeyCode.E);
-        if (other.tag == "Stairs")
+        if (other.tag == "Player")
         {
             HUD.ShowInfoText(InfoText);
             if (ePressed)

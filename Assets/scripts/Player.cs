@@ -140,41 +140,8 @@ public class Player : MonoBehaviour
         anim.SetFloat("LastMoveY", lastMove.y);
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        bool ePressed = Input.GetKeyDown(KeyCode.E);
-        if (other.tag == "Stairs")
-        {
-            HUD.ShowInfoText("<Press E to descend>");
-            if (ePressed)
-            {
-                HUD.HideInfoText();
-                SFXManager.PlaySFX(SFX_TYPE.STAIRS_DOWN);
-                Restart();
-            }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        bool ePressed = Input.GetKeyDown(KeyCode.E);
-        if (other.tag == "Stairs")
-        {
-            HUD.ShowInfoTextTimed("<Press E to descend>", 1f);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == "Stairs")
-        {
-            HUD.HideInfoText();
-        }
-    }
-
-
     //Restart reloads the scene when called.
-    private void Restart()
+    public static void Restart()
     {
         //Load the last scene loaded, in this case Main, the only scene in the game. And we load it in "Single" mode so it replace the existing one
         //and not load all the scene object in the current scene.
