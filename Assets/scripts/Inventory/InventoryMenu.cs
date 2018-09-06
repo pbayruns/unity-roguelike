@@ -23,7 +23,7 @@ public class InventoryMenu : MonoBehaviour {
     InventorySlot[] equipment;
 
     //Awake is always called before any Start functions
-    void Awake()
+    public void Awake()
     {
         // Make sure there is always only one instance
         if (instance == null)
@@ -37,7 +37,7 @@ public class InventoryMenu : MonoBehaviour {
         //DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
+    public void Start()
     {
         inventory = InventoryManager.instance;
         inventory.onItemChangedCallback = UpdateUI;    // Subscribe to the onItemChanged callback
@@ -53,7 +53,7 @@ public class InventoryMenu : MonoBehaviour {
     //		- Adding items
     //		- Clearing empty slots
     // This is called using a delegate on the Inventory.
-    void UpdateUI()
+    public void UpdateUI()
     {
         // Loop through all the slots
         for (int i = 0; i < slots.Length; i++)

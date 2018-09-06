@@ -8,7 +8,8 @@ public enum EquipSlot
     RING_1, RING_2, WEAPON,
     NONE
 };
-public class InventoryManager : MonoBehaviour {
+public class InventoryManager : MonoBehaviour
+{
 
     public static InventoryManager instance = null;
     // Callback which is triggered when
@@ -25,6 +26,7 @@ public class InventoryManager : MonoBehaviour {
     {
         return instance.item_limit;
     }
+
     private void Awake()
     {
         if (instance == null)
@@ -42,10 +44,11 @@ public class InventoryManager : MonoBehaviour {
     {
         return instance.item_limit == instance.inventory.Count;
     }
+
     public static bool Equip(Item item, EquipSlot slot)
     {
         int index = instance.inventory.IndexOf(item);
-        if(index >= 0)
+        if (index >= 0)
         {
             return Equip(index, slot);
         }
@@ -74,9 +77,9 @@ public class InventoryManager : MonoBehaviour {
 
     public static bool AddItem(Item item, int index = -1)
     {
-        if(instance.inventory.Count < instance.item_limit)
+        if (instance.inventory.Count < instance.item_limit)
         {
-            if(index >= 0) instance.inventory.Insert(index, item);
+            if (index >= 0) instance.inventory.Insert(index, item);
             else instance.inventory.Add(item);
             OnChange();
             return true;
@@ -92,7 +95,7 @@ public class InventoryManager : MonoBehaviour {
 
     public static Item Remove(int index)
     {
-        if(index >= 0 && index < instance.inventory.Count)
+        if (index >= 0 && index < instance.inventory.Count)
         {
             Item removed = instance.inventory[index];
             instance.inventory.RemoveAt(index);
