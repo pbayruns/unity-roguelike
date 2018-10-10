@@ -34,8 +34,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (transform.parent == canvas)
         {
-            transform.position = startPosition;
             transform.SetParent(startParent, false);
+            transform.position = startPosition;
         }
 
         RectTransform invPanel = InventoryMenu.instance.inventoryUI.transform as RectTransform;
@@ -46,18 +46,31 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (!onInv && !onEquip)
         {
             //drop is outside inv and equip
+            // return item back to where it was
+            Debug.Log("not on anything");
+            transform.SetParent(startParent, false);
+            transform.position = startPosition;
         }
         else if (onInv)
         {
+            // if it's on the inventory, we want to find what slot it was dropped into
+            RectTransform invDropSlot;
+            for(int i = 0; i < InventoryMenu.instance.slots.Length; i++){
+                InventorySlot droppedSlot = InventoryMenu.instance.slots[i];
+                invDropSlot = droppedSlot.transform as RectTransform;
+                if(RectTransformUtility.RectangleContainsScreenPoint(invDropSlot, Input.mousePosition)){
+                    int fromNdx = slot.transform.GetSiblingIndex();
+                    int toNdx = droppedSlot.transform.GetSiblingIndex();
+                    // swap the contents of slot and dropped slot
+                    InventoryManager.swap(fromNdx, toNdx);
+                }
+            }
         }
         else if (onEquip)
         {
+            // If it's on equip, we want to try to equip it in the given slot
             Debug.Log("item quipslot " + item.EquipSlot);
             InventoryManager.Equip(item, item.EquipSlot);
-        }
-        else
-        {
-
         }
     }
 }

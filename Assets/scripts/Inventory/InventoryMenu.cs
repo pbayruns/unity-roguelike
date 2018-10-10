@@ -19,7 +19,7 @@ public class InventoryMenu : MonoBehaviour {
 
     InventoryManager inventory;    // Our current inventory
 
-    InventorySlot[] slots;  // List of all the slots
+    public InventorySlot[] slots;  // List of all the slots
     InventorySlot[] equipment;
 
     //Awake is always called before any Start functions

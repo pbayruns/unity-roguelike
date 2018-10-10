@@ -12,11 +12,23 @@ public class InventorySlot : MonoBehaviour
     // Add item to the slot
     public void AddItem(Item newItem)
     {
-        if (newItem == null) { ClearSlot(); return; }
-        item = newItem;
-        icon.sprite = item.icon;
-        icon.enabled = true;
-        icon.gameObject.SetActive(true);
+
+        GameObject child1 = transform.GetChild(0).gameObject;
+        ItemDragHandler handler = child1.GetComponent<ItemDragHandler>();
+        if(handler != null){
+            handler.item = newItem;
+            handler.slot = this;
+        }
+        if (newItem == null) { 
+            ClearSlot(); 
+            return; 
+        } else {
+            item = newItem;
+            icon.sprite = item.icon;
+            icon.enabled = true;
+            icon.gameObject.SetActive(true);
+        }
+
     }
 
     public Item GetItem()

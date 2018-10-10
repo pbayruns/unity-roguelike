@@ -45,6 +45,37 @@ public class InventoryManager : MonoBehaviour
         return instance.item_limit == instance.inventory.Count;
     }
 
+    public static bool swap(int fromNdx, int toNdx)
+    {
+        Debug.Log("moving from " + fromNdx);
+        Debug.Log("to " + toNdx);
+        Debug.Log(instance.inventory.Count);
+
+        if (toNdx >= instance.inventory.Count)
+        {
+            // we want toNdx to be at LEAST cap - 1
+            // 0 1 2 3 4 5 6 7 8 9  INDEX
+            // 1 2 3 4 5 6 7 8 9 10 COUNT
+            int cap = instance.inventory.Count;
+            while (cap - 1 <= toNdx)
+            {
+                instance.inventory.Add(null);
+                cap++;
+            }
+            instance.inventory[toNdx] = instance.inventory[fromNdx];
+            instance.inventory[fromNdx] = null;
+        }
+        else
+        {
+            Item temp = instance.inventory[toNdx];
+            instance.inventory[toNdx] = instance.inventory[fromNdx];
+            instance.inventory[fromNdx] = temp;
+        }
+
+        OnChange();
+        return true;
+    }
+
     public static bool Equip(Item item, EquipSlot slot)
     {
         int index = instance.inventory.IndexOf(item);
