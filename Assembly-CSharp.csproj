@@ -64,6 +64,7 @@
      <Compile Include="Assets\scripts\Enemies\Slime.cs" />
      <Compile Include="Assets\scripts\Enemies\Sorcerer.cs" />
      <Compile Include="Assets\scripts\EnemyHealthManager.cs" />
+     <Compile Include="Assets\scripts\Fishing\FishingManager.cs" />
      <Compile Include="Assets\scripts\FloatingNumber.cs" />
      <Compile Include="Assets\scripts\GameManager.cs" />
      <Compile Include="Assets\scripts\Generation\BoardCreator.cs" />
