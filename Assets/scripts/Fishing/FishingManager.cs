@@ -16,9 +16,13 @@ public class FishingManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.Space)){
-            hookBody.AddForce(new Vector2(0, 6000f));
+        if(Input.GetKeyDown(KeyCode.Alpha7)){
+            this.transform.position = Player.GetPosition() + new Vector3(1.0f, 0.5f, 0f);
         }
+        if (Input.GetKey(KeyCode.Space)){
+            hookBody.AddForce(new Vector2(0, 300f));
+        }
+        
 	}
     
 }
