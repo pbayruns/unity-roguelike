@@ -11,16 +11,6 @@ public class Item : MonoBehaviour {
     public int strength = 0;
     public int agility = 0;
     public int wisdom = 0;
-
-    // Use this for initializationss
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
     
     public void Use()
     {

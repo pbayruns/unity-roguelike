@@ -56,9 +56,9 @@ public class LootManager : MonoBehaviour {
     }
 
 
-    public static void InstantiateItem(ItemType item, Vector3 position)
+    public static Object InstantiateItem(ItemType item, Vector3 position)
     {
-        if (item == ItemType.NONE) return;
+        if (item == ItemType.NONE) return null;
 
         Object itemObject;
         // try to load the gameobject from our cache, if it doesn't load, load it from resources and cache it.
@@ -74,12 +74,12 @@ public class LootManager : MonoBehaviour {
         }
 
         // Spawn the item
-        Instantiate(itemObject, position, Quaternion.identity);
+        return Instantiate(itemObject, position, Quaternion.identity);
     }
 
-    public static void InstantiateResource(ResourceItemType resource, Vector3 position)
+    public static Object InstantiateResource(ResourceItemType resource, Vector3 position)
     {
-        if (resource == ResourceItemType.NONE) return;
+        if (resource == ResourceItemType.NONE) return null;
 
         Object resourceObject;
         // try to load the gameobject from our cache, if it doesn't load, load it from resources and cache it.
@@ -95,7 +95,7 @@ public class LootManager : MonoBehaviour {
         }
 
         // Spawn the resource
-        Instantiate(resourceObject, position, Quaternion.identity);
+        return Instantiate(resourceObject, position, Quaternion.identity);
     }
 
 }

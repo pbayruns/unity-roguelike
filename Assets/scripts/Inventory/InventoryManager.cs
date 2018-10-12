@@ -24,6 +24,7 @@ public class InventoryManager : MonoBehaviour
 
     public static int GetInventoryLimit()
     {
+        Debug.Log(instance.item_limit);
         return instance.item_limit;
     }
 
@@ -32,6 +33,7 @@ public class InventoryManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            ListUtil.Resize(instance.inventory, instance.item_limit, null);
         }
         else if (instance != this)
         {
@@ -42,36 +44,23 @@ public class InventoryManager : MonoBehaviour
 
     public static bool IsFull()
     {
-        return instance.item_limit == instance.inventory.Count;
+        for(int i = 0; i < instance.inventory.Count; i++){
+            if(instance.inventory[i] == null){
+                return false;
+            }
+        }
+        return true;
     }
-
+    
     public static bool swap(int fromNdx, int toNdx)
     {
-        Debug.Log("moving from " + fromNdx);
-        Debug.Log("to " + toNdx);
-        Debug.Log(instance.inventory.Count);
+        // Debug.Log("moving from " + fromNdx);
+        // Debug.Log("to " + toNdx);
+        // Debug.Log(instance.inventory.Count);
 
-        if (toNdx >= instance.inventory.Count)
-        {
-            // we want toNdx to be at LEAST cap - 1
-            // 0 1 2 3 4 5 6 7 8 9  INDEX
-            // 1 2 3 4 5 6 7 8 9 10 COUNT
-            int cap = instance.inventory.Count;
-            while (cap - 1 <= toNdx)
-            {
-                instance.inventory.Add(null);
-                cap++;
-            }
-            instance.inventory[toNdx] = instance.inventory[fromNdx];
-            instance.inventory[fromNdx] = null;
-        }
-        else
-        {
-            Item temp = instance.inventory[toNdx];
-            instance.inventory[toNdx] = instance.inventory[fromNdx];
-            instance.inventory[fromNdx] = temp;
-        }
-
+        Item temp = instance.inventory[toNdx];
+        instance.inventory[toNdx] = instance.inventory[fromNdx];
+        instance.inventory[fromNdx] = temp;
         OnChange();
         return true;
     }
@@ -97,8 +86,8 @@ public class InventoryManager : MonoBehaviour
         Item current = null;
         equipped.TryGetValue(slot, out current);
         Item removed = Remove(index);
-        Debug.Log("removed" + removed);
-        Debug.Log("current" + current);
+        // Debug.Log("removed" + removed);
+        // Debug.Log("current" + current);
         AddItem(current, index);
         //equipped[slot] = removed;
         equipped[slot] = removed;
@@ -108,32 +97,42 @@ public class InventoryManager : MonoBehaviour
 
     public static bool AddItem(Item item, int index = -1)
     {
-        if (instance.inventory.Count < instance.item_limit)
-        {
-            if (index >= 0) instance.inventory.Insert(index, item);
-            else instance.inventory.Add(item);
+        if(IsFull()){
+            return false;
+        }
+        if(index == -1){
+            for(int i = 0; i < instance.item_limit; i++){
+                if(instance.inventory[i] == null){
+                    instance.inventory[i] = item;
+                    OnChange();
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            instance.inventory[index] = item;
             OnChange();
             return true;
         }
-        return false;
     }
 
     public static bool Remove(Item item)
     {
-        OnChange();
-        return instance.inventory.Remove(item);
+        int ndx = instance.inventory.IndexOf(item);
+        return Remove(ndx);
     }
 
     public static Item Remove(int index)
     {
-        if (index >= 0 && index < instance.inventory.Count)
-        {
+        if(index == -1){
+            OnChange();
+            return null;
+        } else {
             Item removed = instance.inventory[index];
-            instance.inventory.RemoveAt(index);
+            instance.inventory[index] = null;
             OnChange();
             return removed;
         }
-        return null;
     }
 
     private static void OnChange()
@@ -144,4 +143,6 @@ public class InventoryManager : MonoBehaviour
             instance.onItemChangedCallback.Invoke();
         }
     }
+
+
 }
