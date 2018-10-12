@@ -501,11 +501,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114239597195193300, guid: e444d09b8e0e8354bae891d2b7e9d031,
-        type: 2}
-      propertyPath: item_limit
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e444d09b8e0e8354bae891d2b7e9d031, type: 2}
   m_IsPrefabParent: 0

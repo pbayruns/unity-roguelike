@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1451888873223864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -105,7 +105,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InfoText: <Press E to open>
+  interactable: 1
   CHEST_OPEN: {fileID: 21300192, guid: 4578ab0a62f5da541ae29c9df055caf5, type: 3}
+  contents: 02000000
+  itemGlow: {fileID: 198521536146613446, guid: 8f6fd72653948f443bab69e78100dd5d, type: 2}
 --- !u!212 &212075647054600602
 SpriteRenderer:
   m_ObjectHideFlags: 1

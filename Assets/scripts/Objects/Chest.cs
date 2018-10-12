@@ -5,16 +5,19 @@ public class Chest : Interactable
     public Sprite CHEST_OPEN;
     public ItemType[] contents = { ItemType.SWORD_COPPER };
 
+    public ParticleSystem itemGlow;
+
     private bool animatingUp = false;
     private bool animatingDown = false;
     private float acceleration = 50f;
     private bool waiting = false;
-    private float waitTime = 0.5f;
+    private float waitTime = 1.5f;
 
     private Vector3 targetPos = Vector3.zero;
     private float speed = 1.0f;
     private float downSpeed = 3.0f;
     private PickupItem item;
+    private ParticleSystem glow;
 
     public Chest()
     {
@@ -36,6 +39,7 @@ public class Chest : Interactable
             item.Grabbable = false;
             item.Float();
             animatingUp = true;
+            glow = Instantiate(itemGlow, PlacementUtil.PosAtZ(-1f, item.gameObject), Quaternion.Euler(new Vector3(90f, 0f, 0f)));
         }
     }
 
@@ -49,6 +53,9 @@ public class Chest : Interactable
                 step = downSpeed * Time.deltaTime;
             }
             item.transform.position = Vector3.MoveTowards(item.transform.position, targetPos, step);
+            if(animatingUp){
+                glow.transform.position = item.transform.position;
+            }
             if (item.transform.position == targetPos)
             {
                 if(animatingUp){
@@ -68,6 +75,7 @@ public class Chest : Interactable
         }
         else if (waiting && waitTime <= 0)
         {
+            Destroy(glow);
             if (!item.Pickup())
             {
                 targetPos = transform.position + new Vector3(0f, -1f, 0f);

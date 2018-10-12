@@ -36,4 +36,11 @@ public static class PlacementUtil {
         Vector3 result = new Vector3(x, y, 0f);
         return result;
     }
+
+    public static Vector3 PosAtZ(float z, GameObject gameObject)
+    {
+        Vector3 pos = gameObject.transform.position;
+        pos.z = z;
+        return pos;
+    }
 }
