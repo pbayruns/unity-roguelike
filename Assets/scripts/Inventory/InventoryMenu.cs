@@ -11,6 +11,9 @@ public class InventoryMenu : MonoBehaviour {
     public GameObject inventoryUI;  // The entire UI
     public InventorySlot slotPrefab;
     public GameObject equipUI;
+    public GameObject infoUI;
+    public ItemInfo itemInfo;
+
     public Transform equipParent;
 
     public InventorySlot armor;
@@ -21,6 +24,7 @@ public class InventoryMenu : MonoBehaviour {
 
     public InventorySlot[] slots;  // List of all the slots
     InventorySlot[] equipment;
+    InventorySlot selectedItem; // currently selected item
 
     //Awake is always called before any Start functions
     public void Awake()
@@ -55,6 +59,7 @@ public class InventoryMenu : MonoBehaviour {
     // This is called using a delegate on the Inventory.
     public void UpdateUI()
     {
+        instance.itemInfo.updateItem(InventoryManager.selectedItem);
         // Loop through all the slots
         for (int i = 0; i < slots.Length; i++)
         {
@@ -98,6 +103,8 @@ public class InventoryMenu : MonoBehaviour {
         bool menuOpen = !state;
         instance.inventoryUI.gameObject.SetActive(menuOpen);
         instance.equipUI.gameObject.SetActive(menuOpen);
+        instance.infoUI.gameObject.SetActive(menuOpen);
+        InventoryManager.ItemSelected(null);
         return menuOpen;
     }
 

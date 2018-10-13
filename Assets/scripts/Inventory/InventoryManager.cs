@@ -22,10 +22,17 @@ public class InventoryManager : MonoBehaviour
 
     public static Dictionary<EquipSlot, Item> equipped = new Dictionary<EquipSlot, Item>();
 
+    public static Item selectedItem = null;
+
     public static int GetInventoryLimit()
     {
         Debug.Log(instance.item_limit);
         return instance.item_limit;
+    }
+
+    public static void ItemSelected(Item theItem){
+        selectedItem = theItem;
+        OnChange();
     }
 
     private void Awake()

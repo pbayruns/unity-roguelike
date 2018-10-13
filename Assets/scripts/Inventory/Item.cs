@@ -12,6 +12,14 @@ public class Item : MonoBehaviour {
     public int agility = 0;
     public int wisdom = 0;
     
+    public string GetInfo(){
+        return "This is the item description.";
+    }
+
+    public string GetDisplayName(){
+        return "Item Name Here";
+    }
+
     public void Use()
     {
 

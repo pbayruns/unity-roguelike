@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler//, IDropHandler
+public class ItemDragHandler : MonoBehaviour, 
+IBeginDragHandler, 
+IDragHandler, 
+IEndDragHandler, IPointerClickHandler
 {
     public Item item;
     public InventorySlot slot;
@@ -12,12 +15,21 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     Transform startParent;
     Transform canvas;
 
+    public void Start(){
+        slot = GetComponentInParent<InventorySlot>();
+        item = slot.GetItem();
+    }
+
+     public void OnPointerClick(PointerEventData eventData) // 3
+     {
+         Debug.Log(slot);
+         Debug.Log(slot.GetItem());
+        InventoryManager.ItemSelected(slot.GetItem());
+     }
+
     // DRAG
     public void OnBeginDrag(PointerEventData data)
     {
-        slot = GetComponentInParent<InventorySlot>();
-        item = slot.GetItem();
-
         startPosition = transform.position;
         startParent = transform.parent;
         canvas = GameObject.FindGameObjectWithTag("UI").transform;

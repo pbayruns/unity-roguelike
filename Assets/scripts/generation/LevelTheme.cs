@@ -166,8 +166,6 @@ public class LevelTheme
 
     public RoomInfo GetForestRoomTiles(int width, int height, RoomType type)
     {
-                return GetForestTreasureRoom(width, height);
-
         switch (type)
         {
             case RoomType.NORMAL_FOREST_DEFAULT:

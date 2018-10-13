@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  _grabbable: 1
 --- !u!114 &114292312151682170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,6 +135,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300466, guid: 7929b1290e450fb439305cf0b1b5f7af, type: 3}
   EquipSlot: 3
+  attack: 0
+  defense: 0
+  strength: 0
+  agility: 0
+  wisdom: 0
 --- !u!212 &212477436716741748
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -177,4 +183,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2

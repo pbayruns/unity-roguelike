@@ -19,9 +19,15 @@ public class Chest : Interactable
     private PickupItem item;
     private ParticleSystem glow;
 
+    private SpriteMask mask;
+
     public Chest()
     {
         this.InfoText = "<Press E to open>";
+    }
+
+    public void Start(){
+        mask = GetComponent<SpriteMask>();
     }
 
     public override void Interact()
@@ -76,6 +82,7 @@ public class Chest : Interactable
         else if (waiting && waitTime <= 0)
         {
             Destroy(glow);
+            Destroy(mask);
             if (!item.Pickup())
             {
                 targetPos = transform.position + new Vector3(0f, -1f, 0f);

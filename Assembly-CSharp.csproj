@@ -80,6 +80,7 @@
      <Compile Include="Assets\scripts\Inventory\InventorySlot.cs" />
      <Compile Include="Assets\scripts\Inventory\Item.cs" />
      <Compile Include="Assets\scripts\Inventory\ItemDragHandler.cs" />
+     <Compile Include="Assets\scripts\Inventory\ItemInfo.cs" />
      <Compile Include="Assets\scripts\Inventory\PickupItem.cs" />
      <Compile Include="Assets\scripts\LootManager.cs" />
      <Compile Include="Assets\scripts\MainMenuManager.cs" />
