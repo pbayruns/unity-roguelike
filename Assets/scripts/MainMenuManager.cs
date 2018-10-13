@@ -17,6 +17,11 @@ public class MainMenuManager : MonoBehaviour
         btn.onClick.AddListener(StartGameOnClick);
     }
 
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Return)){
+            StartGameOnClick();
+        }
+    }
     void StartGameOnClick()
     {
         SceneManager.LoadScene("main", LoadSceneMode.Single);
