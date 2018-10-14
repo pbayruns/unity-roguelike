@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class PlayerStats : MonoBehaviour
     public static int wisdom = 1;
     public static int attack = 3;
     public static int defense = 0;
-    public static int hp = 15;
+    public static int hp = 20;
 
     private void Awake()
     {
@@ -65,7 +66,9 @@ public class PlayerStats : MonoBehaviour
 
     public static int GetHPForLevel(int level)
     {
-        return ((level - 1) * 10) + 15;
+        int hp = ((level - 1) * 10) + 15;
+        double val = Math.Ceiling(hp/4f);
+        return (int) (4 * val);
     }
 
     public static int GetDefenseForLevel(int level)

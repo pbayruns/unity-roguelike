@@ -14,6 +14,7 @@ public class HUD : MonoBehaviour
     public Text LevelText;
     public Text GameOverText;
 
+    public HealthDisplay healthDisplay;
     private void Awake()
     {
         //Check if instance already exists
@@ -113,7 +114,7 @@ public class HUD : MonoBehaviour
     public static void UpdateHPDisplay(int current, int max)
     {
         if (instance == null) return;
-        instance.HPText.text = "HP: " + current + "+" + max;
+        instance.healthDisplay.UpdateHP(current, max);
     }
 
     public static void UpdateLevelDisplay(int level, int xp, int nextLvlXp = -1)

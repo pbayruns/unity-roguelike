@@ -72,6 +72,7 @@
      <Compile Include="Assets\scripts\Generation\IntRange.cs" />
      <Compile Include="Assets\scripts\Generation\LevelTheme.cs" />
      <Compile Include="Assets\scripts\Generation\Room.cs" />
+     <Compile Include="Assets\scripts\HealthDisplay.cs" />
      <Compile Include="Assets\scripts\HUD.cs" />
      <Compile Include="Assets\scripts\HurtEnemy.cs" />
      <Compile Include="Assets\scripts\HurtPlayer.cs" />

@@ -101,7 +101,7 @@ public class PlayerHealthManager : MonoBehaviour
         if (flashing)
         {
             Color RGB = playerSprite.color;
-            Color invisible = new Color(RGB.r, RGB.g, RGB.b, 0f);
+            Color invisible = new Color(RGB.r + 100, RGB.g, RGB.b, 0.9f);
             Color visible = new Color(RGB.r, RGB.g, RGB.b, 1f);
             Color opacity = visible;
 
