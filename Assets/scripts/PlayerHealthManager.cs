@@ -101,7 +101,7 @@ public class PlayerHealthManager : MonoBehaviour
         if (flashing)
         {
             Color RGB = playerSprite.color;
-            Color invisible = new Color(RGB.r + 100, RGB.g, RGB.b, 0.9f);
+            Color invisible = new Color(RGB.r, RGB.g, RGB.b, 0f);
             Color visible = new Color(RGB.r, RGB.g, RGB.b, 1f);
             Color opacity = visible;
 
@@ -138,6 +138,14 @@ public class PlayerHealthManager : MonoBehaviour
         flashing = true;
         flashCounter = flashTime;
         SFXManager.PlaySFX(SFX_TYPE.PLAYER_HURT);
+        HUD.UpdateHPDisplay(currentHP, maxHP);
+    }
+
+    public static void HealPlayer(int heal){
+        currentHP += heal;
+        if(currentHP > maxHP){
+            currentHP = maxHP;
+        }
         HUD.UpdateHPDisplay(currentHP, maxHP);
     }
 

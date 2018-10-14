@@ -35,8 +35,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4592492921200500}
-  - component: {fileID: 114152684674856404}
   - component: {fileID: 114871150926577146}
+  - component: {fileID: 114940544787020798}
   m_Layer: 0
   m_Name: POTION_RED
   m_TagString: Untagged
@@ -71,24 +71,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114152684674856404
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1339823700049970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c243ead5c641fe041a5988027bb64776, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  icon: {fileID: 21300168, guid: 4578ab0a62f5da541ae29c9df055caf5, type: 3}
-  EquipSlot: 4
-  attack: 0
-  defense: 0
-  strength: 0
-  agility: 0
-  wisdom: 0
 --- !u!114 &114871150926577146
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,6 +84,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 0}
   _grabbable: 1
+--- !u!114 &114940544787020798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1339823700049970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e260d0748d8487b43ad6a59dc658b4bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300168, guid: 4578ab0a62f5da541ae29c9df055caf5, type: 3}
+  EquipSlot: 4
+  attack: 0
+  defense: 0
+  strength: 0
+  agility: 0
+  wisdom: 0
 --- !u!212 &212853289247757312
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Chest : Interactable
 {
     public Sprite CHEST_OPEN;
-    public ItemType[] contents = { ItemType.SWORD_COPPER };
+    public ItemType[] contents = { ItemType.POTION_RED };
 
     public ParticleSystem itemGlow;
 
@@ -41,7 +41,6 @@ public class Chest : Interactable
             targetPos = new Vector3(pos.x, pos.y + 1f, pos.z);
             GameObject obj = (GameObject)LootManager.InstantiateItem(contents[i], pos);
             item = obj.GetComponent<PickupItem>();
-            Debug.Log(obj);
             item.Grabbable = false;
             item.Float();
             animatingUp = true;

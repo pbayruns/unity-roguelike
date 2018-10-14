@@ -108,7 +108,7 @@ MonoBehaviour:
   InfoText: <Press E to open>
   interactable: 1
   CHEST_OPEN: {fileID: 21300192, guid: 4578ab0a62f5da541ae29c9df055caf5, type: 3}
-  contents: 02000000
+  contents: 06000000
   itemGlow: {fileID: 198521536146613446, guid: 8f6fd72653948f443bab69e78100dd5d, type: 2}
 --- !u!212 &212075647054600602
 SpriteRenderer:

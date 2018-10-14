@@ -6,7 +6,8 @@ public enum ItemType
 {
     NONE,
     CYSTAL_YELLOW, 
-    SWORD_COPPER, SWORD_IRON, SWORD_GOLD, SWORD_DIAMOND
+    SWORD_COPPER, SWORD_IRON, SWORD_GOLD, SWORD_DIAMOND,
+    POTION_RED
 }
 
 public enum ResourceItemType

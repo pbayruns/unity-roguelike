@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class ItemDragHandler : MonoBehaviour, 
 IBeginDragHandler, 
 IDragHandler, 
-IEndDragHandler, IPointerClickHandler
+IEndDragHandler
 {
     public Item item;
     public InventorySlot slot;
@@ -19,13 +19,6 @@ IEndDragHandler, IPointerClickHandler
         slot = GetComponentInParent<InventorySlot>();
         item = slot.GetItem();
     }
-
-     public void OnPointerClick(PointerEventData eventData) // 3
-     {
-         Debug.Log(slot);
-         Debug.Log(slot.GetItem());
-        InventoryManager.ItemSelected(slot.GetItem());
-     }
 
     // DRAG
     public void OnBeginDrag(PointerEventData data)

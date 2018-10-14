@@ -125,7 +125,7 @@ public class HUD : MonoBehaviour
 
     public static void UpdateGoldDisplay(int current)
     {
-        instance.GoldText.text = "Gold: " + current;
+        instance.GoldText.text = "" + current;
     }
     // Update is called once per frame
     void Update()

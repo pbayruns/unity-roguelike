@@ -66,11 +66,15 @@ public class InventoryMenu : MonoBehaviour {
             if (i < inventory.inventory.Count)  // If there is an item to add
             {
                 slots[i].AddItem(inventory.inventory[i]);   // Add it
+                slots[i].SetSelected(false);
             }
             else
             {
                 // Otherwise clear the slot
                 slots[i].ClearSlot();
+            }
+            if(slots[i].GetItem() != null && slots[i].GetItem() == InventoryManager.selectedItem){
+                slots[i].SetSelected(true);
             }
         }
 

@@ -26,7 +26,6 @@ public class InventoryManager : MonoBehaviour
 
     public static int GetInventoryLimit()
     {
-        Debug.Log(instance.item_limit);
         return instance.item_limit;
     }
 
@@ -40,7 +39,9 @@ public class InventoryManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            ListUtil.Resize(instance.inventory, instance.item_limit, null);
+            if(instance.inventory.Capacity < instance.item_limit){
+                ListUtil.Resize(instance.inventory, instance.item_limit, null);
+            }
         }
         else if (instance != this)
         {
