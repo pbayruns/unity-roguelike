@@ -38,8 +38,8 @@ public class LootManager : MonoBehaviour {
 
     public static void DropLoot(Enemy enemy, Vector3 position)
     {
-        if(Random.Range(0f, 1f) > 0.5) InstantiateItem(ItemType.SWORD_IRON, position);
-        else InstantiateItem(ItemType.SWORD_COPPER, position);
+        if(Random.Range(0f, 1f) > 0.95) InstantiateItem(ItemType.POTION_RED, position);
+
         switch (enemy)
         {
             case Enemy.SLIME_RED:

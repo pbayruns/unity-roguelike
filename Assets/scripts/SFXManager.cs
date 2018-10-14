@@ -8,7 +8,8 @@ public enum SFX_TYPE
     PLAYER_HURT, LEVEL_UP, ENEMY_HURT,
     DEATH_GRUNT, DEATH_EXPLOSION,
     ATTACK_FAILED, GOLD_PICKUP,
-    CHEST_OPENING
+    CHEST_OPENING,
+    WOOD_HIT, WOOD_BREAK
 };
 
 public class SFXManager : MonoBehaviour {
@@ -22,6 +23,9 @@ public class SFXManager : MonoBehaviour {
     public AudioSource death_grunt;
     public AudioSource death_explosion;
     public AudioSource[] gold_pickup;
+
+    public AudioSource wood_hit;
+    public AudioSource wood_break;
 
     private static AudioSource lastSong = null;
     public static SFXManager instance = null; //singleton
@@ -75,6 +79,12 @@ public class SFXManager : MonoBehaviour {
             case SFX_TYPE.GOLD_PICKUP:
                 int goldFX = Random.Range(0, instance.gold_pickup.Length);
                 instance.gold_pickup[goldFX].Play();
+                break;
+            case SFX_TYPE.WOOD_HIT:
+                instance.wood_hit.Play();
+                break;
+            case SFX_TYPE.WOOD_BREAK:
+                instance.wood_break.Play();
                 break;
         }
     }

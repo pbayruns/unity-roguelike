@@ -24,9 +24,10 @@ GameObject:
   - component: {fileID: 114719396536306104}
   - component: {fileID: 61967070323802524}
   - component: {fileID: 331212094109723236}
+  - component: {fileID: 114764283028570746}
   m_Layer: 0
   m_Name: CHEST_CLOSED
-  m_TagString: Untagged
+  m_TagString: WorldObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,6 +111,22 @@ MonoBehaviour:
   CHEST_OPEN: {fileID: 21300192, guid: 4578ab0a62f5da541ae29c9df055caf5, type: 3}
   contents: 06000000
   itemGlow: {fileID: 198521536146613446, guid: 8f6fd72653948f443bab69e78100dd5d, type: 2}
+--- !u!114 &114764283028570746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451888873223864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38701fe10b1770740991da916b7cb9d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAnimation: {fileID: 198908182130298506, guid: 40e1279fb9c2d7342bb1484b56bae3f2,
+    type: 2}
+  breakAnimation: {fileID: 198948300239684056, guid: e235e95a720355b4882fb7ba86d26852,
+    type: 2}
+  MaxHP: 150
 --- !u!212 &212075647054600602
 SpriteRenderer:
   m_ObjectHideFlags: 1

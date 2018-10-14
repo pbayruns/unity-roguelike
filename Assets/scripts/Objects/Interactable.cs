@@ -22,6 +22,10 @@ public abstract class Interactable : MonoBehaviour
         }
     }
 
+    public void OnDestroy(){
+        HUD.HideInfoText();
+    }
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (interactable && other.tag == "Player")

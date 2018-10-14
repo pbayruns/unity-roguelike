@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4174113672372016}
   - component: {fileID: 212937991002818886}
   - component: {fileID: 61213175390741184}
+  - component: {fileID: 114547028940682364}
   m_Layer: 0
   m_Name: STUMP_2
   m_TagString: WorldObject
@@ -66,6 +67,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.7}
   m_EdgeRadius: 0
+--- !u!114 &114547028940682364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288344370739902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38701fe10b1770740991da916b7cb9d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAnimation: {fileID: 198908182130298506, guid: 40e1279fb9c2d7342bb1484b56bae3f2,
+    type: 2}
+  breakAnimation: {fileID: 198948300239684056, guid: e235e95a720355b4882fb7ba86d26852,
+    type: 2}
+  MaxHP: 25
 --- !u!212 &212937991002818886
 SpriteRenderer:
   m_ObjectHideFlags: 1

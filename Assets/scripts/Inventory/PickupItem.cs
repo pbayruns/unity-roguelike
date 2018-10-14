@@ -14,7 +14,9 @@ public class PickupItem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        item = GetComponent<Item>();
+        if(item == null){
+            item = GetComponent<Item>();
+        }
 	}
 
     public void Float(){
