@@ -126,7 +126,7 @@ MonoBehaviour:
     type: 2}
   breakAnimation: {fileID: 198948300239684056, guid: e235e95a720355b4882fb7ba86d26852,
     type: 2}
-  MaxHP: 150
+  MaxHP: 500
 --- !u!212 &212075647054600602
 SpriteRenderer:
   m_ObjectHideFlags: 1

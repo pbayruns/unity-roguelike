@@ -120,7 +120,7 @@ public class HUD : MonoBehaviour
     public static void UpdateLevelDisplay(int level, int xp, int nextLvlXp = -1)
     {
         if (instance == null) return;
-        instance.LevelText.text = "LVL " + level + " (" + nextLvlXp + "XP To Next LVL)";
+        instance.LevelText.text = "LVL " + level + " (Next: " + nextLvlXp + "XP)";
     }
 
     public static void UpdateGoldDisplay(int current)

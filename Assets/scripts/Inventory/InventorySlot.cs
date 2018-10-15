@@ -67,7 +67,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     {
         if (selected)
         {
-            Debug.Log("selected " + selected);
             // make it green
             panelImage.color = Colorutil.GetColor(19, 234, 2);
         }

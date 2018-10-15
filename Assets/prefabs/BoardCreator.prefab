@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4926714021012680}
   - component: {fileID: 114762453085404740}
+  - component: {fileID: 114875539276956842}
   m_Layer: 0
   m_Name: BoardCreator
   m_TagString: Untagged
@@ -51,36 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3193ae530896fb2469e38ee10b5cca0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GRASS_NORMAL: {fileID: 1522505907955824, guid: 8fa2aed1905184046bc7dcaa705d22b1,
-    type: 2}
-  GRASS_DARK: {fileID: 1108884799898502, guid: 4d00ca6602fafa6469901e2203385db0, type: 2}
-  GRASS_RED: {fileID: 0}
-  GRASS_PURPLE: {fileID: 1826989037697738, guid: 6d5018236370a4548b241662331ff36c,
-    type: 2}
-  FLOWERS_BLUE: {fileID: 1713677829872334, guid: 0095a110ca1c2584995f8fa613df0a02,
-    type: 2}
-  DIRT: {fileID: 1907803653560654, guid: 86ec9a498e1f63c42aed2bcb75b6498b, type: 2}
-  TILE_GREY: {fileID: 1578505690930862, guid: 6fc93d3b64e76af46a5ccba745e306e2, type: 2}
-  WALL_GREY: {fileID: 1950329716557282, guid: 4173e6d93001f3741b6779c3cc600b2f, type: 2}
-  COBBLE: {fileID: 1019428275986184, guid: 5196d952248c94045abcb1582acee2ad, type: 2}
-  STUMP_1: {fileID: 1019428275986184, guid: 5196d952248c94045abcb1582acee2ad, type: 2}
-  STUMP_2: {fileID: 1288344370739902, guid: 5651dc0a16e9eae40a699878770b8359, type: 2}
-  STUMP_3: {fileID: 1060278297394684, guid: dba936b8949aed54e95010589a826d6d, type: 2}
-  MUSHROOM_1: {fileID: 1058129798448364, guid: 00b796ccfa71ceb45898f489197e470a, type: 2}
-  MUSHROOM_2: {fileID: 1366347713790806, guid: ff5c4934e5ab347408d5e0b513d6fc1a, type: 2}
-  MUSHROOM_3: {fileID: 1845279642055072, guid: a3002239d712cfd4e96718de2f55ec55, type: 2}
-  MUSHROOM_4: {fileID: 1176163344919552, guid: 9db86f9114837444888b39482c3ac34f, type: 2}
-  SHRUB_GREEN: {fileID: 1695710818328050, guid: 3ffd25b7c377f6849aeb9d367b68ae66,
-    type: 2}
-  SHRUB_ORANGE: {fileID: 1934015307839696, guid: eac5d5d31f65bd14e8ab99b9d5bee3f6,
-    type: 2}
-  SHRUB_DARK_GREEN: {fileID: 1799672844040014, guid: 0768531b09fd2b548b201f25f10d8739,
-    type: 2}
-  SLIME_RED: {fileID: 1783330861710642, guid: b2f8319e3e8d9f54597cd12d2b31e0a2, type: 2}
-  KNIGHT_DEFAULT: {fileID: 1358634050119294, guid: a5b6056a3a668f34bb4e78058d67d539,
-    type: 2}
-  ORC_DEFAULT: {fileID: 1986767166734390, guid: 64bae4f17e51252488755bc52d056da0,
-    type: 2}
   columns: 100
   rows: 100
   numRooms:
@@ -103,3 +74,14 @@ MonoBehaviour:
   minSpawnDepth: 0.2
   maxSpawnDepth: 1
   boardHolder: {fileID: 0}
+--- !u!114 &114875539276956842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1090535615067182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925b500b23c47904bb8a14ab731df0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 212369991803223158}
   - component: {fileID: 114519266722916380}
   - component: {fileID: 60651166558980890}
+  - component: {fileID: 114730867360429832}
   m_Layer: 0
   m_Name: swing effects_0
   m_TagString: Untagged
@@ -421,6 +422,18 @@ MonoBehaviour:
   hitpoint: {fileID: 4952652496193574}
   damageNumber: {fileID: 1595340644041714, guid: 95547cdbd5bc12f4da403a08d284ff2e,
     type: 2}
+--- !u!114 &114730867360429832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1716335112620550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222bff313d2ac4441a7359e1184b2035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 3
 --- !u!114 &114767067405986500
 MonoBehaviour:
   m_ObjectHideFlags: 1
