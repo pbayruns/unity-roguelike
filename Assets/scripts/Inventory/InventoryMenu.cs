@@ -91,12 +91,10 @@ public class InventoryMenu : MonoBehaviour {
         if (InventoryManager.equipped.ContainsKey(EquipSlot.WEAPON) &&
             InventoryManager.equipped[EquipSlot.WEAPON] != null)
         {
-            Debug.Log("weap quip");
             weapon.AddItem(InventoryManager.equipped[EquipSlot.WEAPON]);
         }
         else
         {
-            Debug.Log("nope");
             weapon.ClearSlot();
         }
     }
@@ -108,6 +106,9 @@ public class InventoryMenu : MonoBehaviour {
         instance.inventoryUI.gameObject.SetActive(menuOpen);
         instance.equipUI.gameObject.SetActive(menuOpen);
         instance.infoUI.gameObject.SetActive(menuOpen);
+        if(menuOpen){
+            instance.UpdateUI();
+        }
         InventoryManager.ItemSelected(null);
         return menuOpen;
     }

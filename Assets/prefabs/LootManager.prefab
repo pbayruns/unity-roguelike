@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4468132205425090}
   - component: {fileID: 114086255007775362}
+  - component: {fileID: 114757171939627256}
   m_Layer: 0
   m_Name: LootManager
   m_TagString: Untagged
@@ -51,16 +52,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1971045d2d684d2499f6c551e4f13942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPairs:
-  - item: {fileID: 114112327900415624, guid: 06ea885309f8a5f4483d7faf0f41e474, type: 2}
-    itemType: 0
-  resourcePairs:
-  - resource: {fileID: 114570205362954082, guid: 7a5688a1f7e839d43a26ea5e0ace2cf0,
-      type: 2}
-    resourceType: 0
-  - resource: {fileID: 114780267239803760, guid: 2bfc4fa66102e9841839a344a1ebcee9,
-      type: 2}
-    resourceType: 1
-  - resource: {fileID: 114100903362091376, guid: 75f566d33474a2346998ff8304ff3cd0,
-      type: 2}
-    resourceType: 2
+--- !u!114 &114757171939627256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1515096699798184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925b500b23c47904bb8a14ab731df0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

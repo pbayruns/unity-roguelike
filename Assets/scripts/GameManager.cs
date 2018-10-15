@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     //Static instance of GameManager which allows it to be accessed by any other script.
     public static GameManager instance = null;
     public Player player;
-    private Text levelText;                                 //Text to display current level number.
-    private GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
+    public Text levelText;                                 //Text to display current level number.
+    public GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
     private float defaultDeltaTime;
     public int level = 0; //Current level number
 
@@ -96,9 +96,9 @@ public class GameManager : MonoBehaviour
         PlayerHealthManager.MakeInvulnerable();
 
         //Get a reference to our image LevelImage by finding it by name.
-        levelImage = GameObject.Find("LevelImage");
-        levelText = GameObject.Find("LevelText").GetComponent<Text>();
-        levelText.text = "Level " + level;
+        // levelImage = GameObject.Find("LevelImage");
+        // levelText = GameObject.Find("LevelText").GetComponent<Text>();
+        levelText.text = "Floor " + level;
 
         //Set levelImage to active blocking player's view of the game board during setup.
         levelImage.SetActive(true);

@@ -63,6 +63,7 @@ public class PickupItem : MonoBehaviour {
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
+                DontDestroyOnLoad(gameObject);
             }
             Destroy(this);
             return true;

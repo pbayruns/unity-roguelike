@@ -243,22 +243,11 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 1.37, y: 2.43}
   m_UseGraphicAlpha: 1
---- !u!1 &139381800 stripped
+--- !u!1 &310896630 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1515096699798184, guid: 1f5788f2335a5ac40b61b7fd59c2d133,
+  m_PrefabParentObject: {fileID: 1205814761610286, guid: e665c78e992a2bb4b855757824efa45a,
     type: 2}
-  m_PrefabInternal: {fileID: 388713467}
---- !u!114 &139381801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 139381800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 925b500b23c47904bb8a14ab731df0f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_PrefabInternal: {fileID: 760504064}
 --- !u!1001 &388713467
 Prefab:
   m_ObjectHideFlags: 0
@@ -363,22 +352,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &480420735 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1480478958602914, guid: 7c74adb2b84f9134881bbaf6f0f92d90,
-    type: 2}
-  m_PrefabInternal: {fileID: 2074347608}
---- !u!114 &480420736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 480420735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 925b500b23c47904bb8a14ab731df0f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &614596117
 Prefab:
   m_ObjectHideFlags: 0
@@ -563,6 +536,60 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e665c78e992a2bb4b855757824efa45a, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &887562395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 887562397}
+  - component: {fileID: 887562396}
+  - component: {fileID: 887562398}
+  m_Layer: 0
+  m_Name: InventoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &887562396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 887562395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a14485c49ad53d54aa75c94008999874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item_limit: 16
+  inventory: []
+--- !u!4 &887562397
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 887562395}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &887562398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 887562395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925b500b23c47904bb8a14ab731df0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &898041764
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +642,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925b500b23c47904bb8a14ab731df0f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1008179947 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114368348499592838, guid: e665c78e992a2bb4b855757824efa45a,
+    type: 2}
+  m_PrefabInternal: {fileID: 760504064}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1034284269
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,6 +927,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114763037222997040, guid: 17175c1d148ee4244a74442c83f2cfd2,
+        type: 2}
+      propertyPath: levelText
+      value: 
+      objectReference: {fileID: 1008179947}
+    - target: {fileID: 114763037222997040, guid: 17175c1d148ee4244a74442c83f2cfd2,
+        type: 2}
+      propertyPath: levelImage
+      value: 
+      objectReference: {fileID: 310896630}
     - target: {fileID: 114763037222997040, guid: 17175c1d148ee4244a74442c83f2cfd2,
         type: 2}
       propertyPath: boardScript

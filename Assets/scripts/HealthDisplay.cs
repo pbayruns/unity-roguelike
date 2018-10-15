@@ -13,6 +13,9 @@ public class HealthDisplay: MonoBehaviour
         float cur = (float) currentHP;
         float max = (float) maxHP;
 
+        if(cur < 0f){
+            cur = 0f;
+        }
         int totalHearts = (int) Math.Floor(max/4);
         int fullHearts = (int) Math.Floor(cur/4);
 

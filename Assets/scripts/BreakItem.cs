@@ -8,9 +8,8 @@ public class BreakItem : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "WorldObject")
+        if (other.gameObject.tag == "WorldObject" && !other.isTrigger)
         {
-            Debug.Log("yorp");
             Breakable breakableObj = other.GetComponent<Breakable>();
             if(breakableObj != null){
                 // break the other obj

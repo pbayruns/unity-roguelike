@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 114294753418523060}
   - component: {fileID: 114421313984627460}
   - component: {fileID: 114218501881545104}
+  - component: {fileID: 114057415459692732}
   m_Layer: 5
   m_Name: UI
   m_TagString: UI
@@ -1436,6 +1437,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Rings
+--- !u!114 &114057415459692732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162036908346310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b500b68900d6c9a4886a1e1353f6086a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instance: {fileID: 0}
 --- !u!114 &114066882299655258
 MonoBehaviour:
   m_ObjectHideFlags: 1

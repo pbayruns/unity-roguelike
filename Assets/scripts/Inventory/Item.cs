@@ -11,7 +11,7 @@ public class Item : MonoBehaviour {
     public int strength = 0;
     public int agility = 0;
     public int wisdom = 0;
-    
+
     public virtual string GetInfo(){
         return "This is the item description.";
     }

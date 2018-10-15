@@ -107,6 +107,7 @@
      <Compile Include="Assets\scripts\SettingsMenu.cs" />
      <Compile Include="Assets\scripts\SFXManager.cs" />
      <Compile Include="Assets\scripts\StatMenu.cs" />
+     <Compile Include="Assets\scripts\UI.cs" />
      <Compile Include="Assets\scripts\Util\ColorUtil.cs" />
      <Compile Include="Assets\scripts\Util\ListUtil.cs" />
      <Compile Include="Assets\scripts\Util\MovementUtil.cs" />
