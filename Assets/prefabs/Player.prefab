@@ -35,6 +35,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4532231328400864}
   - component: {fileID: 212302976775955308}
+  - component: {fileID: 114142564510519344}
   m_Layer: 0
   m_Name: wood_sword
   m_TagString: Untagged
@@ -52,6 +53,7 @@ GameObject:
   - component: {fileID: 4872189521763362}
   - component: {fileID: 212001499809790544}
   - component: {fileID: 95249501317420010}
+  - component: {fileID: 114279042379871070}
   m_Layer: 0
   m_Name: PlayerAnimator
   m_TagString: Player
@@ -260,7 +262,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -363,6 +365,30 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114142564510519344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1319992437708522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f659a7ff85dac4287650e8b67c7563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelsPerUnit: 16
+--- !u!114 &114279042379871070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1411376637347986}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f659a7ff85dac4287650e8b67c7563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelsPerUnit: 16
 --- !u!114 &114284144925705250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -464,7 +490,7 @@ Behaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1715072875451186}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!212 &212001499809790544
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -567,7 +593,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 26540749528688549a6889af8614e3f6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

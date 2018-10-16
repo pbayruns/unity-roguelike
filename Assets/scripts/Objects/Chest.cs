@@ -14,7 +14,7 @@ public class Chest : Interactable
     private float waitTime = 1.5f;
 
     private Vector3 targetPos = Vector3.zero;
-    private float speed = 1.0f;
+    private float speed = 2f;
     private float downSpeed = 3.0f;
     private PickupItem item;
     private ParticleSystem glow;

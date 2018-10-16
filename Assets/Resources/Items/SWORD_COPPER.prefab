@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114011401410669912}
   - component: {fileID: 61299773507722368}
   - component: {fileID: 114292312151682170}
+  - component: {fileID: 114293452018178774}
   m_Layer: 0
   m_Name: SWORD_COPPER
   m_TagString: Untagged
@@ -122,6 +123,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925b500b23c47904bb8a14ab731df0f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114293452018178774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1900951501414662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f659a7ff85dac4287650e8b67c7563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelsPerUnit: 16
 --- !u!114 &114584053052726618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -154,7 +167,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 26540749528688549a6889af8614e3f6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

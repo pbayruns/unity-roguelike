@@ -106,6 +106,7 @@
      <Compile Include="Assets\scripts\ResourceManager.cs" />
      <Compile Include="Assets\scripts\SettingsMenu.cs" />
      <Compile Include="Assets\scripts\SFXManager.cs" />
+     <Compile Include="Assets\scripts\SnapToPixelGrid.cs" />
      <Compile Include="Assets\scripts\StatMenu.cs" />
      <Compile Include="Assets\scripts\UI.cs" />
      <Compile Include="Assets\scripts\Util\ColorUtil.cs" />
@@ -113,6 +114,7 @@
      <Compile Include="Assets\scripts\Util\MovementUtil.cs" />
      <Compile Include="Assets\scripts\Util\PlacementUtil.cs" />
      <Compile Include="Assets\scripts\Util\SpriteFlashUtil.cs" />
+     <None Include="Assets\materials\PixelArt.shader" />
      <None Include="Assets\fonts\pixel_operator\LICENSE.txt" />
  <Reference Include="UnityEngine.CoreModule">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
