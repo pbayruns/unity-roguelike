@@ -10,12 +10,13 @@ public class HealthDisplay: MonoBehaviour
 
     public void UpdateHP(int currentHP, int maxHP)
     {
+        if(currentHP < 0){
+            currentHP = 0;
+        }
         float cur = (float) currentHP;
         float max = (float) maxHP;
 
-        if(cur < 0f){
-            cur = 0f;
-        }
+
         int totalHearts = (int) Math.Floor(max/4);
         int fullHearts = (int) Math.Floor(cur/4);
 
